@@ -1,0 +1,33 @@
+ame: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/opt
+          ~/.ccache
+        key: ccache-${{ runner.os }}-${{ github.sha }}
+        restore-keys: ccache-${{ runner.os }}-
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Get AutoFeedback
+      run: |
+        pip install NumPy
+        pip install matplotlib
+        pip install AutoFeedback
+
+   - name: Run checks
+     run: python testscript.py

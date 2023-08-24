@@ -37,6 +37,7 @@ for modulename in os.listdir("..") :
             if "FAILED" in efile.read() : 
                print("FAILED")
                os.system("cat feedback_log")
+               raise Exception("FAILED TEST")
             else :
                print("PASSED")
             efile.close()
