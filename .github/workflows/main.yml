@@ -1,4 +1,4 @@
-ame: CI
+name: CI
 
 on: [push, pull_request]
 
@@ -29,5 +29,5 @@ jobs:
         pip install matplotlib
         pip install AutoFeedback
 
-   - name: Run checks
-     run: python testscript.py
+    - name: Run checks
+      run: python testscript.py
