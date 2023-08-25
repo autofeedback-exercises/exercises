@@ -31,7 +31,7 @@ for modulename in os.listdir("..") :
             # Change into the relevant directory
             os.chdir(dirname)
             # Now run diagnostic tests for students for this exercise
-            os.system("python3 main.py && python3 -m unittest discover -s .lesson -f > feedback_log 2> test_log")
+            os.system("python3 main.py &> run_log && python3 -m unittest discover -s .lesson -f > feedback_log 2> test_log")
             # Check the test log for any errors
             efile = open("test_log", "r")
             if "FAILED" in efile.read() : 
