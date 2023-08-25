@@ -1,0 +1,5 @@
+# Hamiltonian for a four state system
+
+Lets now introduce a Hamiltonian for a system in which each particle can be in one of four states.  Each particle in our system will be in one of four states, which we will call state 0, state 1, state 2 and state 4.  We can thus specify the microstate for a system of N particles by using a NumPy array in which each element is either 0, 1, 2 or 3.  If a particle is in state 0 it has an energy of 0, if a particle is in state 1 it has an energy of 1, if it is state 2 it has an energy of 1 and if it is in state 3 it will have an energy of 2.  States 1 and 2 are thus degenerate but the total energy for our N particle system is still the sum of the energies of all the particles.
+
+Modify the code in in main.py so that the function called `hamiltonian` calculates the the energy for a system of N of these (non-interacting) particles.  Notice that this function takes a NumPy array called `coords`, which contains all the particle coordinates, as input.  The number of particles in your system is equal to the number of elements in this list.
