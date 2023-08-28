@@ -26,6 +26,7 @@ jobs:
     - name: Get AutoFeedback
       run: |
         pip install NumPy
+        pip install sympy
         pip install matplotlib
         pip install AutoFeedback
 
