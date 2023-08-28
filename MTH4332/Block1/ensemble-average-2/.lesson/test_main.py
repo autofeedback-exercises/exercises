@@ -1,0 +1,54 @@
+try:            
+    from AutoFeedback.funcchecks import check_func
+except:             
+    import subprocess
+    import sys
+            
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "AutoFeedback"])
+    from AutoFeedback.funcchecks import check_func
+                
+from AutoFeedback.plotclass import line
+from AutoFeedback.plotchecks import check_plot             
+import numpy as np  
+import unittest     
+from main import *
+
+xvals = temperatures
+yvals, k = np.zeros(len(xvals)), 0
+for t in xvals : 
+    n, z = 0, 0
+    for i in range(2**8) : 
+        val, eng = i, 0         
+        for j in range(8) :
+            ppp = 2**(7-j)
+            spin = np.floor( val / ppp ) 
+            val = val - spin*ppp  
+            if spin==0 : eng = eng + 1 
+            else : eng = eng - 1 
+        bw = np.exp(-eng/t)
+        n, z = n + eng*bw, z + bw 
+    yvals[k] = n / z 
+    k = k + 1
+        
+line1 = line(xvals, yvals)
+axislabels=["temperature / arbitrary units","average energy / arbitrary units"]
+
+class UnitTests(unittest.TestCase) :
+    def test_hamiltonian( self ) :
+        inputs, outputs = [], []
+        for k in range(5,8) :
+            for i in range(2**k) :
+                num, spins = i, np.zeros(k)
+                for j in range(k) :
+                    spins[j] = np.floor( num / 2**(k-1-j) )
+                    num = num - spins[j]*2**(k-1-j)
+                    if spins[j]==0 : spins[j] = -1
+                sumspins = sum( spins )
+                for j in range(-3,4) :
+                    if j==0 : continue
+                    inputs.append((spins,j,))
+                    outputs.append( -j*sumspins )
+        assert( check_func('hamiltonian', inputs, outputs ) )
+            
+    def test_graph(self) :
+        assert( check_plot( [line1], explabels=axislabels, explegend=False,output=True) )
