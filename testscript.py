@@ -1,55 +1,49 @@
 import shutil
-import stat
 import os
 
 # Make a directory to run tests in
+if os.path.isdir("testing"):
+    shutil.rmtree('testing')
+
+moduleList = [x for x in os.listdir(".") if os.path.isdir(x) and not x.startswith(".")]
+
 os.mkdir("testing")
 os.chdir("testing")
 
-for modulename in os.listdir("..") :
-    if modulename=="README.md" or modulename.startswith(".") or modulename=="testscript.py" or modulename=="testing" : continue
 
-    print("TESTING MODULE", modulename )
-    mfile = os.path.join("..",modulename)
-    for block in os.listdir(mfile) :
-        print(">>TESTING ALL EXERICSES IN BLOCK", block )
+def setup(testdir, dirname):
+
+    shutil.copytree(testdir, dirname)
+    answerfile = os.path.join(testdir, ".lesson/answers.py")
+    shutil.copyfile(answerfile, dirname + "/main.py")
+
+
+for modulename in moduleList:
+    print("TESTING MODULE", modulename)
+    mfile = os.path.join("..", modulename)
+    for block in os.listdir(mfile):
+        print(">>TESTING ALL EXERICSES IN BLOCK", block)
         bfile = os.path.join(mfile, block)
-        for exercise in os.listdir(bfile) :
-            # Profide some information on what we are testing
-            print(">>>>Testing", exercise, "from block", block, "in module ", modulename, end=" : " )
+        for exercise in os.listdir(bfile):
+            # Provide some information on what we are testing
+            print(">>>>Testing", exercise, "from block",
+                  block, "in module ", modulename, end=" : ")
             # Create a path to the directory that holds the stuff
-            tdir = os.path.join( bfile, exercise )
-            # Now make the path to the test file
-            tfile = os.path.join( tdir, ".lesson/test_main.py" )
-            # And the path to the solution
-            sfile = os.path.join( tdir, ".lesson/answers.py" )
-            # Make a directory to hold the test
+            tdir = os.path.join(bfile, exercise)
             dirname = modulename + "_" + block + "_" + exercise
-            os.mkdir(dirname)
-            os.mkdir(dirname + "/.lesson")
-            # Copy the answers to the test directory
-            shutil.copyfile(sfile, dirname + "/main.py" )
-            shutil.copyfile(tfile, dirname + "/.lesson/test_main.py" )
-            # Copy auxiliary files to the directory
-            for filen in os.listdir(tdir) :
-                if filen=="main.py" or filen==".lesson" : continue
-                filep = os.path.join( tdir, filen )
-                shutil.copyfile(filep, dirname + "/" + filen)
+            setup(tdir, dirname)
+
             # Change into the relevant directory
             os.chdir(dirname)
             # Now run diagnostic tests for students for this exercise
-            os.system("python3 main.py &> run_log && python3 -m unittest discover -s .lesson -f > feedback_log 2> test_log")
-            # Check the test log for any errors
-            efile = open("test_log", "r")
-            if "FAILED" in efile.read() : 
-               print("FAILED")
-               os.system("cat feedback_log")
-               raise Exception("FAILED TEST")
-            else :
-               print("PASSED")
-            efile.close()
+            if (os.system("bash .lesson/runtest.sh > feedback_log") == 0):
+                print("PASSED")
+            else:
+                print("FAILED")
+                os.system("cat feedback_log")
+                raise Exception("FAILED TEST")
             # Change out of the relevant directory
-            os.chdir("..") 
+            os.chdir("..")
 
 # Remove the directory that tests were run in
 os.chdir("..")
