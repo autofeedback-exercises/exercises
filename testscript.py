@@ -17,10 +17,12 @@ for modulename in os.listdir("..") :
         for exercise in os.listdir(bfile) :
             # Profide some information on what we are testing
             print(">>>>Testing", exercise, "from block", block, "in module ", modulename, end=" : " )
+            # Create a path to the directory that holds the stuff
+            tdir = os.path.join( bfile, exercise )
             # Now make the path to the test file
-            tfile = os.path.join(bfile, exercise, ".lesson/test_main.py" )
+            tfile = os.path.join( tdir, ".lesson/test_main.py" )
             # And the path to the solution
-            sfile = os.path.join(bfile, exercise, ".lesson/answers.py" )
+            sfile = os.path.join( tdir, ".lesson/answers.py" )
             # Make a directory to hold the test
             dirname = modulename + "_" + block + "_" + exercise
             os.mkdir(dirname)
@@ -28,6 +30,11 @@ for modulename in os.listdir("..") :
             # Copy the answers to the test directory
             shutil.copyfile(sfile, dirname + "/main.py" )
             shutil.copyfile(tfile, dirname + "/.lesson/test_main.py" )
+            # Copy auxiliary files to the directory
+            for filen in os.listdir(tdir) :
+                if filen=="main.py" or filen==".lesson" : continue
+                filep = os.path.join( tdir, filen )
+                shutil.copyfile(filep, dirname + "/" + filen)
             # Change into the relevant directory
             os.chdir(dirname)
             # Now run diagnostic tests for students for this exercise
