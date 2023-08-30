@@ -37,9 +37,11 @@ for modulename in moduleList:
             # Change into the relevant directory
             os.chdir(dirname)
             # Now run diagnostic tests for students for this exercise
-            run = subprocess.run(["bash", ".lesson/runtest.sh"], text=True,
-                                 capture_output=True)
-            ffstring = run.stdout[4:]
+            run = subprocess.Popen(["bash", ".lesson/runtest.sh"], text=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+            output, error = run.communicate()
+            ffstring = output[7:]
             if run.returncode == 0:
                 print("PASSED")
             else:

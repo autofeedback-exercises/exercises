@@ -31,4 +31,7 @@ jobs:
         pip install AutoFeedback
 
     - name: Run checks
-      run: python testscript.py
+      run: |
+        export TERM=xterm
+        python testscript.py
+
