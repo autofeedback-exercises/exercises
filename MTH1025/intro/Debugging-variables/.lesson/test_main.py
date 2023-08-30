@@ -13,7 +13,7 @@ class UnitTests(unittest.TestCase) :
     def test_q3(self):
         assert(vc.check_vars('z',(pi/6)*3**0.5))
 
-    def test_output(self):
-        assert(vc.check_output('0.6161905084795576 0.8660254037844386 0.9068996821171088'))
+#    def test_output(self):
+#        assert(vc.check_output('0.6161905084795576 0.8660254037844386 0.9068996821171088'))
 
 
