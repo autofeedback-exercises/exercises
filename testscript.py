@@ -1,5 +1,6 @@
 import shutil
 import os
+import subprocess
 
 # Make a directory to run tests in
 if os.path.isdir("testing"):
@@ -36,17 +37,20 @@ for modulename in moduleList:
             # Change into the relevant directory
             os.chdir(dirname)
             # Now run diagnostic tests for students for this exercise
-            if (os.system("bash .lesson/runtest.sh > feedback_log") == 0):
+            run = subprocess.run(["bash", ".lesson/runtest.sh"], text=True,
+                                 capture_output=True)
+            ffstring = run.stdout[4:]
+            if run.returncode == 0:
                 print("PASSED")
             else:
-                # 
-                ffile = open("feedback_log", "r")
-                ffstring = ffile.read()
-                ffile.close()
                 print("FAILED")
-                os.system("cat feedback_log")
                 # This fix is temporary until we resolve the hypothesis test issues in AutoFeedback
-                if "sampled from the wrong distribution" not in ffstring : raise Exception("FAILED TEST")
+                if "sampled from the wrong distribution" not in ffstring:
+                    print(ffstring)
+                    raise Exception("FAILED TEST")
+                else:
+                    print("FAILED test due to hypothesis test issues")
+
             # Change out of the relevant directory
             os.chdir("..")
 
