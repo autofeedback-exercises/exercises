@@ -2,11 +2,32 @@ import shutil
 import os
 import subprocess
 
+
+def read_command_line():
+    from argparse import ArgumentParser as AP
+
+    parser = AP(description="run AutoFeedback on python exercises, using the \
+provided solutions (in .lesson/answers.py) to ensure all tests pass")
+
+    parser.add_argument('files', nargs="*",
+                        help='list of module directories\
+on which to run AutoFeedback')
+
+    args = parser.parse_args()
+
+    if args.files == []:
+        moduleList = [x for x in os.listdir(".") if os.path.isdir(x)
+                      and not x.startswith(".")]
+    else:
+        moduleList = args.files
+    return moduleList
+
+
 # Make a directory to run tests in
 if os.path.isdir("testing"):
     shutil.rmtree('testing')
 
-moduleList = [x for x in os.listdir(".") if os.path.isdir(x) and not x.startswith(".")]
+moduleList = read_command_line()
 
 os.mkdir("testing")
 os.chdir("testing")
