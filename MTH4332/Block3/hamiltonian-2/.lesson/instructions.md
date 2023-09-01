@@ -17,4 +17,4 @@ should be multiplied by the spins of the four atoms that are adjacent to it in t
 for the double counting.
 
 To complete this exercise you need to write a function called `hamiltonian` that returns the energy calculated using  
-as a formula.  This function takes a single argument called `spins`.  This argument is a 2D NumPy array that contains the microscopic coordinates of all the spins.
+the formula above.  This function takes a single argument called `spins`.  This argument is a 2D NumPy array that contains the microscopic coordinates of all the spins.

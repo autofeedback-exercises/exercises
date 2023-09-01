@@ -25,5 +25,5 @@ class UnitTests(unittest.TestCase) :
                 for i in range(N) :
                     for j in range(N) :
                         Ene = Ene + spins[i,j]*( spins[ (i+1)%N, j] + spins[ i, (j+1)%N] + spins[(i-1)%N, j] + spins[ i, (j-1)%N] )
-                outputs.append( Ene / 2 )
+                outputs.append( - Ene / 2 )
         assert( check_func("hamiltonian", inputs, outputs ) )

@@ -14,7 +14,7 @@ for the first of the assignments in this module.  If the spins are not interacti
 arranged is not particularly important so the 2D model of the spins is equivalent to the 1D model we have studied before.
 
 To complete this exercise you need to write a function called `hamiltonian` that returns the energy calculated using 
-as a formula.  This function takes two arguments:
+the formula above.  This function takes two arguments:
 
 * `spins` is a 2D NumPy array that contains the microscopic coordinates of all the spins.
 * `H` is the magnetic field strength.
