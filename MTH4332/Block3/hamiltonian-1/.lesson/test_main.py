@@ -12,7 +12,7 @@ import unittest
 from main import *
 
 class UnitTests(unittest.TestCase) :
-    def test_mag(self) : 
+    def test_hamiltonian(self) : 
         inputs, outputs = [], []
         for N in range(3,8) : 
             for h in [-2,-1,1,2] :
