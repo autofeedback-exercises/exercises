@@ -68,7 +68,7 @@ for modulename in moduleList:
             else:
                 print("FAILED")
                 # This fix is temporary until we resolve the hypothesis test issues in AutoFeedback
-                if "sampled from the wrong distribution" not in ffstring:
+                if "p-value for the hypothesis test on your" not in ffstring:
                     print(ffstring)
                     raise Exception("FAILED TEST")
                 else:
