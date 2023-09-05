@@ -28,6 +28,8 @@ jobs:
         pip install NumPy
         pip install sympy
         pip install matplotlib
+        pip install scipy
+        pip install queueing_tool
         pip install AutoFeedback
 
     - name: Run checks
