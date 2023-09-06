@@ -23,7 +23,7 @@ Your estimate for the probability density should be normalised so:
 
 ![](eq3.png)
 
-Furthermore, as the probability density is a continous function, when you draw your graph you should draw a continuous line showing the estimated distribution with the x-axis label "average magnetisation per spin" and 
+Furthermore, as the probability density is a continous function, when you draw your graph you should draw a graph with a continuous line showing the estimated distribution with the x-axis label "average magnetisation per spin" and 
 y-axis label "probability density".
 
 To estimate the probability density you should construct a histogram with `nbins` bins.  The first of these bins should start at `minx` and the last of them should end at `maxx`.  The estimate for the pdf that you get from each 
