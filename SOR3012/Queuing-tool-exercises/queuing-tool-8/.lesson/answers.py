@@ -25,7 +25,7 @@ def ser_tea(t):
 def ser_coffee(t):
     return t + np.random.exponential(4.0)
 
-q_classes = { 1: qt.QueueServer, 2: qt.QueueServer }
+q_classes = { 1: qt.QueueServer, 2: qt.QueueServer, 3: qt.QueueServer }
 q_args = {
     1: {
         'num_servers': 1,
