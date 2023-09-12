@@ -72,7 +72,11 @@ for modulename in moduleList:
                     print(ffstring)
                     raise Exception("FAILED TEST")
                 else:
-                    print("FAILED test due to hypothesis test issues")
+                    for w in ffstring.split() :
+                        if w.replace(".","").isnumeric() :
+                           startc, endc, err = '\033[91m', '\033[0m', "WARNING: low probability for correct answer. p-value from hypothesis test was " + w
+                           print( f"{startc}{err}{endc}")
+                           break
 
             # Change out of the relevant directory
             os.chdir("..")
