@@ -30,6 +30,7 @@ jobs:
         pip install matplotlib
         pip install scipy
         pip install queueing_tool
+        pip install ase
         pip install AutoFeedback
 
     - name: Run checks
