@@ -8,6 +8,7 @@ except:
     import AutoFeedback.varchecks as vc
 
 import unittest
+from AutoFeedback.randomclass import randomvar
 from main import *
 
 class UnitTests(unittest.TestCase) :
@@ -28,3 +29,11 @@ class UnitTests(unittest.TestCase) :
             assert vc.check_vars("atoms.masses",0)
 
         assert vc.check_vars( student_mass, np.ones(len(atoms)), printname="atoms.masses" )
+
+        try:
+            student_velocities = atoms.get_velocities().flatten()
+        except AttributeError:
+            assert vc.check_vars("atoms.velocities",0)
+
+        r = randomvar( 0, variance=2, isinteger=False )
+        assert vc.check_vars( student_velocities, r, printname="atoms.velocities" )

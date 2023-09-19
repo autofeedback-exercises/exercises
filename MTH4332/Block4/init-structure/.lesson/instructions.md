@@ -1,4 +1,4 @@
-# Setting an initial structure using Atomistic Simulation Environment
+# Setting the initial configuration using Atomistic Simulation Environment
 
 In the assignments you have completed thus far you have written all the python code for doing your simulations from scratch.
 Writing code in this way is not particularly common when you do graduate level research.  The simulations that are typically done
@@ -14,5 +14,10 @@ aligned with the z-axis.  Each of the atoms in the lattice should have the symbo
 3 X 3 X 3 times.  The structure should be set up so that there are pbc in all three directions.  The lattice constant should be set equal to 2^(2/3).
 
 You then need to use the [set_masses method](https://wiki.fysik.dtu.dk/ase/ase/atoms.html) from `atoms` to set all the masses of the atoms equal to one.
+
+Lastly, because we are planning to do molecular dynamics, you will need to give each atom an initial velocity.  You can do this using the 
+[MaxwellBoltzmannDistribution](https://wiki.fysik.dtu.dk/ase/ase/md.html) method from ASE.  You should use this method to set your atoms to have velocities 
+that are consistent with the ones they would be expected to have at a temperature at which (k_B T) = 2.0 (to set the temperature you need to use the depreciated
+temp argument to this function). 
 
 In completing this task you will likely find [this page](https://wiki.fysik.dtu.dk/ase/ase/lattice.html) of the ASE manual useful as well as the links above. 
