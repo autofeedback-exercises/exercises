@@ -6,4 +6,4 @@ We have now gone about as far as we can with the modulo function so lets see if 
 xvals = np.loadtxt("mydata.dat")
 ```
 
-If you look at the `mydata.dat` file you can see the data that is in the file.  As you can see some of the data points are equal to 5 and some are not.  __I would like you to create an array called `ydata` that has the same length as `xdata`.__ `ydata[i]` should be set equal to 1 if `xdata[i]` is equal to 5.  If `xdata[i]` is not equal to 5 `ydata[i]` should be set equal to 0.    
+If you look at the `mydata.dat` file you can see the data that is in the file.  As you can see some of the data points are equal to 5 and some are not.  __I would like you to create an array called `ydata` that has the same length as `xvals`.__ `ydata[i]` should be set equal to 1 if `xvals[i]` is equal to 5.  If `xvals[i]` is not equal to 5 `ydata[i]` should be set equal to 0.    
