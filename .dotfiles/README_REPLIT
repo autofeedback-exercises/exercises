@@ -1,0 +1,22 @@
+TLDR: don't copy the .replit file from here. Simply add the line 
+
+run = ["sh", ".lesson/runtest.sh"]
+
+to the auto-generated .replit file
+
+================================================================================
+
+Replit have changed the way the configuration is built/read from the .replit
+file.
+
+As a result, the .replit file is much simpler, but it will likely also break if
+you try to copy this file into your replits projects. I suspect that it will
+break as soon as they update whatever python version they're currently using,
+and all of the version numbering will change. 
+
+Thus the simplest solution is simply to add the line
+
+run = ["sh", ".lesson/runtest.sh"]
+
+to whatever .replit file gets automatically generated when you spin up a new
+project.
