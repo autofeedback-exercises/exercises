@@ -33,7 +33,7 @@ class UnitTests(unittest.TestCase) :
             if xbin<0 : raise ValueError('xbin should not be negative')
             histo[bnum,xbin] = histo[bnum,xbin] + 1
  
-  	histo = histo / bsize           
+        histo = histo / bsize
         average, average2 = np.zeros(nbins), np.zeros(nbins)
         for i in range(5) : 
             average = average + histo[i,:]
