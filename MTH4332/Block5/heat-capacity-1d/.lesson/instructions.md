@@ -7,4 +7,4 @@ oscillator from the notes and resources that I have provided you (or derive the 
 
 Please ensure that you have a variable called `T` in your final `main.py` code.  This variable should be set equal to a NumPy array that contains the temperatures
 at which you evaluated the heat capacity when you generated in the plots.  I use this variable when testing your code.  Please also set the x-axis and y-axis labels 
-on your graph equal to "Temperature / arbitrary units" and "Heat capacity / arbitrary units" respectively.
+on your graph equal to "Temperature / natural units" and "Heat capacity / natural units" respectively.
