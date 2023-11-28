@@ -14,6 +14,6 @@ The first one has been completed so you can see the required syntax
 * $x2= \dfrac{u}{u+3},$ for 1000 values of $u$ between $-\pi$ and $\pi$
 
 * Construct the array $a$ that contains the elements
- $$a_n = n(n+1),\, \mbox{ for }\, n=0,\,1,\,\ldots,\,99$$
+ $a_n = n(n+1),$ for  $n=0,\,1,\,\ldots,\,99$
 
 

@@ -1,8 +1,8 @@
 def ispositive(x):
 if x > 0:
-return("positive")
+return('positive')
 else
-return("negative")
+return('negative')
 
 print (ispositive(3))
 print (ispositive(-3))

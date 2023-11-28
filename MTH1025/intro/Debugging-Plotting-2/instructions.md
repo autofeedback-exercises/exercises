@@ -6,6 +6,6 @@ The function is evaluated for 10 points between -4 and 4, and then for 500 point
 
 Fix the code so that produces a plot that looks like this:
 
-<center><img src="https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/MTH1025/intro/Debugging-Plotting-2/sinx.png" height=150 /></center>
+<center><img src='https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/MTH1025/intro/Debugging-Plotting-2/sinx.png' height=150 /></center>
 
 Ensure that the coarse function is plotted in red and the smooth function in blue.
