@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='testsrc',
     version='1.0',
-    description="Getting-to-grips-with-repl/",
+    description="Getting-to-grips-with-notebooks",
     author="Andrew Brown",
     author_email='andrew.brown@qub.ac.uk',
     url="https://github.com/autofeedback-exercises/exercises.git",
