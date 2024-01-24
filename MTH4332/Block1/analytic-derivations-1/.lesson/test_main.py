@@ -14,7 +14,7 @@ import unittest
 from main import *
 
 xvals = temperatures
-yvals = -8*( -np.exp(-1/xvals) - 3*np.exp(-1/xvals) )/ (1  + np.exp(-1/xvals) + np.exp(-3/xvals) )
+yvals = -8*( -np.exp(-1/xvals) - 3*np.exp(-3/xvals) )/ (1  + np.exp(-1/xvals) + np.exp(-3/xvals) )
         
 line1 = line(xvals, yvals)
 axislabels=["temperature","average energy"]
