@@ -20,28 +20,28 @@ class UnitTests(unittest.TestCase):
         assert vc.check_vars("fz", np.abs(z))
 
     def test_arrayValues(self):
-        yv = np.loadtxt("values.dat")
+        yv = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Programming/values.dat')
         for i in range(len(yv)):
             if yv[i] < 0:
                 yv[i] *= -1
         assert vc.check_vars("yvals", yv)
 
     def test_arrayValues_1(self):
-        xv = np.loadtxt("mydata.dat")
+        xv = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Programming/mydata.dat')
         yv = xv == 5
         assert vc.check_vars("yvals", yv)
 
     def test_arrayValues_2(self):
-        xv = np.loadtxt("mydata.dat")
+        xv = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Programming/mydata.dat')
         yv = sum(xv == 5)
         assert vc.check_vars("nfives", yv)
 
     def test_nlefive(self):
-        xv = np.loadtxt("mydata.dat")
+        xv = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Programming/mydata.dat')
         assert vc.check_vars("nlefive", sum(xv <= 5))
 
     def test_nmtfive(self):
-        xv = np.loadtxt("mydata.dat")
+        xv = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Programming/mydata.dat')
         assert vc.check_vars("nmefive", sum(xv >= 5))
 
     def test_fib(self):
