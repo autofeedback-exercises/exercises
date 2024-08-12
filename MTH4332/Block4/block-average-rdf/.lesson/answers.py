@@ -7,7 +7,7 @@ import numpy as np
 mytraj = Trajectory('trajectory.traj')
 maxd, nbins, nf, N, V = 3, 150, 0, 0, 0
 delx, histo = maxd / nbins, np.zeros([5,nbins]) 
-bsize = int( np.floor( mytraj ) / 5 ) )
+bsize = int( np.floor( len(mytraj) ) / 5 )
 for atoms in mytraj :
     bnum = int( np.floor( nf / bsize ) )
     nf, N, V = nf + 1, len(atoms), atoms.get_volume()
