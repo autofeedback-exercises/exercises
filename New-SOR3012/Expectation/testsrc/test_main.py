@@ -9,19 +9,19 @@ import numpy as np
 
 class UnitTests(unittest.TestCase):
     def test_N(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("N", len(myx))
 
     def test_L(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("L", min(myx))
 
     def test_U(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("U", max(myx))
 
     def test_plot(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         myx.sort()
         myy = range(1, len(myx) + 1)
         myy = [a / len(myx) for a in myy]
@@ -31,23 +31,23 @@ class UnitTests(unittest.TestCase):
         assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
 
     def test_dmin(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("dmin", min(myx))
 
     def test_lowq(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("lowq", np.percentile(myx, 25))
 
     def test_median(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("median", np.percentile(myx, 50))
 
     def test_highq(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("highq", np.percentile(myx, 75))
 
     def test_dmax(self):
-        myx = np.loadtxt("data.dat")
+        myx = np.loadtxt('https://raw.githubusercontent.com/autofeedback-exercises/exercises/testpip/New-SOR3012/Expectation/data.dat')
         assert vc.check_vars("dmax", max(myx))
 
     def test_bernoulli(self):
