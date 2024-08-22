@@ -39,5 +39,5 @@ class UnitTests(unittest.TestCase) :
     def test_v2(self):
         assert(vc.check_vars('v2',sp.Array([2,0,1,-1])))
 
-    def test_v2(self):
+    def test_q2(self):
         assert(vc.check_vars('q2',{a: 0, b: 0, c: 0}))
