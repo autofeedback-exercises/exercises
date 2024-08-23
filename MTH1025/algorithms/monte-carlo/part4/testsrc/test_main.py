@@ -1,14 +1,6 @@
-try:
-    import AutoFeedback.funcchecks as fc
-    from AutoFeedback.randomclass import randomvar
-except:
-
-    import subprocess
-    import sys
-
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "AutoFeedback"])
-    import AutoFeedback.funcchecks as fc
-    from AutoFeedback.randomclass import randomvar
+import AutoFeedback.funcchecks as fc
+from AutoFeedback.randomclass import randomvar
+from AutoFeedback.utils import get_internal as get
 
 import unittest
 import numpy as np
@@ -17,7 +9,7 @@ import numpy as np
 class UnitTests(unittest.TestCase):
     def test_init(self):
         try:
-            from __main__ import estimate_pi as epi
+            epi = get("estimate_pi")
             epi(10)
             assert(type(epi(10)) is float)
         except (ImportError, TypeError, AssertionError):
@@ -25,7 +17,7 @@ class UnitTests(unittest.TestCase):
                                  expected=['a floating point number']))
 
     def test_out(self):
-        from __main__ import estimate_pi as epi
+        epi = get("estimate_pi")
 
         boundscount = 0
         for __ in range(20):

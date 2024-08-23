@@ -87,12 +87,13 @@ def writeNB(contents):
         f.write(json.dumps(contents))
 
 
-@pytest.mark.skipif(os.path.isfile('skiptest'), reason="marked for skip")
-def test_2correct(fname):
+@pytest.mark.skipif(not os.path.isdir('testsrc'), reason="no testing enabled")
+def test_correct(fname):
     output = constructNB(fname, answers=True)
     assert checkOutput(output, ExpectingCorrect=True)
 
 
-def test_1incorrect(fname):
+@pytest.mark.skipif(not os.path.isdir('testsrc'), reason="no testing enabled")
+def test_incorrect(fname):
     output = constructNB(fname, answers=False)
     assert checkOutput(output, ExpectingCorrect=False)
