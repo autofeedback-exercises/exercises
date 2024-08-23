@@ -8,23 +8,37 @@ def fname(pytestconfig):
     return pytestconfig.getoption("fname")
 
 
-def generateAnswersJSON(fname):
+def isCodeCell(cell):
+    return cell["cell_type"] == "code"
+
+
+def generateAnswersJSON(fname, notebookname):
     import jupytext
     nb = jupytext.read(fname)
-    return json.loads(jupytext.writes(nb, fmt='ipynb'))
+    nb = json.loads(jupytext.writes(nb, fmt="ipynb"))
+    separateMainPy = False
+    for cell in nb["cells"]:
+        if isCodeCell(cell):
+            if cell["source"][0].startswith("#NOTEBOOK"):
+                separateMainPy = True
+    if separateMainPy:
+        nb["cells"] = [f for f in nb["cells"]
+                       if notebookname in f["source"][0]]
+    return nb
 
 
 def rewriteCodeCell(template, contents, codeCellID):
     for cell in template["cells"]:
-        if cell["metadata"]["id"] == codeCellID:
-            cell["source"] = swapCells(cell["source"], contents["source"])
+        if isCodeCell(cell):
+            if cell["metadata"]["id"] == codeCellID:
+                cell["source"] = swapCells(cell["source"], contents["source"])
     return template
 
 
 def extractCodeCellIDs(template):
     targetCells = []
     for ii, cell in enumerate(template["cells"]):
-        if cell["cell_type"] == "code":
+        if isCodeCell(cell):
             if any([v for v in cell["source"] if "runtest(" in v and
                     "def runtest(" not in v]):
                 targetCells.append(template["cells"][ii-1]["metadata"]["id"])
@@ -54,7 +68,7 @@ def constructNB(fname, answers=False):
 
     codeCellIDs = extractCodeCellIDs(template)
     if answers:
-        contents = generateAnswersJSON('main.py')
+        contents = generateAnswersJSON('main.py', fname)
     else:
         contents = {"cells": [{"source": pltStr} for _ in codeCellIDs]}
 
@@ -74,7 +88,7 @@ def checkOutput(contents, ExpectingCorrect=True):
 
     successes = []
     for cell in contents["cells"]:
-        if cell["cell_type"] == "code":
+        if isCodeCell(cell):
             if cell["source"].startswith("runtest("):
                 stdout = cell["outputs"][0]["text"]
                 successes.append(we_dont_want not in stdout)
@@ -97,3 +111,9 @@ def test_correct(fname):
 def test_incorrect(fname):
     output = constructNB(fname, answers=False)
     assert checkOutput(output, ExpectingCorrect=False)
+
+
+if __name__ == "__main__":
+    import sys
+    output = constructNB(sys.argv[-1], answers=True)
+    writeNB(output)
