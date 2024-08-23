@@ -12,6 +12,15 @@ def isCodeCell(cell):
     return cell["cell_type"] == "code"
 
 
+def isTestCell(cell):
+    if isinstance(cell["source"], str):
+        return ("runtest(" in cell["source"] and
+                "def runtest(" not in cell["source"])
+    else:
+        return any([v for v in cell["source"] if "runtest(" in v and
+                    "def runtest(" not in v])
+
+
 def generateAnswersJSON(fname, notebookname):
     import jupytext
     nb = jupytext.read(fname)
@@ -39,8 +48,7 @@ def extractCodeCellIDs(template):
     targetCells = []
     for ii, cell in enumerate(template["cells"]):
         if isCodeCell(cell):
-            if any([v for v in cell["source"] if "runtest(" in v and
-                    "def runtest(" not in v]):
+            if isTestCell(cell):
                 targetCells.append(template["cells"][ii-1]["metadata"]["id"])
     return targetCells
 
@@ -55,8 +63,8 @@ def execute(contents):
 
 def swapCells(current, desired):
     if current:
-        if current[0].startswith("%%output"):
-            desired = ["%%output\n"] + desired
+        if current[0].startswith("%%capture"):
+            desired = ["%%capture out\n"] + desired
     return desired
 
 
@@ -64,7 +72,7 @@ def constructNB(fname, answers=False):
     with open(fname, 'r') as f:
         template = json.load(f)
 
-    pltStr = "import matplotlib.pyplot as plt\nfighand=plt.gca()"
+    pltStr = ["import matplotlib.pyplot as plt\nfighand=plt.gca()"]
 
     codeCellIDs = extractCodeCellIDs(template)
     if answers:
@@ -80,16 +88,16 @@ def constructNB(fname, answers=False):
 
 def checkOutput(contents, ExpectingCorrect=True):
     if ExpectingCorrect:
-        we_dont_want = '\x1b[91m'
-        we_do_want = '\x1b[92m'
+        we_dont_want = '\x1b[91m'  # red
+        we_do_want = '\x1b[92m'    # green
     else:
-        we_do_want = '\x1b[91m'
-        we_dont_want = '\x1b[92m'
+        we_do_want = '\x1b[91m'    # red
+        we_dont_want = '\x1b[92m'  # green
 
     successes = []
     for cell in contents["cells"]:
         if isCodeCell(cell):
-            if cell["source"].startswith("runtest("):
+            if isTestCell(cell):
                 stdout = cell["outputs"][0]["text"]
                 successes.append(we_dont_want not in stdout)
                 successes.append(we_do_want in stdout)
