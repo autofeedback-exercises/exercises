@@ -1,12 +1,4 @@
-try:
-    import AutoFeedback.varchecks as vc
-except:
-
-    import subprocess
-    import sys
-
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "AutoFeedback"])
-    import AutoFeedback.varchecks as vc
+import AutoFeedback.varchecks as vc
 
 import unittest
 import sympy as sp
@@ -31,13 +23,13 @@ class UnitTests(unittest.TestCase) :
         assert(vc.check_vars('q1',{w: a/2 + d/2, x: a/2 - d/2, y: b/2 + c/2, z: b/2 - c/2}))
 
     def test_v0(self):
-        assert(vc.check_vars('v0',sp.Array([1,2,0,0])))
+        assert(vc.check_vars('v0',sp.Matrix([1,2,0,0])))
 
     def test_v1(self):
-        assert(vc.check_vars('v1',sp.Array([0,-1,1,1])))
+        assert(vc.check_vars('v1',sp.Matrix([0,-1,1,1])))
 
     def test_v2(self):
-        assert(vc.check_vars('v2',sp.Array([2,0,1,-1])))
+        assert(vc.check_vars('v2',sp.Matrix([2,0,1,-1])))
 
     def test_q2(self):
         assert(vc.check_vars('q2',{a: 0, b: 0, c: 0}))

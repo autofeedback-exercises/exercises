@@ -1,8 +1,6 @@
 import numpy as np
 import sympy as sy
-
 x,y,z,t = sy.symbols('x,y,z,t')
-
 #Q1a
 Eq1_1 = sy.Eq(2*x+3*y,3)
 Eq1_2 = sy.Eq(x-2*y,5)
