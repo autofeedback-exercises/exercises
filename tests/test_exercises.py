@@ -1,11 +1,10 @@
 import json
 import pytest
 import os
+import glob
 
-
-@pytest.fixture(scope="session")
-def fname(pytestconfig):
-    return pytestconfig.getoption("fname")
+rootdir = os.getcwd()
+fileList = glob.glob('**/*.ipynb', recursive=True)
 
 
 def isCodeCell(cell):
@@ -19,6 +18,14 @@ def isTestCell(cell):
     else:
         return any([v for v in cell["source"] if "runtest(" in v and
                     "def runtest(" not in v])
+
+
+def UID():
+    """generate a unique 10 digit ID for notebook cells"""
+    import random
+    import string
+    digits = string.digits + string.ascii_letters
+    return (''.join(random.choice(digits) for i in range(12)))
 
 
 def generateAnswersJSON(fname, notebookname):
@@ -68,9 +75,23 @@ def swapCells(current, desired):
     return desired
 
 
+def reformatNB(NB):
+    """given a notebook in json format, ensure that all outputs are cleared and
+    that every cell has a unique ID"""
+
+    for cell in NB["cells"]:
+        if not cell["metadata"]:
+            cell["metadata"]["id"] = UID()
+        cell["outputs"] = []
+
+    return NB
+
+
 def constructNB(fname, answers=False):
     with open(fname, 'r') as f:
         template = json.load(f)
+
+    template = reformatNB(template)
 
     pltStr = ["import matplotlib.pyplot as plt\nfighand=plt.gca()"]
 
@@ -104,24 +125,45 @@ def checkOutput(contents, ExpectingCorrect=True):
     return all(successes)
 
 
-def writeNB(contents):
-    with open('outputDump.ipynb', 'w') as f:
+def writeNB(contents, filename):
+    with open(filename, 'w') as f:
         f.write(json.dumps(contents))
 
 
-@pytest.mark.skipif(not os.path.isdir('testsrc'), reason="no testing enabled")
-def test_correct(fname):
-    output = constructNB(fname, answers=True)
+@pytest.fixture()
+def setup(fname):
+    directory = os.path.dirname(fname)
+    os.chdir(directory)
+    yield
+    os.chdir(rootdir)
+
+
+def checkTests(fname):
+    directory = os.path.dirname(fname)
+    filename = os.path.basename(fname)
+    if not os.path.isdir('testsrc'):
+        pytest.skip(f"no testing in {directory}")
+    else:
+        return filename
+
+
+@pytest.mark.parametrize("fname", fileList)
+def test_correct(setup, fname):
+    filename = checkTests(fname)
+    output = constructNB(filename, answers=True)
     assert checkOutput(output, ExpectingCorrect=True)
 
 
-@pytest.mark.skipif(not os.path.isdir('testsrc'), reason="no testing enabled")
-def test_incorrect(fname):
-    output = constructNB(fname, answers=False)
+@pytest.mark.parametrize("fname", fileList)
+def test_incorrect(setup, fname):
+    filename = checkTests(fname)
+    output = constructNB(filename, answers=False)
     assert checkOutput(output, ExpectingCorrect=False)
 
 
 if __name__ == "__main__":
     import sys
     output = constructNB(sys.argv[-1], answers=True)
-    writeNB(output)
+    writeNB(output, filename="completed.ipynb")
+    output = constructNB(sys.argv[-1], answers=False)
+    writeNB(output, filename="empty.ipynb")
