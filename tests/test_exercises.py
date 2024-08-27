@@ -82,7 +82,8 @@ def reformatNB(NB):
     for cell in NB["cells"]:
         if not cell["metadata"]:
             cell["metadata"]["id"] = UID()
-        cell["outputs"] = []
+        if isCodeCell(cell):
+            cell["outputs"] = []
 
     return NB
 
@@ -122,6 +123,9 @@ def checkOutput(contents, ExpectingCorrect=True):
                 stdout = cell["outputs"][0]["text"]
                 successes.append(we_dont_want not in stdout)
                 successes.append(we_do_want in stdout)
+                if ExpectingCorrect and not all(successes[-2:]):
+                    print(cell["source"])
+                    print(cell["outputs"][0]["text"])
     return all(successes)
 
 
@@ -133,7 +137,8 @@ def writeNB(contents, filename):
 @pytest.fixture()
 def setup(fname):
     directory = os.path.dirname(fname)
-    os.chdir(directory)
+    if directory:
+        os.chdir(directory)
     yield
     os.chdir(rootdir)
 
@@ -164,6 +169,7 @@ def test_incorrect(setup, fname):
 if __name__ == "__main__":
     import sys
     output = constructNB(sys.argv[-1], answers=True)
+    print(checkOutput(output))
     writeNB(output, filename="completed.ipynb")
     output = constructNB(sys.argv[-1], answers=False)
     writeNB(output, filename="empty.ipynb")

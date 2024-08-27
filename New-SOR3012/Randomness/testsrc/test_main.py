@@ -35,11 +35,13 @@ class UnitTests(unittest.TestCase):
     def test_variables_2(self):
 
         x = np.linspace(1, 100, 100)
-        uniform = randomvar(0.5, variance=1 / 12, vmin=0, vmax=1, isinteger=False)
+        uniform = randomvar(0.5, variance=1 / 12,
+                            vmin=0, vmax=1, isinteger=False)
         line1 = line(x, uniform)
 
         axislabels = ["Index", "random variable"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
 
     def test_variables_3(self):
         inputs, variables = [], []
@@ -64,11 +66,12 @@ class UnitTests(unittest.TestCase):
 
     def test_mean(self):
         inputs, variables = [], []
-        for i in range(1, 9):
+        for i in range(1, 99):
             p = i * 0.1
             inputs.append((i * 0.1,))
             myvar = randomvar(
-                p, variance=p * (1 - p), vmin=0, vmax=1, isinteger=True, nsamples=100
+                p, variance=p * (1 - p), vmin=0, vmax=1,
+                isinteger=True, nsamples=100
             )
             variables.append(myvar)
         assert check_func("bernoulli", inputs, variables)
@@ -82,7 +85,8 @@ class UnitTests(unittest.TestCase):
         line1 = line(x, var)
 
         axislabels = ["Index", "random variable"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
 
     def test_graph(self):
         prob = get("prob")
@@ -94,12 +98,13 @@ class UnitTests(unittest.TestCase):
         line1 = line(x, var)
 
         axislabels = ["Index", "random variable"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
 
     def test_variables_5(self):
         inputs, variables = [], []
         for n in range(3, 6):
-            for i in range(1, 9):
+            for i in range(1, 99):
                 p = i * 0.1
                 inputs.append(
                     (
@@ -133,15 +138,17 @@ class UnitTests(unittest.TestCase):
         line1 = line(x, var)
 
         axislabels = ["Index", "random variable"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
 
     def test_variables_7(self):
         inputs, variables = [], []
-        for i in range(1, 9):
+        for i in range(1, 99):
             p = i * 0.1
             inputs.append((p,))
             myvar = randomvar(
-                1 / p, variance=(1 - p) / (p * p), vmin=1, isinteger=True, nsamples=100
+                1 / p, variance=(1 - p) / (p * p), vmin=1,
+                isinteger=True, nsamples=100
             )
             variables.append(myvar)
         assert check_func("geometric", inputs, variables, calls=["bernoulli"])
@@ -150,12 +157,14 @@ class UnitTests(unittest.TestCase):
         prob = get("prob")
         x = np.linspace(1, 100, 100)
         var = randomvar(
-            1 / prob, variance=(1 - prob) / (prob * prob), vmin=0, isinteger=True
+            1 / prob, variance=(1 - prob) / (prob * prob),
+            vmin=0, isinteger=True
         )
         line1 = line(x, var)
 
         axislabels = ["Index", "random variable"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
 
     def test_variables_9(self):
         inputs, variables = [], []
@@ -183,4 +192,5 @@ class UnitTests(unittest.TestCase):
         line1 = line(x, var)
 
         axislabels = ["Index", "dice roll"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
