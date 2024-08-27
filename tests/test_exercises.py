@@ -7,6 +7,12 @@ rootdir = os.getcwd()
 fileList = glob.glob('**/*.ipynb', recursive=True)
 
 
+def sanitiseText(text):
+    import re
+    ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+    return ansi_escape.sub('', text)
+
+
 def isCodeCell(cell):
     return cell["cell_type"] == "code"
 
@@ -117,16 +123,18 @@ def checkOutput(contents, ExpectingCorrect=True):
         we_dont_want = '\x1b[92m'  # green
 
     successes = []
+    errors = []
     for cell in contents["cells"]:
         if isCodeCell(cell):
             if isTestCell(cell):
                 stdout = cell["outputs"][0]["text"]
                 successes.append(we_dont_want not in stdout)
                 successes.append(we_do_want in stdout)
-                if ExpectingCorrect and not all(successes[-2:]):
-                    print(cell["source"])
-                    print(cell["outputs"][0]["text"])
-    return all(successes)
+                if not all(successes[-2:]):
+                    testName = cell["source"].replace('runtest', '')
+                    errors.append((testName,
+                                   sanitiseText(cell["outputs"][0]["text"])))
+    return errors
 
 
 def writeNB(contents, filename):
@@ -134,42 +142,48 @@ def writeNB(contents, filename):
         f.write(json.dumps(contents))
 
 
-@pytest.fixture()
-def setup(fname):
-    directory = os.path.dirname(fname)
-    if directory:
-        os.chdir(directory)
-    yield
-    os.chdir(rootdir)
-
-
-def checkTests(fname):
-    directory = os.path.dirname(fname)
-    filename = os.path.basename(fname)
-    if not os.path.isdir('testsrc'):
-        pytest.skip(f"no testing in {directory}")
-    else:
-        return filename
-
-
 @pytest.mark.parametrize("fname", fileList)
-def test_correct(setup, fname):
-    filename = checkTests(fname)
-    output = constructNB(filename, answers=True)
-    assert checkOutput(output, ExpectingCorrect=True)
+class TestClass:
+    @pytest.fixture()
+    def setup(self, fname):
+        directory = os.path.dirname(fname)
+        if directory:
+            os.chdir(directory)
+        yield
+        os.chdir(rootdir)
 
+    def checkTests(self, fname):
+        directory = os.path.dirname(fname)
+        filename = os.path.basename(fname)
+        if not os.path.isdir('testsrc'):
+            pytest.skip(f"no testing in {directory}")
+        else:
+            return filename
 
-@pytest.mark.parametrize("fname", fileList)
-def test_incorrect(setup, fname):
-    filename = checkTests(fname)
-    output = constructNB(filename, answers=False)
-    assert checkOutput(output, ExpectingCorrect=False)
+    def test_files_available(self, setup, fname):
+        assert os.path.isfile('main.py')
+        assert os.path.isfile('setup.py')
+        assert os.path.isdir('testsrc')
+        assert os.path.isfile('testsrc/__init__.py')
+        assert os.path.isfile('testsrc/test_main.py')
+
+    def test_correct(self, setup, fname):
+        filename = self.checkTests(fname)
+        output = constructNB(filename, answers=True)
+        errors = checkOutput(output, ExpectingCorrect=True)
+        correct = not errors
+        assert correct, errors
+
+    def test_incorrect(self, setup, fname):
+        filename = self.checkTests(fname)
+        output = constructNB(filename, answers=False)
+        errors = checkOutput(output, ExpectingCorrect=False)
+        assert not errors, errors
 
 
 if __name__ == "__main__":
     import sys
     output = constructNB(sys.argv[-1], answers=True)
-    print(checkOutput(output))
     writeNB(output, filename="completed.ipynb")
     output = constructNB(sys.argv[-1], answers=False)
     writeNB(output, filename="empty.ipynb")
