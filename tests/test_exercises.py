@@ -2,9 +2,25 @@ import json
 import pytest
 import os
 import glob
+from nbconvert.preprocessors import ExecutePreprocessor
 
 rootdir = os.getcwd()
 fileList = glob.glob('**/*.ipynb', recursive=True)
+
+
+class MyExecutePreprocessor(ExecutePreprocessor):
+
+    def preprocess_cell(self, cell, resources, cell_index):
+        """
+        Checks cell.metadata for 'skip' key. If set
+          the cell is not executed.
+        """
+
+        if cell.metadata.get('skip'):
+            # Don't execute this cell in output
+            return cell, resources
+
+        return super().preprocess_cell(cell, resources, cell_index)
 
 
 def sanitiseText(text):
@@ -68,9 +84,8 @@ def extractCodeCellIDs(template):
 
 def execute(contents):
     import nbformat
-    from nbconvert.preprocessors import ExecutePreprocessor
     nb_in = nbformat.reads(json.dumps(contents), as_version=4)
-    ep = ExecutePreprocessor(timeout=None, allow_errors=False)
+    ep = MyExecutePreprocessor(timeout=None, allow_errors=False)
     return ep.preprocess(nb_in)[0]
 
 
