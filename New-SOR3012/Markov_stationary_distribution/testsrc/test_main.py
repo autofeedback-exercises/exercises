@@ -160,6 +160,7 @@ class UnitTests(unittest.TestCase):
         )
 
     def test_mean_1(self):
+        eng = get('data')
         mye = get_energies()
         myeng = sum(mye) / len(eng)
         assert check_vars("average", myeng)
@@ -177,7 +178,7 @@ class UnitTests(unittest.TestCase):
         assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
 
     def test_graph(self):
-        myeng = get_enegies()
+        myeng = get_energies()
         xvals, yvals = np.linspace(1, 10, 10), np.zeros(10)
         for i in range(10):
             thisav = sum(myeng[i * 100 : (i + 1) * 100]) / 100

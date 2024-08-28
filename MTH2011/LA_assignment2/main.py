@@ -1,5 +1,4 @@
 import sympy as sp
-
 #Q1
 q1_A=sp.Matrix([[1,-2,0],[2,-3,1],[1,1,5]])
 q1_L,q1_U,rs= q1_A.LUdecomposition() 

@@ -2,6 +2,7 @@ import AutoFeedback.varchecks as vc
 from AutoFeedback.plotclass import line
 import AutoFeedback.plotchecks as pc
 from AutoFeedback.randomclass import randomvar
+from AutoFeedback.utils import get_internal as get
 
 import unittest
 import numpy as np
@@ -54,7 +55,7 @@ class UnitTests(unittest.TestCase):
 
     def test_xlist(self):
         try:
-            from __main__ import xlist
+            xlist = get('xlist')
             assert check_uniform(xlist, 'xlist')
 #            assert(vc.check_vars('xlist', myx))
             assert check_size(xlist, myx, 'xlist')
@@ -65,7 +66,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ylist(self):
         try:
-            from __main__ import ylist
+            ylist = get('ylist')
             assert check_uniform(ylist, 'ylist')
             assert check_size(ylist, myx, 'ylist')
         except ImportError:
@@ -75,7 +76,8 @@ class UnitTests(unittest.TestCase):
 
     def test_equality(self):
         try:
-            from __main__ import ylist, xlist
+            xlist = get('xlist')
+            ylist = get('ylist')
             assert(xlist!=ylist)
         except ImportError:
             pass
@@ -87,9 +89,10 @@ class UnitTests(unittest.TestCase):
             
     def test_plot(self):
         try:
-            from __main__ import fighand
+            fighand = get('fighand')
             x, y = zip(*fighand.get_lines()[2].get_xydata())
-            from __main__ import xlist, ylist
+            xlist = get('xlist')
+            ylist = get('ylist')
             for xx, xxx, yy, yyy in zip(xlist, x, ylist, y):
                 assert(xx == xxx)
                 assert(yy == yyy)

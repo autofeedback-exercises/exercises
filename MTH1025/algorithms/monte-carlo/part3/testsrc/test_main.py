@@ -1,22 +1,9 @@
-try:
-    import AutoFeedback.varchecks as vc
-    from AutoFeedback.randomclass import randomvar
-    from AutoFeedback.plotclass import line
-    import AutoFeedback.plotchecks as pc
-    from AutoFeedback.bcolors import bcolors as b
-
-except:
-
-    import subprocess
-    import sys
-
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", "AutoFeedback"])
-    import AutoFeedback.varchecks as vc
-    from AutoFeedback.randomclass import randomvar
-    from AutoFeedback.plotclass import line
-    import AutoFeedback.plotchecks as pc
-    from AutoFeedback.bcolors import bcolors as b
+import AutoFeedback.varchecks as vc
+from AutoFeedback.randomclass import randomvar
+from AutoFeedback.plotclass import line
+import AutoFeedback.plotchecks as pc
+from AutoFeedback.bcolors import bcolors as b
+from AutoFeedback.utils import get_internal as get
 
 
 import unittest
@@ -52,7 +39,10 @@ def check_uniform(x, nm):
 
 def doImports():
     try:
-        from __main__ import xin, xout, yin, yout
+        xin = get('xin')
+        xout = get('xout')
+        yin = get('yin')
+        yout = get('yout')
     except ImportError:
         print(
             f"{b.FAIL}One or more of the lists xin, xout, yin or yout are not defined.{b.ENDC}")
@@ -99,7 +89,7 @@ class UnitTests(unittest.TestCase):
     def test_plot(self):
         xin, xout, xlist, yin, yout, ylist = doImports()
         try:
-            from __main__ import fighand
+            fighand = get('fighand')
             x1, y1 = zip(*fighand.get_lines()[-2].get_xydata())
             x2, y2 = zip(*fighand.get_lines()[-1].get_xydata())
             x1 = list(x1) ; x2 = list(x2)

@@ -1,19 +1,7 @@
-
-try:
-    from AutoFeedback import varchecks as vc
-    from AutoFeedback import plotchecks as pc
-    from AutoFeedback import funcchecks as fc
-    from AutoFeedback.plotclass import line
-except:
-
-    import subprocess
-    import sys
-
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "AutoFeedback[plot]"])
-    from AutoFeedback import var as vc
-    from AutoFeedback import plotchecks as pc
-    from AutoFeedback import funcchecks as fc
-    from AutoFeedback.plotclass import line
+from AutoFeedback import varchecks as vc
+from AutoFeedback import plotchecks as pc
+from AutoFeedback import funcchecks as fc
+from AutoFeedback.plotclass import line
 
 import unittest
 import numpy as np
