@@ -6,6 +6,12 @@ def dydt(y, t):
 t = np.linspace(-5, 5, 100)
 y0 = -10
 y = odeint(dydt, y0, t)
+plt.plot(t, y)
+plt.xlabel('t')
+plt.ylabel('y')
+fighand=plt.gca()
+
+plt.figure()
 def pend(y, t):
     b = 0.25
     c = 5.0
@@ -18,4 +24,6 @@ res = odeint(pend, p0, t)
 theta = res[:, 0]
 omega = res[:, 1]
 plt.plot(t, theta)
-#plt.show()
+plt.xlabel('t')
+plt.ylabel('theta')
+fighand=plt.gca()

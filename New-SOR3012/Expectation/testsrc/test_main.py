@@ -199,8 +199,8 @@ class UnitTests(unittest.TestCase):
             for j in range(20, 21):
                 inputs.append(
                     (
-                        i,
                         j,
+                        i,
                     )
                 )
                 myvar1 = randomvar(

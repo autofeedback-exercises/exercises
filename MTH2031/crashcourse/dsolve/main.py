@@ -19,3 +19,12 @@ solution_ics = sy.solve([ic1, ic2], (C1, C2))
 sy.pprint(solution_ics)
 particular = equation.subs(solution_ics)
 sy.pprint(particular)
+
+nt = np.linspace(-1, 1, 100)
+particular_func = sy.lambdify([t], particular)
+ny = particular_func(nt)
+plt.plot(nt, ny)
+plt.xlabel('t')
+plt.ylabel('y(t)')
+# This code is required for the autofeedback- don't delete it!
+fighand = plt.gca()

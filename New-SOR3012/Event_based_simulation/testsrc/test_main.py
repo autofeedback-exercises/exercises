@@ -1,5 +1,4 @@
-from AutoFeedback.funcchecks import check_func
-from AutoFeedback.plotchecks import check_plot
+from AutoFeedback import check_vars, check_plot, check_func
 from AutoFeedback.plotclass import line
 from AutoFeedback.randomclass import randomvar
 from AutoFeedback.utils import get_internal as get
@@ -14,7 +13,8 @@ class UnitTests(unittest.TestCase):
             lam = j
             inputs.append((lam,))
             myvar1 = randomvar(
-                1 / lam, variance=1 / (lam * lam), vmin=0, isinteger=False, nsamples=100
+                1 / lam, variance=1 / (lam * lam),
+                vmin=0, isinteger=False, nsamples=100
             )
             var.append(myvar1)
         assert check_func("exponential", inputs, var)
@@ -35,7 +35,8 @@ class UnitTests(unittest.TestCase):
         line1 = line(x, var)
 
         axislabels = ["Random variable value", "Probability"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
 
     def test_plot_1(self):
         lamd = get("lamd")
@@ -51,4 +52,43 @@ class UnitTests(unittest.TestCase):
         line1 = line(var, y)
 
         axislabels = ["time", "number of events"]
-        assert check_plot([line1], explabels=axislabels, explegend=False, output=True)
+        assert check_plot([line1], explabels=axislabels,
+                          explegend=False, output=True)
+
+    def test_variables(self):
+        assert check_vars("lam", 0.5)
+        assert check_vars("expr", 1.0)
+        assert check_vars("N", 100000)
+
+    def test_queue(self):
+        lam = get("lam")
+        expr = get("expr")
+        N = get("N")
+        p = lam / expr
+        x, e, v, bmin, bmax, isi = [], [], [], [], [], []
+        for i in range(9):
+            x.append(i)
+            prob = (1 - p) * (p**i)
+            e.append(prob)
+            v.append(prob * (1 - prob) / (N / 2))
+            bmin.append(0)
+            bmax.append(1)
+            isi.append(False)
+
+        rvar = randomvar(e, variance=v, vmin=bmin, vmax=bmax, isinteger=isi)
+        line1 = line(x, rvar)
+        axislabels = ["number of people in queue", "probability"]
+        assert check_plot([], exppatch=line1, explabels=axislabels,
+                          explegend=False, output=True)
+
+    def test_lam_2(self):
+        inputs, var = [], []
+        for j in range(1, 5):
+            lam = j * 0.2
+            inputs.append((1000, lam, 1.0))
+            myvar1 = randomvar(
+                1 / (1 - lam), variance=0, vmin=0,
+                isinteger=False, nsamples=100
+            )
+            var.append(myvar1)
+        assert check_func("average_time_in_queue", inputs, var)

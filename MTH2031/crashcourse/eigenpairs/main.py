@@ -6,3 +6,5 @@ A_sym = sy.Matrix(mat)
 A_num = np.array(mat)
 epairs_sym = A_sym.eigenvects()
 evals_num, evects_num = np.linalg.eig(A_num)
+
+sy.pprint(epairs_sym)
