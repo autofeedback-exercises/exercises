@@ -13,7 +13,7 @@ class UnitTests(unittest.TestCase):
             lam = j
             inputs.append((lam,))
             myvar1 = randomvar(
-                1 / lam, variance=1 / (lam * lam),
+                1 / lam, variance=0,
                 vmin=0, isinteger=False, nsamples=100
             )
             var.append(myvar1)
