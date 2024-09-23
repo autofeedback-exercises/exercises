@@ -15,7 +15,7 @@ print( myvariable( probs ), myvariable( probs ), myvariable( probs ) )
 def myvariable( probs ) :
     myrand = np.random.uniform(0,1)
     myvar, accum = 0, probs[0]
-    while myvar>accum:
+    while myrand>accum:
         # You will need to write contents of the while loop here and the
         # condition for leaving the loop on the previous line.  Notice that
         # I have defined three quantities and written a return statement below
