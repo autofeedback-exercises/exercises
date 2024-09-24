@@ -8,6 +8,25 @@ rootdir = os.getcwd()
 fileList = glob.glob('**/*.ipynb', recursive=True)
 
 
+def read_options():
+    from argparse import ArgumentParser as AP
+    parser = AP()
+    defaultFile = glob.glob('*.ipynb')[0]
+    parser.add_argument('-f', '--file',
+                        help="ipynb to operate on",
+                        default=defaultFile)
+    parser.add_argument('-p', '--populate', action='store_true',
+                        help='use main.py to produce a completed notebook',
+                        default=False)
+    parser.add_argument('-b', '--batch', nargs='*',
+                        help='list multiple notebooks',
+                        default=[])
+    parser.add_argument('-o', '--output',
+                        help='location of output csv with marks',
+                        default='output.csv')
+    return parser.parse_args()
+
+
 class MyExecutePreprocessor(ExecutePreprocessor):
 
     def preprocess_cell(self, cell, resources, cell_index):
@@ -157,6 +176,24 @@ def writeNB(contents, filename):
         f.write(json.dumps(contents))
 
 
+def studentTest(filename):
+    with open(filename, 'r') as f:
+        try:
+            NB = json.load(f)
+        except Exception:
+            return 0
+    try:
+        output = execute(NB)
+    except Exception:
+        return 0
+
+    errors = checkOutput(output, ExpectingCorrect=True)
+    if errors:
+        return 0
+    else:
+        return 1
+
+
 @pytest.mark.parametrize("fname", fileList)
 class TestClass:
     @pytest.fixture()
@@ -196,9 +233,29 @@ class TestClass:
         assert not errors, errors
 
 
-if __name__ == "__main__":
-    import sys
-    output = constructNB(sys.argv[-1], answers=True)
+def populateNBs(file):
+    output = constructNB(file, answers=True)
     writeNB(output, filename="completed.ipynb")
-    output = constructNB(sys.argv[-1], answers=False)
+    output = constructNB(file, answers=False)
     writeNB(output, filename="empty.ipynb")
+
+
+def compile_grades(opts):
+    import pandas as pd
+    grades, names = [], []
+    for file in opts.batch:
+        names.append(file)
+        grades.append(studentTest(file))
+    df = pd.DataFrame({'names': names, 'grades': grades})
+    df.to_csv(opts.output)
+
+
+if __name__ == "__main__":
+    opts = read_options()
+    if opts.populate:
+        populateNBs(opts.file)
+    else:
+        if opts.batch:
+            compile_grades(opts)
+        else:
+            print(studentTest(opts.file))
