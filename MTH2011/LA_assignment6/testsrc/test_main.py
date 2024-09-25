@@ -9,7 +9,8 @@ class UnitTests(unittest.TestCase) :
         assert(vc.check_vars('A',sy.Matrix([[1,-1,-1,],[1,3,1],[-3,1,-1]])))
 
     def test_Epairs(self):
-        assert(vc.check_vars('Epairs',[(-2, 1, [sy.Matrix([ [ 1/4], [-1/4], [   1]])]), (2, 1, [sy.Matrix([ [-1], [ 0], [ 1]])]), (3, 1, [sy.Matrix([ [-1], [ 1], [ 1]])])]))
+        assert(vc.check_vars('Epairs',[(-2, 1, [sy.Matrix([ [sy.Rational(1,4)],
+                                                           [-sy.Rational(1,4)], [   1]])]), (2, 1, [sy.Matrix([ [-1], [ 0], [ 1]])]), (3, 1, [sy.Matrix([ [-1], [ 1], [ 1]])])]))
 
     def test_P(self):
         assert(vc.check_vars('P',sy.Matrix([[1, -1, -1], [-1, 0, 1], [4, 1, 1]])))
