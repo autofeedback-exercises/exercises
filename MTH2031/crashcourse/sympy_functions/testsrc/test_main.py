@@ -22,7 +22,7 @@ class UnitTests(unittest.TestCase):
 
     def test_Eq1_sol(self):
         try:
-            assert(vc.check_vars('x', [-3/2]))
+            assert(vc.check_vars('x', [sy.Rational(-3,2)]))
         except AssertionError:
             print("""If you have solved this by hand, and simply typed x=-3/2, the
 checker will fail. Try using the .subs() method and sy.solve() function to
