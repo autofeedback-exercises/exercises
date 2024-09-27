@@ -11,7 +11,7 @@ class UnitTests(unittest.TestCase) :
 8 64 512
 10 100 1000
 """
-        if any(["ipykernel" in f for f in sys.argv]):
+        if any(["kernel_launcher.py" in f for f in sys.argv]):
             assert(vc.check_vars("output", exp))
         else:
             assert(vc.check_output("2 4 8\\n4 16 64\\n6 36 216\\n8 64 512\\n10 100 1000"))
