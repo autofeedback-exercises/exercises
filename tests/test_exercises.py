@@ -161,7 +161,9 @@ def checkOutput(contents, ExpectingCorrect=True):
     for cell in contents["cells"]:
         if isCodeCell(cell):
             if isTestCell(cell):
-                stdout = cell["outputs"][0]["text"]
+                stdout = ""
+                for op in cell["outputs"]:
+                    stdout += op["text"]
                 successes.append(we_dont_want not in stdout)
                 successes.append(we_do_want in stdout)
                 if not all(successes[-2:]):
