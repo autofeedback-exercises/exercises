@@ -1,4 +1,4 @@
-import AutoFeedback.plotchecks as pc
+from AutoFeedback import check_plot
 from AutoFeedback.plotclass import line
 import unittest
 import numpy as np
@@ -11,5 +11,5 @@ axislabels=["x","y",""]
 
 class UnitTests(unittest.TestCase) :
     def test_plot(self):
-        assert(pc.check_plot([line1],explabels=axislabels,output=True))
+        assert(check_plot([line1],explabels=axislabels,output=True))
 
