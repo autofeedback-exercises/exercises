@@ -20,6 +20,7 @@ class Exercise():
     def build(self):
         self._directories()
         self._setup()
+        self._testing()
         open(f"{self.path}/testsrc/__init__.py", 'w').close()
             
 
@@ -32,6 +33,18 @@ class Exercise():
         
         mkdir(f"{self.path}")
         mkdir(f"{self.path}/testsrc")
+
+    def _testing(self):
+        testTxt = """from AutoFeedback import check_vars, check_func, check_plot
+import unittest
+
+
+class UnitTests(unittest.TestCase) :
+    def test_1(self):
+        assert True
+"""
+        with open(f"{self.path}/testsrc/test_main.py", 'w') as f:
+            f.write(testTxt)
 
     def _setup(self):
         import subprocess
