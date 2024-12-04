@@ -5,8 +5,8 @@ class Exercise():
         else:
             self.name = name
             self.location = location 
-            self.path = f"{self.location}/{self.name}"
             self.types = types
+        self.path = f"{self.location}/{self.name}"
 
 
     def _gather(self):
@@ -14,7 +14,11 @@ class Exercise():
         self.location = input('Enter exercise location (default ./): ')
         if not self.location:
             self.location = './'
-        self.types = [1, 2, 3]
+        self.types = []
+        for item in ['variables', 'functions', 'plots']:
+            if input(f"Do you need to check {item}? (Y/N)").lower().startswith('y'):
+                self.types.append(item)
+            
 
 
     def build(self):
@@ -35,11 +39,21 @@ class Exercise():
         mkdir(f"{self.path}/testsrc")
 
     def _testing(self):
-        testTxt = """from AutoFeedback import check_vars, check_func, check_plot
+        allImports = ""
+        importStr = "from AutoFeedback import"
+        typeDict = {'variables': 'check_vars',
+                    'functions': 'check_func',
+                    'plots': 'check_plot, line',
+                    'randomvars': 'randomvar'}
+
+        for typ in self.types:
+            allImports += f"{importStr} {typeDict[typ]} \n"
+
+        testTxt = f"""{allImports}
 import unittest
 
 
-class UnitTests(unittest.TestCase) :
+class UnitTests(unittest.TestCase):
     def test_1(self):
         assert True
 """
@@ -69,6 +83,6 @@ setup(
         with open(self.path+"/setup.py", 'w') as f:
             f.write(setupTxt)
 
-ex = Exercise('this', './')
+ex = Exercise()
 ex.build()
 
