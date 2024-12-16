@@ -215,6 +215,7 @@ class TestClass:
             return filename
 
     def test_files_available(self, setup, fname):
+        self.checkTests(fname)
         assert os.path.isfile('main.py')
         assert os.path.isfile('setup.py')
         assert os.path.isdir('testsrc')
