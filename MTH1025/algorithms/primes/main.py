@@ -1,6 +1,6 @@
 def isPrime(x):
     from math import sqrt, ceil
-    if (x == 2):
+    if (x == 2) or (x == 3):
         return True
     if (x == 1) or (x % 2 == 0):
         return False
