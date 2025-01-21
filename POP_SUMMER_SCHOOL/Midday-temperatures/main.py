@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats
-
 def multiply(a, b) :
   return a*b
 
