@@ -10,38 +10,33 @@ def moon_temperature( time, lattitude ) :
 
 times = np.linspace(7,17,11)
 temperatures = moon_temperature(times, 30)
-
 plt.plot( times, temperatures, 'k-')
 plt.xlabel("time of day")
 plt.ylabel("Temperature at lattitude of 30 degrees / K")
-plt.show()
+fighand=plt.gca()
 
 lattitudes = np.linspace(0,90,10)
 temperatures = moon_temperature(10, lattitudes)
-
 plt.plot( lattitudes, temperatures, 'k-')
-plt.xlabel("lattitude /degrees")
+plt.xlabel("latitude / degrees")
 plt.ylabel("Temperature at 10:00 / K")
-plt.show()
+fighand=plt.gca()
 
 def temperature_change( initial_lattitude, start_time, duration, final_latitude ) :
   return moon_temperature( start_time + duration, initial_lattitude ) - moon_temperature( start_time, initial_lattitude )
 
 times = np.linspace(7,17,11)
 temperatures = moon_temperature(times, 25)
-
 plt.plot( times, temperatures, 'k-')
 plt.xlabel("time / lunar hours")
-plt.ylabel("temperature at lattitude of 25 degrees / K")
-plt.show()
+plt.ylabel("temperature at latitude 25 degrees / Kelvin")
+fighand=plt.gca()
 
 times = np.linspace(7,17,11)
 lattitudes = np.linspace(90,35,11)
-
 temperatures = np.zeros(11)
 for i in range(11) : temperatures[i] = moon_temperature(times[i], lattitudes[i])
-
 plt.plot( times, temperatures, 'k-')
 plt.xlabel("time / lunar hours")
 plt.ylabel("temperature / K")
-plt.show()
+fighand=plt.gca()
