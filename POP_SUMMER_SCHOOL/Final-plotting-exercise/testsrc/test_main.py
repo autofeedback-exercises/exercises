@@ -14,7 +14,7 @@ def mytemp(time, lattitude) :
   return T4**(1/4)
 
 def my_change(initial_lattitude, start_time, duration, final_latitude ) :
-  return mytemp( start_time + duration, final_lattitude ) - mytemp( start_time, initial_lattitude )
+  return mytemp( start_time + duration, final_latitude ) - mytemp( start_time, initial_lattitude )
 
 class UnitTests(unittest.TestCase):
     def test_ex1(self):
