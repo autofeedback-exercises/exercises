@@ -11,10 +11,9 @@ fileList = glob.glob('**/*.ipynb', recursive=True)
 def read_options():
     from argparse import ArgumentParser as AP
     parser = AP()
-    defaultFile = glob.glob('*.ipynb')[0]
     parser.add_argument('-f', '--file',
                         help="ipynb to operate on",
-                        default=defaultFile)
+                        default=None)
     parser.add_argument('-p', '--populate', action='store_true',
                         help='use main.py to produce a completed notebook',
                         default=False)

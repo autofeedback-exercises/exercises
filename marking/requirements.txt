@@ -1,0 +1,4 @@
+canvasapi
+inquirer
+pytest
+jupyter
