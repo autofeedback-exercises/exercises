@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir --upgrade pip \
 COPY marking/APIKEY.py ./bin/
 COPY marking/grade_ipynbs.py ./bin/
 COPY tests/test_exercises.py ./bin/
-
+RUN chmod +x ./bin/grade_ipynbs.py

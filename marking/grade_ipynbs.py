@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from canvasapi import Canvas
 from APIKEY import API_KEY, API_URL
 from test_exercises import studentTest

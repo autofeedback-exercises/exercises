@@ -1,12 +1,16 @@
 import json
-import pytest
 import os
 import glob
 from nbconvert.preprocessors import ExecutePreprocessor
+import sys
 
-rootdir = os.getcwd()
-fileList = glob.glob('**/*.ipynb', recursive=True)
+if 'pytest' in sys.modules:
+    rootdir = os.getcwd()
+    fileList = glob.glob('**/*.ipynb', recursive=True)
+else:
+    fileList = []
 
+import pytest
 
 def read_options():
     from argparse import ArgumentParser as AP
