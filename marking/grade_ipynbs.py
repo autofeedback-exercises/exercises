@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from tqdm import tqdm
 
 
 def read_command_line():
@@ -17,18 +16,16 @@ def read_command_line():
     return choose_options(args)
 
 
-def download_ungraded(sub):
-    from canvas_selector import mkdir, nameFile
-
-    if len(sub.attachments) > 0:
-        mkdir(sub.assignment_id)
-        thefile = sub.attachments[-1]
-        downname = nameFile(sub)
-        if downname.endswith(".ipynb"):
-            thefile.download(downname)
-
-
 def mark_ungraded(sub, ass):
+    """Given a submission for an assignment, mark that submission, and update the grade on canvas
+    
+    Args:
+        sub: canvasapi.submission.Submission
+        ass: canvasapi.assignment.Assignment
+        
+    Returns:
+        mark: the numerical grade (integer) awarded to the submission
+    """
     from test_exercises import studentTest
     from canvas_selector import update_grade, nameFile
     if len(sub.attachments) > 0:
@@ -44,7 +41,7 @@ def mark_ungraded(sub, ass):
 
 
 def clear_testsrc():
-    """ check if testsrc is installed, and if so, use pip to
+    """check if testsrc is installed, and if so, use pip to
     uninstall it"""
     from importlib.util import find_spec
     installed = find_spec('testsrc') is not None
@@ -59,7 +56,9 @@ def clear_testsrc():
 
 
 def mark_submissions(ass):
+    """Given a Canvas assignment, download all ungraded submissions, and grade them"""
     from canvas_selector import get_submissions
+    from tqdm import tqdm
 
     marks = []
     ungraded = get_submissions(ass)

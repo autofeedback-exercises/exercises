@@ -1,4 +1,4 @@
-canvasapi
+canvas_selector
 inquirer
 pytest
 jupyter
