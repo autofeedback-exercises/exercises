@@ -6,10 +6,10 @@ RUN pip install --no-cache-dir --upgrade pip \
   && pip install --no-cache-dir pytest \
   && pip install --no-cache-dir pandas \
   && pip install --no-cache-dir inquirer \
-  && pip install --no-cache-dir tqdm \
-  && pip install --no-cache-dir canvasapi 
+  && pip install --no-cache-dir canvas_selector
 
-COPY marking/APIKEY.py ./bin/
+
+COPY marking/.canvasapirc ./root/
 COPY marking/grade_ipynbs.py ./bin/
 COPY tests/test_exercises.py ./bin/
 RUN chmod +x ./bin/grade_ipynbs.py

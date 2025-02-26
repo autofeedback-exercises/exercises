@@ -1,100 +1,24 @@
 #!/usr/bin/env python
-from canvasapi import Canvas
-from APIKEY import API_KEY, API_URL
-from test_exercises import studentTest
 from tqdm import tqdm
-
-canvas = Canvas(API_URL, API_KEY)
-
-
-def select_course(courseList, enrollment_term_id=None):
-
-    if enrollment_term_id:
-        courses = [course for course in courseList
-                   if enrollment_term_id in course.name]
-    else:
-        courses = courseList
-
-    answers = choose_one(courses, obj="course")
-
-    return answers
 
 
 def read_command_line():
     from argparse import ArgumentParser as AP
+    from canvas_selector import choose_options
     parser = AP()
     parser.add_argument('-c', '--course', help="Canvas courseID",
                         default=None)
-    parser.add_argument('-a', '--assignment', help='assignment id',
+    parser.add_argument('-s', '--semester', help='semester id, e.g. "2241"',
                         default=None)
-    parser.add_argument('--all', help='get all assignments',
-                        action='store_true', default=False)
 
     args = parser.parse_args()
-    if not args.course:
-        args.course = choose_course(canvas)
-    else:
-        args.course = canvas.get_course(args.course)
+    args.assignment = True
 
-    asses = args.course.get_assignments(include="assignment")
-    if args.all:
-        args.asses = asses
-    else:
-        if not args.assignment:
-            args.assignment = choose_many(asses, obj="assignment")
-            args.asses = [args.course.get_assignment(x)
-                          for x in args.assignment]
-        else:
-            args.asses = [args.course.get_assignment(args.assignment)]
-
-    return args
-
-
-def choose_many(pagList, obj="course"):
-    from inquirer import Checkbox, prompt
-
-    questions = [Checkbox(obj, message=f" Which {obj} do you want to use? \
-(<up>/<down> to navigate, \
-<space> to check/uncheck, \
-<enter> to confirm)", choices=pagList)]
-
-    answers = prompt(questions)
-
-    return answers[obj]
-
-
-def choose_one(pagList, obj="course"):
-    from inquirer import List, prompt
-
-    questions = [List(obj, message=f" Which {obj} do you want to use? \
-(<up>/<down> to navigate, \
-<space> to check/uncheck, \
-<enter> to confirm)", choices=pagList)]
-
-    answers = prompt(questions)
-
-    return answers[obj]
-
-
-def choose_course(canvas):
-    return choose_one(canvas.get_courses(state='available'))
-
-
-def mkdir(ass_id):
-    import os
-    if os.path.isdir(str(ass_id)):
-        return
-    else:
-        os.mkdir(str(ass_id))
-
-
-def nameFile(sub):
-    thefile = sub.attachments[-1]
-    fname = thefile.__str__().replace(' ', '_')
-    return f"{sub.assignment_id}/u{sub.user_id}_{fname}"
+    return choose_options(args)
 
 
 def download_ungraded(sub):
+    from canvas_selector import mkdir, nameFile
 
     if len(sub.attachments) > 0:
         mkdir(sub.assignment_id)
@@ -105,6 +29,8 @@ def download_ungraded(sub):
 
 
 def mark_ungraded(sub, ass):
+    from test_exercises import studentTest
+    from canvas_selector import update_grade, nameFile
     if len(sub.attachments) > 0:
         downname = nameFile(sub)
         mark = int(ass.points_possible) * studentTest(downname)
@@ -132,21 +58,11 @@ def clear_testsrc():
     return
 
 
-def cleanup(ass):
-    import shutil
-    clear_testsrc()
-    shutil.rmtree(str(ass.id))
-
-
-def get_submissions(ass):
+def mark_submissions(ass):
+    from canvas_selector import get_submissions
 
     marks = []
-    subs = ass.get_submissions()
-
-    ungraded = [sub for sub in subs if len(sub.attachments) > 0 and
-                (sub.grade == "0" or sub.grade is None)]
-    for sub in tqdm(ungraded, desc=f"Downloading {ass.name}", ascii=True):
-        download_ungraded(sub)
+    ungraded = get_submissions(ass)
     for sub in tqdm(ungraded, desc=f"Grading     {ass.name}", ascii=True):
         marks.append(mark_ungraded(sub, ass))
     num_zeros = sum(x == 0 for x in marks)
@@ -158,8 +74,10 @@ def update_grade(sub, newgrade):
 
 
 if __name__ == '__main__':
+    from canvas_selector import cleanup
     args = read_command_line()
 
     for ass in args.asses:
-        get_submissions(ass)
+        mark_submissions(ass)
+        clear_testsrc()
         cleanup(ass)
