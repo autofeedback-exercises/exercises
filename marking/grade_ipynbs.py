@@ -79,4 +79,4 @@ if __name__ == '__main__':
     for ass in args.asses:
         mark_submissions(ass)
         clear_testsrc()
-        cleanup(ass.assignment_id)
+        cleanup(ass.id)
