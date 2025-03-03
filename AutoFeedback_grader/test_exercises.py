@@ -1,20 +1,23 @@
 import json
-import pytest
 import os
 import glob
 from nbconvert.preprocessors import ExecutePreprocessor
+import sys
 
-rootdir = os.getcwd()
-fileList = glob.glob('**/*.ipynb', recursive=True)
+if 'pytest' in sys.modules:
+    rootdir = os.getcwd()
+    fileList = glob.glob('**/*.ipynb', recursive=True)
+else:
+    fileList = []
 
+import pytest
 
 def read_options():
     from argparse import ArgumentParser as AP
     parser = AP()
-    defaultFile = glob.glob('*.ipynb')[0]
     parser.add_argument('-f', '--file',
                         help="ipynb to operate on",
-                        default=defaultFile)
+                        default=None)
     parser.add_argument('-p', '--populate', action='store_true',
                         help='use main.py to produce a completed notebook',
                         default=False)
@@ -104,6 +107,7 @@ def extractCodeCellIDs(template):
 def execute(contents):
     import nbformat
     nb_in = nbformat.reads(json.dumps(contents), as_version=4)
+    nb_in["metadata"]["kernelspec"]["name"] = "python3"
     ep = MyExecutePreprocessor(timeout=None, allow_errors=False)
     return ep.preprocess(nb_in)[0]
 
@@ -253,7 +257,7 @@ def compile_grades(opts):
     df.to_csv(opts.output)
 
 
-if __name__ == "__main__":
+def main():
     opts = read_options()
     if opts.populate:
         populateNBs(opts.file)
@@ -262,3 +266,6 @@ if __name__ == "__main__":
             compile_grades(opts)
         else:
             print(studentTest(opts.file))
+
+if __name__ == "__main__":
+    main()
