@@ -1,24 +1,64 @@
+def read_command_line():
+    from argparse import ArgumentParser as AP
+    parser = AP()
+    parser.add_argument('-l', '--location', help="directory to build in",
+                        default="./")
+    parser.add_argument('-n', '--name', help='Name of new exercise',
+                        default="New_Exercise")
+
+    args = parser.parse_args()
+
+    return args
+
+
+def get_relative_to_exercises(full_path):
+    """
+    Finds an 'exercises' directory within the given path and returns
+    the path relative to that 'exercises' directory.
+    
+    Args:
+        full_path (str): The full path to analyze
+        
+    Returns:
+        str: The path relative to the 'exercises' directory
+        
+    Raises:
+        ValueError: If no 'exercises' directory is found in the path
+        
+    Example:
+        >>> get_relative_to_exercises('/home/user/project/exercises/module1/task2')
+        'module1/task2'
+    """
+    import os
+    from pathlib import Path
+    # Convert to absolute, normalized path
+    abs_path = os.path.abspath(os.path.expanduser(full_path))
+    path_parts = Path(abs_path).parts
+    
+    # Look for 'exercises' in the path
+    if 'exercises' not in path_parts:
+        raise ValueError("No 'exercises' directory found in the path")
+    
+    # Find the index of 'exercises' in the path
+    exercises_index = path_parts.index('exercises')
+    
+    # Get the exercises directory path
+    exercises_path = os.path.join(*path_parts[:exercises_index+1])
+    
+    # Get the relative path
+    try:
+        relative = Path(abs_path).relative_to(Path(exercises_path))
+        return str(relative)
+    except ValueError:
+        # This shouldn't happen based on our logic, but just in case
+        raise ValueError(f"Could not compute relative path from '{exercises_path}' to '{abs_path}'")
+
 class Exercise():
-    def __init__(self, name='', location='./', types=[]):
-        if not name:
-            self._gather()
-        else:
-            self.name = name
-            self.location = location 
-            self.types = types
-        self.path = f"{self.location}/{self.name}"
-
-
-    def _gather(self):
-        self.name = input('Enter exercise name: ')
-        self.location = input('Enter exercise location (default ./): ')
-        if not self.location:
-            self.location = './'
-        self.types = []
-        for item in ['variables', 'functions', 'plots']:
-            if input(f"Do you need to check {item}? (Y/N)").lower().startswith('y'):
-                self.types.append(item)
-            
+    def __init__(self, args):
+        from pathlib import Path
+        self.name = args.name
+        self.location = Path(args.location)
+        self.path = self.location.joinpath(self.name)
 
 
     def build(self):
@@ -31,41 +71,31 @@ class Exercise():
 
     def _directories(self):
         from os.path import isdir, exists
-        from os import mkdir
+        from os import makedirs, mkdir
+        import sys
 
         goAhead = "y"
         if not(isdir(self.location)):
-            goAhead = input(f"{self.location} does not exist, should I build it? (Y/N)")
-        if goAhead.lower() == "y":
-            mkdir(self.location)
-        else:
-            sys.exit(0, "operation cancelled")
+            goAhead = input(f"{self.location} does not exist, should I build it? (Y/N): ")
+            if goAhead.lower() == "y":
+                makedirs(self.location, exist_ok=True)
+            else:
+                sys.exit(0)
 
         assert not exists(f"{self.path}"), f"directory named {self.name} already exists"
         
-        mkdir(f"{self.path}")
-        mkdir(f"{self.path}/testsrc")
+        mkdir(self.path)
+        mkdir(self.path.joinpath("testsrc"))
 
     def _testing(self):
-        allImports = ""
-        importStr = "from AutoFeedback import"
-        typeDict = {'variables': 'check_vars',
-                    'functions': 'check_func',
-                    'plots': 'check_plot, line',
-                    'randomvars': 'randomvar'}
-
-        for typ in self.types:
-            allImports += f"{importStr} {typeDict[typ]} \n"
-
-        testTxt = f"""{allImports}
-import unittest
+        testTxt = f"""import unittest
 
 
 class UnitTests(unittest.TestCase):
     def test_1(self):
         assert True
 """
-        with open(f"{self.path}/testsrc/test_main.py", 'w') as f:
+        with open(self.path.joinpath("testsrc/test_main.py"), 'w') as f:
             f.write(testTxt)
 
 
@@ -75,9 +105,11 @@ class UnitTests(unittest.TestCase):
         with open(nbfile, 'r') as f:
             nbtext = f.readlines()
 
+        relative_loc = get_relative_to_exercises(self.path)
+
         with open(f"{self.path}/{self.name}.ipynb", 'w') as f:
             for line in nbtext:
-                line = line.replace('_TEMPORARY_SUBDIRECTORY_', self.path)
+                line = line.replace('_TEMPORARY_SUBDIRECTORY_', relative_loc)
                 f.write(line)
 
 
@@ -101,11 +133,12 @@ setup(
     install_requires=['numpy']
 )
 """
-        with open(self.path+"/setup.py", 'w') as f:
+        with open(self.path.joinpath("setup.py"), 'w') as f:
             f.write(setupTxt)
 
 def main():
-    ex = Exercise()
+    args = read_command_line()
+    ex = Exercise(args)
     ex.build()
 
 
