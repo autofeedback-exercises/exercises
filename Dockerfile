@@ -6,10 +6,8 @@ RUN pip install --no-cache-dir --upgrade pip \
   && pip install --no-cache-dir pytest \
   && pip install --no-cache-dir pandas \
   && pip install --no-cache-dir inquirer \
-  && pip install --no-cache-dir canvas_selector
+  && pip install --no-cache-dir canvas_selector \ 
+  && pip install "git+https://github.com/autofeedback-exercises/exercises.git@add_marking_utilities"
 
 
-COPY marking/.canvasapirc ./root/
-COPY marking/grade_ipynbs.py ./bin/
-COPY tests/test_exercises.py ./bin/
-RUN chmod +x ./bin/grade_ipynbs.py
+COPY .canvasapirc ./root/

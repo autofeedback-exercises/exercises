@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 def read_command_line():
     from argparse import ArgumentParser as AP
     from canvas_selector import choose_options
@@ -26,7 +23,7 @@ def mark_ungraded(sub, ass):
     Returns:
         mark: the numerical grade (integer) awarded to the submission
     """
-    from test_exercises import studentTest
+    from .test_exercises import studentTest
     from canvas_selector import update_grade, nameFile
     if len(sub.attachments) > 0:
         downname = nameFile(sub)
@@ -72,7 +69,7 @@ def update_grade(sub, newgrade):
     sub.edit(submission={'posted_grade': str(newgrade)})
 
 
-if __name__ == '__main__':
+def main():
     from canvas_selector import cleanup
     args = read_command_line()
 
@@ -80,3 +77,7 @@ if __name__ == '__main__':
         mark_submissions(ass)
         clear_testsrc()
         cleanup(ass.id)
+
+
+if __name__ == '__main__':
+    main()

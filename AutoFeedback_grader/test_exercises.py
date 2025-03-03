@@ -257,7 +257,7 @@ def compile_grades(opts):
     df.to_csv(opts.output)
 
 
-if __name__ == "__main__":
+def main():
     opts = read_options()
     if opts.populate:
         populateNBs(opts.file)
@@ -266,3 +266,6 @@ if __name__ == "__main__":
             compile_grades(opts)
         else:
             print(studentTest(opts.file))
+
+if __name__ == "__main__":
+    main()
