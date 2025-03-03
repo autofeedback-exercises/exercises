@@ -7,7 +7,9 @@ RUN pip install --no-cache-dir --upgrade pip \
   && pip install --no-cache-dir pandas \
   && pip install --no-cache-dir inquirer \
   && pip install --no-cache-dir canvas_selector \ 
-  && pip install "git+https://github.com/autofeedback-exercises/exercises.git@add_marking_utilities"
+  && pip install --no-cache-dir AutoFeedback_grader
 
 
 COPY .canvasapirc ./root/
+
+CMD ["grade_ipynbs", "-s", "2241_SPR"]
