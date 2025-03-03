@@ -25,14 +25,22 @@ class Exercise():
         self._directories()
         self._setup()
         self._testing()
+        self._ipynb()
         open(f"{self.path}/testsrc/__init__.py", 'w').close()
-            
+
 
     def _directories(self):
         from os.path import isdir, exists
         from os import mkdir
 
-        assert isdir(self.location), f"Location {self.location} does not exist"
+        goAhead = False
+        if not(isdir(self.location)):
+            goAhead = input(f"{self.location} does not exist, should I build it? (Y/N)")
+        if goAhead.lower() == "y":
+            mkdir(self.location)
+        else:
+            sys.exit(0, "operation cancelled")
+
         assert not exists(f"{self.path}"), f"directory named {self.name} already exists"
         
         mkdir(f"{self.path}")
@@ -59,6 +67,20 @@ class UnitTests(unittest.TestCase):
 """
         with open(f"{self.path}/testsrc/test_main.py", 'w') as f:
             f.write(testTxt)
+
+
+def _ipynb(self):
+    from importlib.resources import files
+    nbfile = files('autofeedback_templater.data').joinpath('template.ipynb')
+    with open(nbfile, 'r') as f:
+        nbtext = f.readlines()
+
+    for line in nbtext:
+        line = line.replace('_TEMPORARY_SUBDIRECTORY_', self.path)
+
+    with open(f"{self.path}/{self.name}.ipynb", 'w') as f:
+        f.write(nbtext)
+
 
     def _setup(self):
         import subprocess
