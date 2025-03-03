@@ -24,7 +24,7 @@ def primeFactors(n):
 
 class UnitTests(unittest.TestCase):
     def test_isPrime(self):
-        inputs, outputs = [(1,), (2,)], [False, True]
+        inputs, outputs = [(1,), (2,), (3,)], [False, True, True]
         for i in range(20):
             n = np.random.randint(3, 9999)
             inputs.append((n,))
