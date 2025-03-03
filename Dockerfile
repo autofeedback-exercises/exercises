@@ -12,4 +12,6 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY .canvasapirc ./root/
 
-CMD ["grade_ipynbs", "-s", "2241_SPR"]
+ENTRYPOINT ["grade_ipynbs"]
+
+CMD []

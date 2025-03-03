@@ -2,11 +2,12 @@
 Grading student submissions
 ===========================
 
-To install all necessary python dependencies:
+To install the grading package
 
 .. code-block:: bash
 
-    > pip install -r marking/requirements.txt
+    > pip install AutoFeedback_grader
+
 
 API information
 ---------------
@@ -81,22 +82,13 @@ To run the docker image (which you will do everytime you want to mark student su
 
 .. code-block:: bash
 
-    > docker run -it gradepython "/bin/bash"
+    > docker run -it gradepython 
 
-This will open a bash shell in the docker image.
-
-Executing the grading
-~~~~~~~~~~~~~~~~~~~~~
+This will bring up a list of all your available Canvas courses. You can limit the choice to a given semester by using the term id:
 
 .. code-block:: bash
 
-    > grade_ipynbs.py
-
-will bring up a list of all your available Canvas courses. You can limit the choice to a given semester by using the term id:
-
-.. code-block:: bash
-
-    > grade_ipynbs.py -s 2241_SPR
+    > docker run -it gradepython -s 2241_SPR
 
 Navigate to the correct course with the up/down arrow keys, and press Enter to select. This in turn will bring up a list of all available assignments on the module (NB not just the programming assignments). You can select as many assignments as you wish to grade- use the up/down arrow keys, and then the right arrow or space bar to select. When you have selected all the assignments, press Enter.
 
@@ -104,6 +96,6 @@ If you know the course ID you can avoid this selection process and execute ``gra
 
 .. code-block:: bash
 
-    > grade_ipynbs.py -c <course ID>
+    > docker run -it gradepython -c <course ID>
 
 The script downloads those submissions which are currently unmarked, or which have received a grade of 0, marks them, and updates the grade on canvas. It will also give a summary of the number of those assignments marked which scored zero. This can be useful to show up errors in the marking- if everyone got zero, there may be a problem with the way the AutoFeedback tests are set up.
