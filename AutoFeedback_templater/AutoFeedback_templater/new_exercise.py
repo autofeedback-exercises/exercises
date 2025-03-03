@@ -33,7 +33,7 @@ class Exercise():
         from os.path import isdir, exists
         from os import mkdir
 
-        goAhead = False
+        goAhead = "y"
         if not(isdir(self.location)):
             goAhead = input(f"{self.location} does not exist, should I build it? (Y/N)")
         if goAhead.lower() == "y":
@@ -69,17 +69,16 @@ class UnitTests(unittest.TestCase):
             f.write(testTxt)
 
 
-def _ipynb(self):
-    from importlib.resources import files
-    nbfile = files('autofeedback_templater.data').joinpath('template.ipynb')
-    with open(nbfile, 'r') as f:
-        nbtext = f.readlines()
+    def _ipynb(self):
+        from importlib.resources import files
+        nbfile = files('AutoFeedback_templater.data').joinpath('template.ipynb')
+        with open(nbfile, 'r') as f:
+            nbtext = f.readlines()
 
-    for line in nbtext:
-        line = line.replace('_TEMPORARY_SUBDIRECTORY_', self.path)
-
-    with open(f"{self.path}/{self.name}.ipynb", 'w') as f:
-        f.write(nbtext)
+        with open(f"{self.path}/{self.name}.ipynb", 'w') as f:
+            for line in nbtext:
+                line = line.replace('_TEMPORARY_SUBDIRECTORY_', self.path)
+                f.write(line)
 
 
     def _setup(self):
@@ -105,6 +104,10 @@ setup(
         with open(self.path+"/setup.py", 'w') as f:
             f.write(setupTxt)
 
-ex = Exercise()
-ex.build()
+def main():
+    ex = Exercise()
+    ex.build()
 
+
+if __name__ == "__main__":
+    main()
