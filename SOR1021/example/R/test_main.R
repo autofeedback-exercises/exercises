@@ -38,3 +38,23 @@ test_my_add <- function() {
                             list(list(1, 2), list(5, -3), list(0, 0)), 
                             list(3, 2, 0))
 }
+
+#' Test if student's plot is correct
+#'
+#' @return Invisible TRUE/FALSE indicating test success
+test_polynomial_plot <- function() {
+  
+  # Define what we expect to see
+  expected_data <- list(
+    list(x = 1:10, y = (1:10)^2),
+    list(x = 1:10, y = (1:10)^3)
+  )
+  
+  # Check the plot
+  result <- AutoFeedbackR::check_plot(expected_data, 
+                                      expected_x_label = "X Values",
+                                      expected_y_label = "Y Values",
+                                      expected_title = "Polynomial Functions")
+  
+  return(result)
+}
