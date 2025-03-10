@@ -1,0 +1,13 @@
+Package: testsrc
+Title: Tests for Student Assignments
+Version: 0.1.0
+Authors@R: person("Your", "Name", email = "your.email@example.com", role = c("aut", "cre"))
+Description: Provides test functions for student assignments. This package
+    defines test cases that use the studentfeedback package to check student work.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Depends:
+    R (>= 3.5.0),
+    AutoFeedbackR (>= 0.1.0)
