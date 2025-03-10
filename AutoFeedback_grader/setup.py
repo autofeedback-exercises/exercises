@@ -1,5 +1,5 @@
 from os import path
-from setuptools import setup
+from setuptools import setup, find_packages
 import sys
 import versioneer
 
@@ -24,7 +24,7 @@ pip install --upgrade pip
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'AutoFeedback_grader/README.rst'), encoding='utf-8') as readme_file:
+with open(path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
 with open(path.join(here, 'requirements.txt')) as requirements_file:
@@ -48,7 +48,7 @@ setup(
             'grade_ipynbs = AutoFeedback_grader.grade_ipynbs:main',
         ]
     },
-    packages=["AutoFeedback_grader"],
+    packages=find_packages(),
     install_requires=requirements,
     license="BSD (3-clause)",
     classifiers=[
