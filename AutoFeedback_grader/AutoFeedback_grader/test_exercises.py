@@ -107,8 +107,11 @@ def extractCodeCellIDs(template):
 def execute(contents):
     import nbformat
     nb_in = nbformat.reads(json.dumps(contents), as_version=4)
-    nb_in["metadata"]["kernelspec"]["name"] = "python3"
-    ep = MyExecutePreprocessor(timeout=None, allow_errors=False)
+    if nb_in["metadata"]["kernelspec"]["name"] == "venv":
+        nb_in["metadata"]["kernelspec"]["name"] = "python3"
+    kern = nb_in["metadata"]["kernelspec"]["name"]
+    ep = MyExecutePreprocessor(timeout=None, allow_errors=False,
+                               kernel_name=kern)
     return ep.preprocess(nb_in)[0]
 
 
