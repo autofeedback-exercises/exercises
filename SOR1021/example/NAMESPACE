@@ -1,8 +1,5 @@
 # Export test functions
-export(test_x)
-export(test_y)
-export(test_z)
-export(test_my_add)
+exportPattern("^test_")
 
 # Import from studentfeedback
 importFrom(AutoFeedbackR, check_var, check_func)
