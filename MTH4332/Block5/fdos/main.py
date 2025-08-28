@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # This reads in the trajectory
-ftraj = Trajectory('nve-short.traj')
+ftraj = Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesII/nve-short.traj')
 
 # Your code to calculate the vibrational density of states goes here
 

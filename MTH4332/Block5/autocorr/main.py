@@ -6,7 +6,7 @@ import numpy as np
 ncorr = 50
 
 # This command uses ase to read in the trajectory
-ftraj = Trajectory('nve-short.traj')
+ftraj = Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesII/nve-short.traj')
 
 # This sets up arrays to hold the autocorrelation function and the number of estimates 
 # of each dot product we have
