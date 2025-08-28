@@ -9,7 +9,6 @@ except:
            
 from AutoFeedback.randomclass import randomvar
 import unittest
-from main import *
 
 class UnitTests(unittest.TestCase) :
     def test_errors(self):

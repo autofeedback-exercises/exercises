@@ -9,7 +9,6 @@ except:
                 
 import numpy as np
 import unittest     
-from main import * 
 
 class UnitTests(unittest.TestCase) :
     def test_function(self) :

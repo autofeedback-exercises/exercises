@@ -16,9 +16,9 @@ Computing this variance is important as this quantity appears in the expression 
 
 ![](eq2.png)
 
-In this expression, p_c gives the probability that a new estimate for the mean will fall between the mean - \epsilon and the mean + \epsilon .  Just as in the previous exercise the error bar is thus telling us something about a range that the data has a certain probability of falling into.
+In this expression, $p_c$ gives the probability that a new estimate for the mean will fall between the mean - $\epsilon$ and the mean + $\epsilon$.  Just as in the previous exercise the error bar is thus telling us something about a range that the data has a certain probability of falling into.
 
-Your task is to modify the function on the right so instead of outputting a single variable it outputs three variables.  The second of these is the average (i.e the same quantity that is currently output by the function).  The first variable is the 5th percentile of the distribution, which should be calculated using the formulas above.  The last variable is the 95th percentile of the distribution.  Again please use the formulas above to calculate this quantity.  Please note that you can calculate the function \Phi^{-1} using the command:
+Your task is to modify the function on the right so instead of outputting a single variable it outputs three variables.  The second of these is the average (i.e the same quantity that is currently output by the function).  The first variable is the 5th percentile of the distribution, which should be calculated using the formulas above.  The last variable is the 95th percentile of the distribution.  Again please use the formulas above to calculate this quantity.  Please note that you can calculate the function $\Phi^{-1}$ using the command:
 
 ````
 ss = st.norm.ppf(0.95)

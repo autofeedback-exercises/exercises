@@ -9,10 +9,9 @@ except:
 
 from AutoFeedback.randomclass import randomvar
 import unittest
-from main import *
 
 class UnitTests(unittest.TestCase) :
-    def test_estimate(self) :
+    def test_estimate2(self) :
        inputs, outputs = [], []
        for j in range(1,5) :
            p = np.pi/4 
