@@ -85,7 +85,7 @@ class UnitTests(unittest.TestCase) :
                     elif spins[j]==2 : eng = eng+3
                 inputs.append((spins,))
                 outputs.append( eng )
-        assert( check_func('hamiltonian', inputs, outputs ) )   
+        assert( check_func('hamiltonian2', inputs, outputs ) )   
 
     def test_eng3(self) :
         inputs, outputs = [], [] 
@@ -99,7 +99,7 @@ class UnitTests(unittest.TestCase) :
                     elif spins[j]==3 : eng = eng+2
                 inputs.append((spins,))
                 outputs.append( eng )
-        assert( check_func('hamiltonian', inputs, outputs ) )   
+        assert( check_func('hamiltonian3', inputs, outputs ) )   
 
     def test_function1(self) :
         inputs, outputs = [], []

@@ -35,7 +35,7 @@ print( "ENERGY FOR ALL SPIN UP", hamiltonian( allup, 1 ) )
 print( "ENERGY FOR ALL SPIN DOWN", hamiltonian( alldown, 1 ) )
 
 # Exercise 4
-def hamiltonian( coords ) :
+def hamiltonian2( coords ) :
   energy = 0
   # Your code goes here
   for c in coords :
@@ -48,7 +48,7 @@ print( "ENERGY FOR ALL ONE", hamiltonian( allone ) )
 print( "ENERGY FOR ALL TWO", hamiltonian( alltwo ) )
 
 # Exercise 5
-def hamiltonian( coords ) :
+def hamiltonian3( coords ) :
   energy = 0
   # Your code goes here
   for c in coords :
