@@ -16,7 +16,7 @@ where F(t) is the force at x(t).
 
 ![](eq2.png)
 
-3. The force, F(t+\delta), is calculated at the new position.
+3. The force, $F(t+\delta)$, is calculated at the new position.
 
 4. The new values for the forces are used to update the velocities another half-timestep as follows:
 
@@ -30,6 +30,6 @@ I have written an outline for an MD code that computes a trajectory.  You need t
 
 The final result from your calculation should be a graph that shows how the position of the particle changed during the trajectory.  
 
-N.B Please note the variable timestep, \delta, in the algorithm described above should be set to a suitable value.  I have set it to a sensible value in the code to the right.  It is easy to tell if the value of the timestep is not sensible as total energy will not be conserved.      
+N.B Please note the variable timestep, $\delta$, in the algorithm described above should be set to a suitable value.  I have set it to a sensible value in the code to the right.  It is easy to tell if the value of the timestep is not sensible as total energy will not be conserved.      
 
 

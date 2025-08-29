@@ -11,8 +11,8 @@ an ideal fcc crystal.  The functional form of this order parameter is as follows
 
 ![](eq1.png)
 
-The sums in this expression run over all the atoms in the syste.  r_ij is the distance between atom i and atom j and x_ij, y_ij and z_ij are the x, y and z components 
-of the vector that connects atom i to atom j.  \sigma(r_ij) is a switching function that is 1 if r_ij<1.5 and 0 otherwise.  When this function is used to identify 
+The sums in this expression run over all the atoms in the syste.  $r_{ij}$ is the distance between atom $i$ and atom $j$ and $x_{ij}, $y_{ij}$ and $z_{ij}$ are the $x$, $y$ and $z$ components 
+of the vector that connects atom $i$ to atom $j$.  $\sigma(r_{ij})$ is a switching function that is 1 if $r_{ij}<1.5$ and 0 otherwise.  When this function is used to identify 
 regions where the structure resembles the fcc crystal it is useally tranformed using the following expression:
 
 ![](eq2.png)

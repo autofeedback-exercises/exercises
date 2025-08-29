@@ -4,7 +4,7 @@ We can calculate the entropy as a function of the energy, S(E), from the density
 
 ![](eq1.png)
 
-Where \Omega(E) is equal to the number of states with energy E.  Your task for this exercise is, therefore, to draw a bar chart that shows the entropy as a function of the energy for a system of 8 particles that can each be in either a +1 or a -1 state.
+Where $\Omega(E)$ is equal to the number of states with energy E.  Your task for this exercise is, therefore, to draw a bar chart that shows the entropy as a function of the energy for a system of 8 particles that can each be in either a +1 or a -1 state.
 Once again we will use the following Hamiltonian
 
 ![](eq2.png)

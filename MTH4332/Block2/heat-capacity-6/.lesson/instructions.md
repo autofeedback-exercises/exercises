@@ -1,6 +1,6 @@
 # Heat capacity from fluctuations with errors
 
-As always we are not quite done because we haven't worked out how the error bars for this second method of calculating the heat capacity are determined.  In this exercise, we are thus going to learn how to compute these errors.  We are again going to use the propagation of errors when determining the error on the heat capacity.  We can do this because the first two tasks in this exercise showed us how errors for <E> and <E^2> can be computed using block averaging.  Let's call the errors on these two quantities \Delta E and \Delta E^2.  We now note that the heat capacity is a function of <E>and <E^2> and that we can thus calculate the maximum value that this would take using:
+As always we are not quite done because we haven't worked out how the error bars for this second method of calculating the heat capacity are determined.  In this exercise, we are thus going to learn how to compute these errors.  We are again going to use the propagation of errors when determining the error on the heat capacity.  We can do this because the first two tasks in this exercise showed us how errors for <E> and <E^2> can be computed using block averaging.  Let's call the errors on these two quantities $\Delta E$ and $\Delta E^2$.  We now note that the heat capacity is a function of <E>and <E^2> and that we can thus calculate the maximum value that this would take using:
 
 ![](eq1.png)
 

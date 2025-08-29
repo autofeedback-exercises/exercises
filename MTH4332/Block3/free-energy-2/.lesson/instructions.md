@@ -8,7 +8,7 @@ where:
 
 ![](eq1a.png)
 
-In this expression \delta is a Dirac delta function and the integral here runs over all of phase space. It is thus a multidimensional integral over 
+In this expression $\delta$ is a Dirac delta function and the integral here runs over all of phase space. It is thus a multidimensional integral over 
 multiple coordinates.  It is useful to introduce an energy F(M) of the single coordinate, M, that would have given rise to the distribution above as follows:
 
 ![](eq2.png)
