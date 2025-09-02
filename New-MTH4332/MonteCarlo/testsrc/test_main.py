@@ -37,7 +37,7 @@ class UnitTests(unittest.TestCase) :
            myvar = randomvar( p, variance=p*(1-p)/np.sqrt(j*100), vmin=0, vmax=1, isinteger=False )
            inputs.append((j*100,))
            outputs.append( myvar )
-       assert( check_func('area',inputs, outputs ) )
+       assert( check_func('circle_estimate',inputs, outputs ) )
 
     def test_range(self) :
        inputs, var  = [], []
@@ -56,5 +56,5 @@ class UnitTests(unittest.TestCase) :
            p = np.pi/4
            myvar1 = randomvar( p, variance=p*(1-p)/i, vmin=0, vmax=1, isinteger=False, dist="conf_lim", dof=i-1, limit=0.90 ) 
            var.append(myvar1)
-       assert( check_func("area", inputs, var ) )
+       assert( check_func("circle_estimate", inputs, var ) )
            
