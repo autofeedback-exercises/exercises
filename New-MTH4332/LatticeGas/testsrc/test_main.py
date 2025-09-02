@@ -238,7 +238,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_func('hamiltonian', inputs, outputs ) )
         
     def test_graph4(self) :
-	hamiltonian = get_internal("hamiltonian")
+        hamiltonian = get_internal("hamiltonian")
         xvals = np.linspace( -8, 8, 9 )
         yvals = np.zeros(9)
         for i in range(2**8) :
@@ -271,7 +271,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_func('hamiltonian', inputs, outputs ) )
         
     def test_graph3(self) :
-	hamiltonian = get_internal("hamiltonian")
+        hamiltonian = get_internal("hamiltonian")
         xvals = np.linspace( -8, 8, 9 )
         yvals = np.zeros(9)
         for i in range(2**8) :
@@ -288,7 +288,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_plot([],exppatch=line1,explabels=axislabels,explegend=False,output=True) ) 
 
     def test_ensemble_average(self) :
-	hamiltonian = get_internal("hamiltonian")
+        hamiltonian = get_internal("hamiltonian")
         inputs, outputs = [], [] 
         for k in range(5,8) :
             Z, numer = np.zeros(9), np.zeros(9)
