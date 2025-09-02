@@ -23,6 +23,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_func('potential', inputs, outputs ) ) 
 
     def test_forces3(self) :
+        potential = get_internal("potential")
         inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
         for x in xvals :
             inputs.append((x,))
