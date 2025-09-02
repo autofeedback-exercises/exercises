@@ -11,6 +11,7 @@ import AutoFeedback.plotchecks as pc
 from AutoFeedback.plotclass import line
 from AutoFeedback.utils import get_internal               
 from AutoFeedback.randomclass import randomvar
+from AutoFeedback.varchecks import check_vars
 import numpy as np
 import unittest      
 
