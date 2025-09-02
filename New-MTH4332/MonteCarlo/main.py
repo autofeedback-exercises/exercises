@@ -23,7 +23,7 @@ def circle_estimate(N) :
   for i in range(100) :
       x = np.random.uniform(0,1)
       y = np.random.uniform(0,1)
-      if x*x+y*y<1 : estimate = estimate + 1
+      estimate = estimate + incircle(x,y)
   return estimate / N
 
 # Three estimates for the area of the circle based on a random grid

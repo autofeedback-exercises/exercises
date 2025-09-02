@@ -8,6 +8,7 @@ except:
     from AutoFeedback.funcchecks import check_func
                 
 import numpy as np
+from AutoFeedback.randomclass import randomvar
 import unittest     
 
 class UnitTests(unittest.TestCase) :
