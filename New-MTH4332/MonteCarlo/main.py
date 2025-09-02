@@ -56,6 +56,6 @@ def circle_estimate(N) :
   mean = nin / N
   var = (N/(N-1))*( mean - mean*mean )
   sig = np.sqrt( var / N )
-  return mean + sig*st.norm.ppf(0.05), mean, mean + sig*st.norm.ppf(0.95)
+  return mean + sig*scipy.stats.norm.ppf(0.05), mean, mean + sig*scipy.stats.norm.ppf(0.95)
 
 print( area(1000) )
