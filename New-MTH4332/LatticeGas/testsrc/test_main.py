@@ -118,7 +118,7 @@ class UnitTests(unittest.TestCase) :
                 oval[j] = int(np.floor( val / ppp ) )
                 val = val - oval[j]*ppp
             outputs.append( oval )
-        assert( fc.check_func('getBinary', inputs, outputs ) ) 
+        assert( check_func('getBinary', inputs, outputs ) ) 
 
     def test_function2(self) :
         inputs, outputs = [], []  
@@ -132,7 +132,7 @@ class UnitTests(unittest.TestCase) :
                     outval[j] = int(np.floor( val / ppp ) )
                     val = val - outval[j]*ppp
                 outputs.append( outval )
-        assert( fc.check_func('convertToBase', inputs, outputs ) )
+        assert( check_func('convertToBase', inputs, outputs ) )
 
     def test_function3(self) :
         inputs, outputs = [], []  
@@ -148,7 +148,7 @@ class UnitTests(unittest.TestCase) :
                     else :  energies[k] = energies[k] + 1
             inputs.append((n,))
             outputs.append( energies )
-        assert( fc.check_func('microstate_energies', inputs, outputs ) )
+        assert( check_func('microstate_energies', inputs, outputs ) )
 
     def test_partition_function(self) : 
         inputs, outputs = [], []  
