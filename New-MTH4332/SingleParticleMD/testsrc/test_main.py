@@ -352,7 +352,7 @@ class UnitTests(unittest.TestCase) :
                  av = sum( ftotal_sq[j*blocksize:(j+1)*blocksize] ) / blocksize
                  average = average + av
                  error = error + av*av
-             average[k] = average / nblocks
+             average = average / nblocks
              error = (nblocks / (nblocks-1))*( error / nblocks - average*average )
              correct_error[k] = np.sqrt( error / nblocks )*scipy.stats.norm.ppf(0.95)
          assert( check_vars( 'errors', correct_error ) )
