@@ -20,11 +20,6 @@ pot, force = potential(1)
 print( "The potential at x=1 is", pot, "and the force is", force )
 
 # Exercise 3
-def potential(x) :
-  energy = 0.5*x*x
-  forces = -x
-  return energy, forces
-# Set the initial position for the particle (you can change as I assume the initial particle is at init_pos when I test your code)
 init_pos, init_vel = 3, 1
 # This is the value to use for the timestep (the delta in the equations on the other side)
 timestep = 0.005
@@ -59,7 +54,7 @@ times = np.linspace( 0, (nsteps-stride)*timestep, len(trajectory) )
 plt.plot( times, trajectory, 'ko'  )
 plt.xlabel("time")
 plt.ylabel("position")
-plt.plot()
+plt.savefig("traj.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 

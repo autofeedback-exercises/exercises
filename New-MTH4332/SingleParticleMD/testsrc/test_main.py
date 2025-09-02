@@ -40,9 +40,10 @@ class UnitTests(unittest.TestCase) :
         assert( check_func('potential', inputs, outputs ) )  
                 
     def test_trajectory1(self) :
+        nsteps = get_internal("nsteps")
         timestep, stride = get_internal("timestep"), get_internal("stride")
         p, v, f = get_internal("init_pos"), get_internal("init_vel"), -get_internal("init_pos")
-        yvals = np.zeros(len(trajectory))
+        yvals = np.zeros([int(nsteps/stride)])
         for s in range(nsteps) :
             v = v + 0.5*timestep*f
             p = p + timestep*v
