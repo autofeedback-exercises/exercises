@@ -347,7 +347,7 @@ class UnitTests(unittest.TestCase) :
          for k, block in enumerate(this_x) :
              blocksize = int( block )
              # Your code to calculate the block averages goes here
-             nblocks, averae, error = int( len(ftotal_sq) / blocksize ), 0, 0
+             nblocks, average, error = int( len(ftotal_sq) / blocksize ), 0, 0
              for j in range(nblocks) :
                  av = sum( ftotal_sq[j*blocksize:(j+1)*blocksize] ) / blocksize
                  average = average + av

@@ -393,13 +393,6 @@ plt.savefig("block-errors.png")
 fighand = plt.gca()
 
 # Exercise 15
-# Set the initial position for the particle (you can change as I assume the initial particle is at init_pos when I test your code)
-init_pos, init_vel = 3, 1
-# This command runs the molecular dynamics and generates a trajectory 
-temperature = 1.0   # This variable must be defined to pass the tests
-# Generate the trajectories.  Please do not change the names of the variables on the left hand side of the 
-# equals sign here.  I look for variables with these names when I test your code
-tt, potential_e, kinetic_e, total, conserved = gen_traj( init_pos, init_vel, 2400, 0.005, 1, temperature, 2.0 )
 # This is the part to compute the block averages for the error estimation
 # I use the variable called errors to test your code.  This should contain a 90% confidence limit on your estimate of the error
 total2, bsize, averages, errors = total*total, [200,400,600,800,1000,1200], np.zeros(6), np.zeros(6)
@@ -412,13 +405,12 @@ for i, blocksize in enumerate(bsize) :
     errors[i] = errors[i] + av*av
   averages[i] = averages[i] / nblocks
   errors[i] = (nblocks / (nblocks-1))*( errors[i] / nblocks - averages[i]*averages[i] )
-  errors[i] = np.sqrt( errors[i] / nblocks )*st.norm.ppf((1+0.90)/2)
-  i=i+1
+  errors[i] = np.sqrt( errors[i] / nblocks )*scipy.stats.norm.ppf((1+0.90)/2)
 # This will plot the kinetic energy as a function of time
 plt.errorbar( bsize, averages, yerr=errors, fmt='ko' )
 plt.xlabel("Length of block")
 plt.ylabel("Average energy / natural units")
-plt.plot()
+plt.savefig("totalav.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
