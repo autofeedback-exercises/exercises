@@ -259,7 +259,7 @@ class UnitTests(unittest.TestCase) :
 
     def test_block_averages1(self) :
         # Do the block averaging
-        total = get_internal("t_energy")
+        total = get_internal("total")
         fighand = get_internal("fighand") 
         figdat = fighand.get_lines()[0].get_xydata()
         this_x, this_y = zip(*figdat)
@@ -278,7 +278,7 @@ class UnitTests(unittest.TestCase) :
         pc.check_plot([line1], explabels=axislabels)
 
     def test_block_errors1(self) :
-        total = get_internal("t_energy")
+        total = get_internal("total")
         fighand = get_internal("fighand") 
         figdat = fighand.get_lines()[0].get_xydata()
         this_x, this_y = zip(*figdat)
@@ -318,7 +318,7 @@ class UnitTests(unittest.TestCase) :
          assert( check_func('potential', inputs, outputs ) )
 
     def test_block_averages2(self) :
-         total = get_internal("t_energy")
+         total = get_internal("total")
          fighand = get_internal("fighand")
          figdat = fighand.get_lines()[0].get_xydata()
          this_x, this_y = zip(*figdat)
@@ -337,7 +337,7 @@ class UnitTests(unittest.TestCase) :
          pc.check_plot([line1], explabels=axislabels)
 
     def test_block_errors2(self) :
-         total = get_internal("t_energy")
+         total = get_internal("total")
          fighand = get_internal("fighand")
          figdat = fighand.get_lines()[0].get_xydata()
          this_x, this_y = zip(*figdat)
