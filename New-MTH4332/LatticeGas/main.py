@@ -124,9 +124,6 @@ print( partitionfunction(5,0,0.1) )
 print( partitionfunction(6,1,0.5) )
 
 # Exercise 10
-def hamiltonian( spins, H ) :
-  eng = -H*sum(spins)
-  return eng
 # Generate an index for each microstate
 indices = np.zeros(2**8)
 for i in range(2**8) : indices[i] = i
