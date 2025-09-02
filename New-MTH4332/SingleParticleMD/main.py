@@ -101,7 +101,7 @@ for step in range(nsteps) :
     times[int(step/stride)] = step
     p_energy[int(step/stride)] = eng
     # Write code to ensure the proper values are saved here
-    k_energy[int(step/stride)] = kinetic(vel)
+    k_energy[int(step/stride)] = kinetic(np.array([vel]))
     t_energy[int(step/stride)] = p_energy[int(step/stride)] + k_energy[int(step/stride)]
 # This will plot the potential, kinetic and total energy as a function of 
 # time
@@ -172,7 +172,7 @@ for step in range(nsteps) :
 plt.plot( times, vels, 'r-' )
 plt.xlabel('time')
 plt.ylabel('velocity')  
-plt.plot() 
+plt.savefig("veltraj.png") 
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 

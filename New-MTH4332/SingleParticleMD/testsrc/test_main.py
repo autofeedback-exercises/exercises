@@ -137,7 +137,7 @@ class UnitTests(unittest.TestCase) :
 
     def test_trajectory3(self):
        nsteps, stride, timestep, temperature = get_internal("nsteps"), get_internal("stride"), get_internal("timestep"), get_internal("temperature")
-       xv = np.linspace( 0, (nsteps-stride)*timestep, len(vels) )
+       xv = np.linspace( 0, (nsteps-stride)*timestep, int(nsteps/stride) )
        var = randomvar( 0, variance=temperature )
        line1 = line( xv, var )
        axislabels=["time", "velocity"]
