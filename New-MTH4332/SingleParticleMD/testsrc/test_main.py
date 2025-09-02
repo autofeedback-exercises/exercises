@@ -385,5 +385,5 @@ class UnitTests(unittest.TestCase) :
              err[i] = ( filedata[i,4] + 2*filedata[i,1]*filedata[i,2] ) / ( filedata[i,0]*filedata[i,0] )
          assert( check_vars( "cv_errors", err ) ) 
 
-     def test_cv( self ) :
+    def test_cv( self ) :
          assert( check_vars( "CV", sy.Rational(3,4) ) )
