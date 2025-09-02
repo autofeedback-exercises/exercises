@@ -11,6 +11,9 @@ from AutoFeedback.funcchecks import check_func
 from AutoFeedback.plotclass import line
 from AutoFeedback.plotchecks import check_plot
 from AutoFeedback.utils import get_internal
+import matplotlib.pyplot as plt
+import numpy as np
+import sympy as sy
 import unittest
 
 class UnitTests(unittest.TestCase) :
