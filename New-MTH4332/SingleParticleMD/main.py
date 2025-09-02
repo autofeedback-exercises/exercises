@@ -296,7 +296,7 @@ def block_average( M, data ) :
   nblocks = int( np.floor(len(data) / M) )
   myaverage, mysq = 0, 0
   for i in range(nblocks) :
-      myblocks = sum( myeng[i*bb:(i+1)*bb] ) / bb
+      myblocks = sum( data[i*bb:(i+1)*bb] ) / bb
       myaverage = myaverage + myblocks
       mysq = mysq + myblocks*myblocks
 

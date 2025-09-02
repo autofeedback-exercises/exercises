@@ -224,7 +224,7 @@ class UnitTests(unittest.TestCase) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         inputs, outputs = [], []
         for bb in [10,20,30,40,60,100,120,200,300,400] : 
-            nblocks = int( len( eng ) / bb )
+            nblocks = int( len( myeng ) / bb )
             myaverage, mysq = 0, 0
             for i in range(nblocks) :
                 myblocks = sum( myeng[i*bb:(i+1)*bb] ) / bb
