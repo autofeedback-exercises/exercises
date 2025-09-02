@@ -99,14 +99,11 @@ def microstate_energies( N ) :
            val = val - ppp*coords[j]
            if coords[j]==0 : coords[j] = -1
        # Evaluate the energy of the microstate and store it in the array that we will return
-       energies[i] = sum(coords)
+       energies[i] = hamiltonian( coords, -1 )
    # Return the array that holds the energies of the microstates
    return energies
 
 # Exercise 9
-def hamiltonian( spins, H ) : 
-  energy = -H*sum(spins)
-  return energy
 def partitionfunction( N, H, T ) :
   Z = 0
   # Your code to calculate the partition function goes here

@@ -150,7 +150,8 @@ class UnitTests(unittest.TestCase) :
             outputs.append( energies )
         assert( check_func('microstate_energies', inputs, outputs ) )
 
-    def test_partition_function(self) : 
+    def test_partition_function(self) :
+        hamiltonian = get_internal("hamiltonian") 
         inputs, outputs = [], []  
         for k in range(5,8) :
             pfunc1, pfunc2, pfunc3 = 0, 0, 0
