@@ -333,9 +333,9 @@ def gen_traj( pos, vel, nsteps, timestep, stride, temperature, friction ) :
   conserved_quantity = np.zeros(int(nsteps/stride))
   for step in range(nsteps) :
     # Apply the thermostat for a half timestep 
-    therm = therm + kinetic(vel)
+    therm = therm + kinetic(np.array([vel]))
     vel = vel*therm1 + therm2*np.random.normal()
-    therm = therm - kinetic(vel)
+    therm = therm - kinetic(np.array([vel]))
     # Update the velocities a half timestep
     # fill in the blanks in the code here
     vel = vel + 0.5*timestep*forces
@@ -349,17 +349,17 @@ def gen_traj( pos, vel, nsteps, timestep, stride, temperature, friction ) :
     # You need to add code here
     vel = vel + 0.5*timestep*forces
     # And finish by applying the thermostat for the second half timestep 
-    therm = therm + kinetic(vel)
+    therm = therm + kinetic(np.array([vel]))
     vel = vel*therm1 + therm2*np.random.normal()
-    therm = therm - kinetic(vel)
+    therm = therm - kinetic(np.array([vel]))
     # This is where we want to store the energies and times
     if step%stride==0 :
       times[int(step/stride)] = step*timestep
       # Write code to ensure the proper values are saved here
       p_energy[int(step/stride)] = eng
-      k_energy[int(step/stride)] = kinetic(vel)
-      t_energy[int(step/stride)] = eng + kinetic(vel)
-      conserved_quantity[int(step/stride)] = eng + kinetic(vel) + therm
+      k_energy[int(step/stride)] = kinetic(np.array([vel]))
+      t_energy[int(step/stride)] = eng + kinetic(np.array([vel]))
+      conserved_quantity[int(step/stride)] = eng + kinetic(np.array([vel])) + therm
   return times, p_energy, k_energy, t_energy, conserved_quantity
 # Set the initial position for the particle (you can change as I assume the initial particle is at init_pos when I test your code)
 init_pos, init_vel = 3, 1
@@ -382,14 +382,13 @@ for i, blocksize in enumerate(bsize) :
     errors[i] = errors[i] + av*av
   averages[i] = averages[i] / nblocks
   errors[i] = (nblocks / (nblocks-1))*( errors[i] / nblocks - averages[i]*averages[i] )
-  errors[i] = np.sqrt( errors[i] / nblocks )*st.norm.ppf((1+0.90)/2)
-  i=i+1
+  errors[i] = np.sqrt( errors[i] / nblocks )*scipy.stats.norm.ppf((1+0.90)/2)
 
 # This will plot the kinetic energy as a function of time
 plt.errorbar( bsize, averages, yerr=errors, fmt='ko' )
 plt.xlabel("Length of block")
 plt.ylabel("Average energy / natural units")
-plt.plot() 
+plt.savefig("block-errors.png") 
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 

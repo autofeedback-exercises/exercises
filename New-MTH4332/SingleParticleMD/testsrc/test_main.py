@@ -259,9 +259,30 @@ class UnitTests(unittest.TestCase) :
 
     def test_block_averages1(self) :
         # Do the block averaging
+        total = get_internal("t_energy")
+        fighand = get_internal("fighand") 
         figdat = fighand.get_lines()[0].get_xydata()
         this_x, this_y = zip(*figdat)
-        correct_average, correct_error = np.zeros(len(this_x)), np.zeros(len(this_x))
+        correct_average = np.zeros(len(this_x)) 
+        for k, block in enumerate(this_x) :
+            blocksize = int( block )
+            # Your code to calculate the block averages goes here
+            nblocks, average = int( len(total) / blocksize ), 0
+            for j in range(nblocks) :
+                av = sum( total[j*blocksize:(j+1)*blocksize] ) / blocksize
+                average = average + av
+            correct_average[k] = average / nblocks
+        
+        line1 = line( this_x, correct_average )
+        axislabels = ["Length of block", "Average energy / natural units"]
+        pc.check_plot([line1], explabels=axislabels)
+
+    def test_block_errors1(self) :
+        total = get_internal("t_energy")
+        fighand = get_internal("fighand") 
+        figdat = fighand.get_lines()[0].get_xydata()
+        this_x, this_y = zip(*figdat)
+        correct_error = np.zeros(len(this_x))
         for k, block in enumerate(this_x) :
             blocksize = int( block )
             # Your code to calculate the block averages goes here
@@ -270,15 +291,10 @@ class UnitTests(unittest.TestCase) :
                 av = sum( total[j*blocksize:(j+1)*blocksize] ) / blocksize
                 average = average + av
                 error = error + av*av
-            correct_average[k] = average / nblocks
-            correct_error[k] = (nblocks / (nblocks-1))*( error / nblocks - average*average )*np.sqrt( error / nblocks )*st.norm.ppf(0.95)
-        
-        line1 = line( this_x, correct_average )
-        axislabels = ["Length of block", "Average energy / natural units"]
-        pc.check_plot([line1], explabels=axislabels)
-
-    def test_block_errors1(self) :
-         assert( check_vars( 'errros', correct_error ) )
+            average = average / nblocks
+            error = (nblocks / (nblocks-1))*( error / nblocks - average*average )
+            correct_error[k] = np.sqrt( error / nblocks )*scipy.stats.norm.ppf(0.95) 
+         assert( check_vars( 'errors', correct_error ) )
          
     def test_conserved1(self) :
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
@@ -302,26 +318,42 @@ class UnitTests(unittest.TestCase) :
          assert( check_func('potential', inputs, outputs ) )
 
     def test_block_averages2(self) :
+         total = get_internal("t_energy")
+         fighand = get_internal("fighand")
          figdat = fighand.get_lines()[0].get_xydata()
          this_x, this_y = zip(*figdat)
-         ftotal_sq, correct_average, correct_error = total*total, np.zeros(len(this_x)), np.zeros(len(this_x))
+         ftotal_sq, correct_average = total*total, np.zeros(len(this_x))
          for k, block in enumerate(this_x) :
              blocksize = int( block )
              # Your code to calculate the block averages goes here
-             nblocks, average, error = int( len(ftotal_sq) / blocksize ), 0, 0
+             nblocks, average = int( len(ftotal_sq) / blocksize ), 0
              for j in range(nblocks) :
                  av = sum( ftotal_sq[j*blocksize:(j+1)*blocksize] ) / blocksize
                  average = average + av
-                 error = error + av*av
              correct_average[k] = average / nblocks
-             correct_error[k] = (nblocks / (nblocks-1))*( error / nblocks - average*average )*np.sqrt( error / nblocks )*st.norm.ppf(0.95)
          
          line1 = line( this_x, correct_average )
          axislabels = ["Length of block", "Average squared energy"]
          pc.check_plot([line1], explabels=axislabels)
 
     def test_block_errors2(self) :
-         assert( check_vars( 'errros', correct_error ) )
+         total = get_internal("t_energy")
+         fighand = get_internal("fighand")
+         figdat = fighand.get_lines()[0].get_xydata()
+         this_x, this_y = zip(*figdat)
+         ftotal_sq, correct_error = total*total, np.zeros(len(this_x))
+         for k, block in enumerate(this_x) :
+             blocksize = int( block )
+             # Your code to calculate the block averages goes here
+             nblocks, averae, error = int( len(ftotal_sq) / blocksize ), 0, 0
+             for j in range(nblocks) :
+                 av = sum( ftotal_sq[j*blocksize:(j+1)*blocksize] ) / blocksize
+                 average = average + av
+                 error = error + av*av
+             average[k] = average / nblocks
+             error = (nblocks / (nblocks-1))*( error / nblocks - average*average )
+             correct_error[k] = np.sqrt( error / nblocks )*scipy.stats.norm.ppf(0.95)
+         assert( check_vars( 'errors', correct_error ) )
          
     def test_conserved2(self) :
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
