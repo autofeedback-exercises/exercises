@@ -247,7 +247,7 @@ x = np.linspace(1,10,10)
 plt.plot( x, av_eng, "ko")
 plt.xlabel("Index")
 plt.ylabel("Average energy / natural units")
-plt.plot()
+plt.savefig("block_averages.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -269,7 +269,7 @@ plt.plot( x, variances, 'ko')
 plt.plot( [1,10], [total_var,total_var], 'r-' )
 plt.xlabel("Index")
 plt.ylabel("Variance / energy^2")
-plt.plot()
+plt.savefig("variance.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca() 
 
