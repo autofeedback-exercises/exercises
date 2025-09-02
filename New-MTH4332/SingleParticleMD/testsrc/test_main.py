@@ -294,7 +294,7 @@ class UnitTests(unittest.TestCase) :
             average = average / nblocks
             error = (nblocks / (nblocks-1))*( error / nblocks - average*average )
             correct_error[k] = np.sqrt( error / nblocks )*scipy.stats.norm.ppf(0.95) 
-         assert( check_vars( 'errors', correct_error ) )
+        assert( check_vars( 'errors', correct_error ) )
          
     def test_conserved1(self) :
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
