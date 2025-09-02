@@ -116,14 +116,14 @@ class UnitTests(unittest.TestCase) :
             outputs.append(r)
         assert( check_func('gen_vel', inputs, outputs) ) 
 
-   def test_potential3(self) :
+    def test_potential3(self) :
        inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
        for x in xvals :
            inputs.append((x,))
            outputs.append((x*x/2,-x,))
        assert( check_func('potential', inputs, outputs ) )
 
-   def test_kinetic9(self) :
+    def test_kinetic9(self) :
        inputs, outputs = [], []
        for i in range(100) :
            vel = np.random.normal()
@@ -132,7 +132,7 @@ class UnitTests(unittest.TestCase) :
            outputs.append(eng)
        assert( check_func('kinetic', inputs, outputs ) )
 
-   def test_trajectory3(self):
+    def test_trajectory3(self):
        nsteps, stride, timestep, temperature = get_internal("nsteps"), get_internal("stride"), get_internal("timestep"), get_internal("temperature")
        xv = np.linspace( 0, (nsteps-stride)*timestep, len(vels) )
        var = randomvar( 0, variance=temperature )
@@ -140,14 +140,14 @@ class UnitTests(unittest.TestCase) :
        axislabels=["time", "velocity"]
        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
    
-   def test_potential4(self) :
+    def test_potential4(self) :
        inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
        for x in xvals :
            inputs.append((x,))
            outputs.append((x*x/2,-x,))
        assert( check_func('potential', inputs, outputs ) )
 
-   def test_kinetic8(self) :
+    def test_kinetic8(self) :
        inputs, outputs = [], []
        for i in range(100) :
            vel = np.random.normal()
@@ -156,7 +156,7 @@ class UnitTests(unittest.TestCase) :
            outputs.append(eng)
        assert( check_func('kinetic', inputs, outputs ) )
 
-   def test_trajectory4(self):
+    def test_trajectory4(self):
        conserved_quantity = get_internal("conserved_quantity")
        init_pos, init_vel = get_internal("init_pos"), get_internal("init_vel") 
        nsteps, stride, timestep = get_internal("nsteps"), get_internal("stride"), get_internal("timestep")
@@ -167,12 +167,12 @@ class UnitTests(unittest.TestCase) :
        axislabels=["time", "conserved quantity / energy units"] 
        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_mean(self) : 
+     def test_mean(self) : 
         mye = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         myeng = sum( mye ) / len( eng )
         assert(check_vars("average",myeng))
 
-    def test_energies(self) :
+     def test_energies(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         xvals = np.linspace( 1, 10, 10 )
         yvals = np.zeros(10)
@@ -180,7 +180,7 @@ class UnitTests(unittest.TestCase) :
         line1, axislabels  = line(xvals,yvals), ["Index", "Average energy / natural units"]
         assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_graph1(self) : 
+     def test_graph1(self) : 
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         xvals, yvals = np.linspace(1,10,10), np.zeros(10)
         for i in range(10) :
@@ -196,7 +196,7 @@ class UnitTests(unittest.TestCase) :
         axislabels = ["Index","Variance / energy^2"]
         assert( pc.check_plot([line1,line2],explabels=axislabels,explegend=False,output=True) )
 
-    def test_average_correct(self) :
+     def test_average_correct(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         myblocks, myaverage = 10*[0], 0
         for i in range(10) :
@@ -204,7 +204,7 @@ class UnitTests(unittest.TestCase) :
             myaverage = myaverage + myblocks[i] 
         assert( vc.check_vars("average", myaverage / 10 ) )
         
-    def test_error_correct(self) :
+     def test_error_correct(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         myblocks, myaverage, mysq = 10*[0], 0, 0
         for i in range(10) :
@@ -216,7 +216,7 @@ class UnitTests(unittest.TestCase) :
         myvar = ( 10 / 9 )*( mysq - myaverage*myaverage )
         assert( vc.check_vars("error", np.sqrt( myvar / 10 ) ) )
 
-    def test_blockVals(self) :
+     def test_blockVals(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         inputs, outputs = [], []
         for i in range(len(xvals)) : 
@@ -224,7 +224,7 @@ class UnitTests(unittest.TestCase) :
             outputs.append( yvals[i] )
         assert( check_func('block_average',inputs,outputs ) )
 
-    def test_plot(self):
+     def test_plot(self):
        myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
        xvals, yvals, k = [10,20,30,40,60,100,120,200,300,400], np.zeros(10), 0
        for bb in xvals :
@@ -244,7 +244,7 @@ class UnitTests(unittest.TestCase) :
        axislabels=["Size of blocks", "Error"] 
        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_block_averages1(self) :
+     def test_block_averages1(self) :
         # Do the block averaging
         figdat = fighand.get_lines()[0].get_xydata()
         this_x, this_y = zip(*figdat)
@@ -264,126 +264,126 @@ class UnitTests(unittest.TestCase) :
         axislabels = ["Length of block", "Average energy / natural units"]
         pc.check_plot([line1], explabels=axislabels)
 
-    def test_block_errors1(self) :
-        check_vars( 'errros', correct_error )
-        
-    def test_conserved1(self) :
-        init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
-        cc = init_eng*np.ones( len(conserved) )
-        assert( check_vars('conserved', cc ) ) 
+     def test_block_errors1(self) :
+         check_vars( 'errros', correct_error )
+         
+     def test_conserved1(self) :
+         init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
+         cc = init_eng*np.ones( len(conserved) )
+         assert( check_vars('conserved', cc ) ) 
+             
+     def test_kinetic1(self) :
+         inputs, outputs = [], []
+         for i in range(100) :
+            vel = np.random.normal()
+            eng =  0.5*vel*vel
+            inputs.append((vel,))
+            outputs.append(eng)
+         assert( check_func('kinetic', inputs, outputs ) )
             
-    def test_kinetic1(self) :
-        inputs, outputs = [], []
-        for i in range(100) :
-           vel = np.random.normal()
-           eng =  0.5*vel*vel
-           inputs.append((vel,))
-           outputs.append(eng)
-        assert( check_func('kinetic', inputs, outputs ) )
-           
-    def test_forces1(self) : 
-        inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
-        for x in xvals :
-            inputs.append((x,))
-            outputs.append((x*x/2,-x,))
-        assert( check_func('potential', inputs, outputs ) )
+     def test_forces1(self) : 
+         inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
+         for x in xvals :
+             inputs.append((x,))
+             outputs.append((x*x/2,-x,))
+         assert( check_func('potential', inputs, outputs ) )
 
-    def test_block_averages2(self) :
-        figdat = fighand.get_lines()[0].get_xydata()
-        this_x, this_y = zip(*figdat)
-        ftotal_sq, correct_average, correct_error = total*total, np.zeros(len(this_x)), np.zeros(len(this_x))
-        for k, block in enumerate(this_x) :
-            blocksize = int( block )
-            # Your code to calculate the block averages goes here
-            nblocks, average, error = int( len(ftotal_sq) / blocksize ), 0, 0
-            for j in range(nblocks) :
-                av = sum( ftotal_sq[j*blocksize:(j+1)*blocksize] ) / blocksize
-                average = average + av
-                error = error + av*av
-            correct_average[k] = average / nblocks
-            correct_error[k] = (nblocks / (nblocks-1))*( error / nblocks - average*average )*np.sqrt( error / nblocks )*st.norm.ppf(0.95)
-        
-        line1 = line( this_x, correct_average )
-        axislabels = ["Length of block", "Average squared energy"]
-        pc.check_plot([line1], explabels=axislabels)
+     def test_block_averages2(self) :
+         figdat = fighand.get_lines()[0].get_xydata()
+         this_x, this_y = zip(*figdat)
+         ftotal_sq, correct_average, correct_error = total*total, np.zeros(len(this_x)), np.zeros(len(this_x))
+         for k, block in enumerate(this_x) :
+             blocksize = int( block )
+             # Your code to calculate the block averages goes here
+             nblocks, average, error = int( len(ftotal_sq) / blocksize ), 0, 0
+             for j in range(nblocks) :
+                 av = sum( ftotal_sq[j*blocksize:(j+1)*blocksize] ) / blocksize
+                 average = average + av
+                 error = error + av*av
+             correct_average[k] = average / nblocks
+             correct_error[k] = (nblocks / (nblocks-1))*( error / nblocks - average*average )*np.sqrt( error / nblocks )*st.norm.ppf(0.95)
+         
+         line1 = line( this_x, correct_average )
+         axislabels = ["Length of block", "Average squared energy"]
+         pc.check_plot([line1], explabels=axislabels)
 
-    def test_block_errors2(self) :
-        check_vars( 'errros', correct_error )
-        
-    def test_conserved2(self) :
-        init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
-        cc = init_eng*np.ones( len(conserved) )
-        assert( check_vars('conserved', cc ) ) 
+     def test_block_errors2(self) :
+         check_vars( 'errros', correct_error )
+         
+     def test_conserved2(self) :
+         init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
+         cc = init_eng*np.ones( len(conserved) )
+         assert( check_vars('conserved', cc ) ) 
+             
+     def test_kinetic2(self) :
+         inputs, outputs = [], []
+         for i in range(100) :
+            vel = np.random.normal()
+            eng =  0.5*vel*vel
+            inputs.append((vel,))
+            outputs.append(eng)
+         assert( check_func('kinetic', inputs, outputs ) )
             
-    def test_kinetic2(self) :
-        inputs, outputs = [], []
-        for i in range(100) :
-           vel = np.random.normal()
-           eng =  0.5*vel*vel
-           inputs.append((vel,))
-           outputs.append(eng)
-        assert( check_func('kinetic', inputs, outputs ) )
-           
-    def test_forces2(self) : 
-        inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
-        for x in xvals :
-            inputs.append((x,))
-            outputs.append((x*x/2,-x,))
-        assert( check_func('potential', inputs, outputs ) )
+     def test_forces2(self) : 
+         inputs, outputs, xvals = [], [], np.linspace(-4,4,400)
+         for x in xvals :
+             inputs.append((x,))
+             outputs.append((x*x/2,-x,))
+         assert( check_func('potential', inputs, outputs ) )
   
-    def test_graph3(self) :
-        filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
-        tmid, cvmid = np.zeros(len(filedata)-1), np.zeros(len(filedata)-1)
-        for i in range(len(filedata)-1) :
-            tmid[i] = (filedata[i,0] + filedata[i+1,0] ) / 2
-            cvmid[i] = (filedata[i+1,1] - filedata[i,1]) / (filedata[i+1,0] - filedata[i,0])
-        
-        line1 = line( tmid, cvmid )
-        axislabels = ["temperature / natural units", "heat capacity / natural units"]
-        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
+     def test_graph3(self) :
+         filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
+         tmid, cvmid = np.zeros(len(filedata)-1), np.zeros(len(filedata)-1)
+         for i in range(len(filedata)-1) :
+             tmid[i] = (filedata[i,0] + filedata[i+1,0] ) / 2
+             cvmid[i] = (filedata[i+1,1] - filedata[i,1]) / (filedata[i+1,0] - filedata[i,0])
+         
+         line1 = line( tmid, cvmid )
+         axislabels = ["temperature / natural units", "heat capacity / natural units"]
+         assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_graph4(self) :
-        filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
-        tmid, cvmid = np.zeros(len(filedata)-1), np.zeros(len(filedata)-1)
-        for i in range(len(filedata)-1) :
-            tmid[i] = (filedata[i,0] + filedata[i+1,0] ) / 2
-            cvmid[i] = (filedata[i+1,1] - filedata[i,1]) / (filedata[i+1,0] - filedata[i,0])
-        
-        line1 = line( tmid, cvmid )
-        axislabels = ["temperature / natural units", "heat capacity / natural units"]
-        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
+     def test_graph4(self) :
+         filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
+         tmid, cvmid = np.zeros(len(filedata)-1), np.zeros(len(filedata)-1)
+         for i in range(len(filedata)-1) :
+             tmid[i] = (filedata[i,0] + filedata[i+1,0] ) / 2
+             cvmid[i] = (filedata[i+1,1] - filedata[i,1]) / (filedata[i+1,0] - filedata[i,0])
+         
+         line1 = line( tmid, cvmid )
+         axislabels = ["temperature / natural units", "heat capacity / natural units"]
+         assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_errors1( self ) :
-        err = np.zeros(len(filedata)-1)
-        for i in range(len(filedata)-1) :
-            err[i] = ( filedata[i+1,2] + filedata[i,2] ) / ( filedata[i+1,0] - filedata[i,0] )
-        assert( check_vars( "cv_errors", err ) ) 
+     def test_errors1( self ) :
+         err = np.zeros(len(filedata)-1)
+         for i in range(len(filedata)-1) :
+             err[i] = ( filedata[i+1,2] + filedata[i,2] ) / ( filedata[i+1,0] - filedata[i,0] )
+         assert( check_vars( "cv_errors", err ) ) 
 
-    def test_graph5(self) :
-        filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
-        cvmid = np.zeros(len(filedata))
-        for i in range(len(filedata)) :
-            cvmid[i] = (filedata[i,3] - filedata[i,1]*filedata[i,1]) / (filedata[i,0]*filedata[i,0])
-        
-        line1 = line( filedata[:,0], cvmid )
-        axislabels = ["temperature / natural units", "heat capacity / natural units"] 
-        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
+     def test_graph5(self) :
+         filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
+         cvmid = np.zeros(len(filedata))
+         for i in range(len(filedata)) :
+             cvmid[i] = (filedata[i,3] - filedata[i,1]*filedata[i,1]) / (filedata[i,0]*filedata[i,0])
+         
+         line1 = line( filedata[:,0], cvmid )
+         axislabels = ["temperature / natural units", "heat capacity / natural units"] 
+         assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_graph6(self) :
-        filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
-        cvmid = np.zeros(len(filedata))
-        for i in range(len(filedata)) :
-            cvmid[i] = (filedata[i,3] - filedata[i,1]*filedata[i,1]) / (filedata[i,0]*filedata[i,0])
-        
-        line1 = line( filedata[:,0], cvmid )
-        axislabels = ["temperature / natural units", "heat capacity / natural units"] 
-        assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
+     def test_graph6(self) :
+         filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
+         cvmid = np.zeros(len(filedata))
+         for i in range(len(filedata)) :
+             cvmid[i] = (filedata[i,3] - filedata[i,1]*filedata[i,1]) / (filedata[i,0]*filedata[i,0])
+         
+         line1 = line( filedata[:,0], cvmid )
+         axislabels = ["temperature / natural units", "heat capacity / natural units"] 
+         assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
-    def test_errors2( self ) :
-        err = np.zeros(len(filedata))
-        for i in range(len(filedata)) :
-            err[i] = ( filedata[i,4] + 2*filedata[i,1]*filedata[i,2] ) / ( filedata[i,0]*filedata[i,0] )
-        assert( check_vars( "cv_errors", err ) ) 
+     def test_errors2( self ) :
+         err = np.zeros(len(filedata))
+         for i in range(len(filedata)) :
+             err[i] = ( filedata[i,4] + 2*filedata[i,1]*filedata[i,2] ) / ( filedata[i,0]*filedata[i,0] )
+         assert( check_vars( "cv_errors", err ) ) 
 
-    def test_cv( self ) :
-        assert( check_vars( "CV", sy.Rational(3,4) ) )
+     def test_cv( self ) :
+         assert( check_vars( "CV", sy.Rational(3,4) ) )
