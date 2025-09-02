@@ -296,12 +296,12 @@ def block_average( M, data ) :
   nblocks = int( np.floor(len(data) / M) )
   myaverage, mysq = 0, 0
   for i in range(nblocks) :
-      myblocks = sum( data[i*bb:(i+1)*bb] ) / bb
+      myblocks = sum( data[i*M:(i+1)*M] ) / M
       myaverage = myaverage + myblocks
       mysq = mysq + myblocks*myblocks
 
   average, sq = myaverage / nblocks, mysq / nblocks
-  var = ( len(blocks) / ( nblocks - 1 ) ) * ( sq - average*average )
+  var = ( nblocks / ( nblocks - 1 ) ) * ( sq - average*average )
   error = np.sqrt( var / nblocks )
   return error
 
