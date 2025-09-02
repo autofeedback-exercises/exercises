@@ -223,14 +223,23 @@ class UnitTests(unittest.TestCase) :
     def test_blockVals(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
         inputs, outputs = [], []
-        for i in range(len(xvals)) : 
-            inputs.append((xvals[i],myeng,))
-            outputs.append( yvals[i] )
+        for bb in [10,20,30,40,60,100,120,200,300,400] : 
+            nblocks = int( len( eng ) / bb )
+            myaverage, mysq = 0, 0
+            for i in range(nblocks) :
+                myblocks = sum( myeng[i*bb:(i+1)*bb] ) / bb
+                myaverage = myaverage + myblocks
+                mysq = mysq + myblocks*myblocks
+
+            mysq, myaverage = mysq / nblocks, myaverage / nblocks
+            myvar = ( nblocks / (nblocks - 1) )*( mysq - myaverage*myaverage )
+            inputs.append((bb,myeng,))
+            outputs.append( np.sqrt( myvar / nblocks )  )
         assert( check_func('block_average',inputs,outputs ) )
 
     def test_plot(self):
        myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
-       xvals, yvals, k = [10,20,30,40,60,100,120,200,300,400], np.zeros(10), 0
+       xvals, yvals = [10,20,30,40,60,100,120,200,300,400], np.zeros(10)
        for bb in xvals :
            nblocks = int( len( eng ) / bb )
            myaverage, mysq = 0, 0
@@ -242,7 +251,6 @@ class UnitTests(unittest.TestCase) :
            mysq, myaverage = mysq / nblocks, myaverage / nblocks
            myvar = ( nblocks / (nblocks - 1) )*( mysq - myaverage*myaverage )
            yvals[k] = np.sqrt( myvar / nblocks )
-           k = k + 1
        
        line1 = line(xvals,yvals)
        axislabels=["Size of blocks", "Error"] 
