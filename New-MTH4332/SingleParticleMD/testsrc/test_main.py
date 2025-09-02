@@ -206,7 +206,7 @@ class UnitTests(unittest.TestCase) :
         for i in range(10) :
             myblocks[i] = sum( myeng[i*100:(i+1)*100] ) / 100 
             myaverage = myaverage + myblocks[i] 
-        assert( vc.check_vars("average", myaverage / 10 ) )
+        assert( check_vars("average", myaverage / 10 ) )
         
     def test_error_correct(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
@@ -218,7 +218,7 @@ class UnitTests(unittest.TestCase) :
   
         mysq, myaverage = mysq / 10, myaverage / 10
         myvar = ( 10 / 9 )*( mysq - myaverage*myaverage )
-        assert( vc.check_vars("error", np.sqrt( myvar / 10 ) ) )
+        assert( check_vars("error", np.sqrt( myvar / 10 ) ) )
 
     def test_blockVals(self) :
         myeng = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
@@ -269,7 +269,7 @@ class UnitTests(unittest.TestCase) :
         pc.check_plot([line1], explabels=axislabels)
 
     def test_block_errors1(self) :
-         check_vars( 'errros', correct_error )
+         assert( check_vars( 'errros', correct_error ) )
          
     def test_conserved1(self) :
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
@@ -312,7 +312,7 @@ class UnitTests(unittest.TestCase) :
          pc.check_plot([line1], explabels=axislabels)
 
     def test_block_errors2(self) :
-         check_vars( 'errros', correct_error )
+         assert( check_vars( 'errros', correct_error ) )
          
     def test_conserved2(self) :
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
