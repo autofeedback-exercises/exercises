@@ -86,12 +86,13 @@ class UnitTests(unittest.TestCase) :
        assert( check_func('kinetic', inputs, outputs ) )
 
     def test_trajectory2(self) :
+       nsteps = get_internal("nsteps")
        timestep, stride = get_internal("timestep"), get_internal("stride")
        p, v, f = get_internal("init_pos"), get_internal("init_vel"), -get_internal("init_pos")
-       xvals = np.zeros(len(p_energy))
-       yvals1 = np.zeros(len(p_energy))
-       yvals2 = np.zeros(len(p_energy))
-       yvals3 = np.zeros(len(p_energy))
+       xvals = np.zeros(int(nsteps/stride))
+       yvals1 = np.zeros(int(nsteps/stride))
+       yvals2 = np.zeros(int(nsteps/stride))
+       yvals3 = np.zeros(int(nsteps/stride))
        for s in range(nsteps) :
            v = v + 0.5*timestep*f
            p = p + timestep*v
