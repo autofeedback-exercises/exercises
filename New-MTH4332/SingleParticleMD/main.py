@@ -200,9 +200,9 @@ times = np.zeros(int(nsteps/stride))
 conserved_quantity = np.zeros(int(nsteps/stride))
 for step in range(nsteps) :
   # Apply the thermostat for a half timestep 
-  therm = therm + kinetic(vel)
+  therm = therm + kinetic(np.array([vel]))
   vel = vel*therm1 + therm2*np.random.normal()
-  therm = therm - kinetic(vel)
+  therm = therm - kinetic(np.array([vel]))
   # Update the velocities a half timestep
   # fill in the blanks in the code here
   vel = vel + 0.5*timestep*forces
@@ -211,25 +211,25 @@ for step in range(nsteps) :
   pos = pos + timestep*vel
   # Recalculate the forces at the new position
   # You need to add code here
-  eng, forces = eng, forces = potential(pos)
+  eng, forces = potential(pos)
   # Update the velocities another half timestep
   # You need to add code here
   vel = vel + 0.5*timestep*forces
   # And finish by applying the thermostat for the second half timestep 
-  therm = therm + kinetic(vel)
+  therm = therm + kinetic(np.array([vel]))
   vel = vel*therm1 + therm2*np.random.normal()
-  therm = therm - kinetic(vel)
+  therm = therm - kinetic(np.array([vel]))
   # This is where we want to store the energies and times
   if step%stride==0 :
     times[int(step/stride)] = step*timestep
     # Write code to ensure the proper values are saved here
-    conserved_quantity[int(step/stride)] = eng + kinetic(vel) + therm
+    conserved_quantity[int(step/stride)] = eng + kinetic(np.array([vel])) + therm
 # This will plot the kinetic energy as a function of time
 plt.plot( times, conserved_quantity, 'r-' )
 plt.ylim([min(conserved_quantity)-0.05, max(conserved_quantity)+0.05 ])
 plt.xlabel('time')
 plt.ylabel('conserved quantity / energy units')
-plt.plot() 
+plt.savefig("conserved.png") 
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 

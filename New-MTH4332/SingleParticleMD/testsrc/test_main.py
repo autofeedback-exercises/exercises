@@ -172,7 +172,7 @@ class UnitTests(unittest.TestCase) :
 
     def test_mean(self) : 
         mye = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/energies")[:,1]
-        myeng = sum( mye ) / len( eng )
+        myeng = sum( mye ) / len( mye )
         assert(check_vars("average",myeng))
 
     def test_energies(self) :
