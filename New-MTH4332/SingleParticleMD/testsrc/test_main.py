@@ -298,7 +298,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_vars( 'errors', correct_error ) )
          
     def test_conserved1(self) :
-         init_pos, init_vel = get_internal("init_pos"), get_internal("init_vel")
+         init_pos, init_vel, conserved = get_internal("init_pos"), get_internal("init_vel"), get_internal("conserved")
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
          cc = init_eng*np.ones( len(conserved) )
          assert( check_vars('conserved', cc ) ) 
@@ -358,7 +358,7 @@ class UnitTests(unittest.TestCase) :
          assert( check_vars( 'errors', correct_error ) )
          
     def test_conserved2(self) :
-         init_pos, init_vel = get_internal("init_pos"), get_internal("init_vel") 
+         init_pos, init_vel, conserved = get_internal("init_pos"), get_internal("init_vel"), get_internal("conserved") 
          init_eng = 0.5*( init_pos*init_pos + init_vel*init_vel )
          cc = init_eng*np.ones( len(conserved) )
          assert( check_vars('conserved', cc ) ) 
