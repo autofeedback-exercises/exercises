@@ -21,6 +21,7 @@ def genSpins(N) :
     for i in range(N) :
         for j in range(N) :
             if np.random.uniform(0,1)<0.5 : spins[i,j] = -1
+    return spins
 
 class UnitTests(unittest.TestCase) :
     def test_estimate(self) : 
