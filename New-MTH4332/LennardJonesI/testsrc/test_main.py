@@ -12,7 +12,14 @@ from AutoFeedback.plotclass import line
 from AutoFeedback.funcchecks import check_func
 from AutoFeedback.randomclass import randomvar
 from AutoFeedback.utils import get_internal
-import unittest
+import matplotlib.pyplot as plt
+import ase
+from ase.calculators.calculator import Calculator, all_changes
+from ase.lattice.cubic import FaceCenteredCubic
+from ase.io.trajectory import Trajectory 
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats
 
 def mylj(r) :
     r2 = r*r
@@ -42,6 +49,7 @@ class UnitTests(unittest.TestCase) :
         assert check_func("fff", inputs, outputs )
 
     def test_calculator(self):
+        pairwise_calculator = get_internal("pairwise_calculator")
         myatoms = FaceCenteredCubic( directions=[[1, 0, 0], [0, 1, 0], [0, 0, 1]], symbol="Ar", size=(3, 3, 3), latticeconstant=2**(2/3), pbc=(1,1,1) )
         atoms = get_internal('atoms')
         student_pos = atoms.get_positions()
@@ -56,6 +64,7 @@ class UnitTests(unittest.TestCase) :
         assert vc.check_vars( student_energy, myeng, printname="atoms.potential_energy" )
             
     def test_energies(self) :
+        pairwise_calculator = get_internal("pairwise_calculator")
         try: 
           ftraj = Trajectory("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/mytraj.traj")
         except:
