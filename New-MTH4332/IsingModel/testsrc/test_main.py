@@ -54,7 +54,7 @@ class UnitTests(unittest.TestCase) :
                 for j in range(2) :
                     inputs.append((spins,))
                     spins = -1*np.copy(spins)
-                    output.append(spins) 
+                    outputs.append(spins) 
         assert( check_func("flipAllSpins", inputs, outputs ) )
 
     def test_chooseMove(self) : 
@@ -330,6 +330,7 @@ class UnitTests(unittest.TestCase) :
         maxx = get_internal("maxx")
         minx = get_internal("minx")
         nbins = get_internal("nbins")
+        blocksize = get_internal("get_internal")
         testdelx = ( maxx - minx ) / nbins
         test_v, test_v2 = np.zeros(nbins), np.zeros( nbins )
         testnblocks = int( np.floor( len(testmags) / blocksize ) )
