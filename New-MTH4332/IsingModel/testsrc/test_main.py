@@ -330,7 +330,7 @@ class UnitTests(unittest.TestCase) :
         maxx = get_internal("maxx")
         minx = get_internal("minx")
         nbins = get_internal("nbins")
-        blocksize = get_internal("get_internal")
+        blocksize = get_internal("blocksize")
         testdelx = ( maxx - minx ) / nbins
         test_v, test_v2 = np.zeros(nbins), np.zeros( nbins )
         testnblocks = int( np.floor( len(testmags) / blocksize ) )

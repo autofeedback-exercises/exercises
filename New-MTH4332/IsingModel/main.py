@@ -334,7 +334,7 @@ for n,b in enumerate(blocksizes) :
 plt.plot( blocksizes, error, 'ko' )
 plt.xlabel("Length of block")
 plt.ylabel("Average error on free energy")
-plt.show()
+plt.savefig("block-average.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 ~                                                                        
