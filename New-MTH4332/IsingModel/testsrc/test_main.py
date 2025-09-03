@@ -73,7 +73,7 @@ class UnitTests(unittest.TestCase) :
             spins = np.ones([N,N])
             inputs.append((spins,))
             myvar = randomvar( [(N-1)/2,(N-1)/2], variance=[(N*N-1)/12,(N*N-1)/12], vmin=[0,0], vmax=[N-1,N-1], isinteger=[True,True] )
-            outputs.append((myvar,myvar,))
+            outputs.append((myvar,))
         assert( check_func("chooseSpin", inputs, outputs ) )
 
     def test_mag(self) : 
