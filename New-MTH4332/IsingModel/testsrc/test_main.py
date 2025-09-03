@@ -11,6 +11,7 @@ from AutoFeedback.plotclass import line
 from AutoFeedback.randomclass import randomvar
 from AutoFeedback.plotchecks import check_plot
 from AutoFeedback.utils import get_internal
+from AutoFeedback.varchecks import check_vars
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats
@@ -39,9 +40,10 @@ class UnitTests(unittest.TestCase) :
             for j in range(30) : 
                 ispin = int(np.floor( N*np.random.uniform(0,1) ) )
                 jspin = int(np.floor( N*np.random.uniform(0,1) ) )
-                inputs.append((np.copy(spins),ispin,jspin,))
-                spins[ispin,jspin] = -1*spins[ispin,jspin]
-                outputs.append(spins)
+                inputs.append((spins,ispin,jspin,))
+                spincopy = np.copy(spins) 
+                spincopy[ispin,jspin] = -1*spincopy[ispin,jspin]
+                outputs.append(spincopy)
         assert( check_func("flipSpin", inputs, outputs ) )
 
     def test_flipAllSpins(self) : 
@@ -50,8 +52,8 @@ class UnitTests(unittest.TestCase) :
             for k in range(3) :
                 spins = genSpins( N ) 
                 for j in range(2) :
-                    inputs.append((np.copy(spins),))
-                    spins = -1*spins
+                    inputs.append((spins,))
+                    spins = -1*np.copy(spins)
                     output.append(spins) 
         assert( check_func("flipAllSpins", inputs, outputs ) )
 

@@ -129,12 +129,8 @@ def monte_carlo( N, equil, stride, L, H, T, seed ) :
     # Set the seed to the value input
     np.random.seed(seed)
     # Generate the initial configuration 
-    spins = np.ones([L,L])
-    for i in range(L) :
-        for j in range(L) :
-            if np.random.uniform(0,1)<0.5 : spins[i,j]=-1
-    # Calculate the energy of the initial configuration that you generated
-    eng = 0
+    spins = getstate(L) 
+    eng = hamiltonian( spins, H )
     # YOUR CODE TO CALCULATE THE INITIAL ENERGY OF THE CONFIGURATION GOES HERE
     for i in range(spins.shape[0]) :
         for j in range(spins.shape[1]) :
@@ -184,18 +180,10 @@ def monte_carlo( N, equil, stride, L, H, T, seed ) :
     # Set the seed to the value input
     np.random.seed(seed)
     # Generate the initial configuration 
-    spins = np.ones([L,L])
-    for i in range(L) :
-        for j in range(L) :
-            if np.random.uniform(0,1)<0.5 : spins[i,j]=-1
+    spins = getstate(L) 
     # Calculate the energy of the initial configuration that you generated
-    eng = 0
-    # YOUR CODE TO CALCULATE THE INITIAL ENERGY OF THE CONFIGURATION GOES HERE
-    for i in range(spins.shape[0]) :
-        for j in range(spins.shape[1]) :
-            eng = eng + spins[i,j]*( spins[ (i+1)%spins.shape[0], j] + spins[ i, (j+1)%spins.shape[1]] + spins[(i-1)%spins.shape[0], j] + spins[ i, (j-1)%spins.shape[1]] )
+    eng = hamiltonian( spins, H )
     mag = sum( sum( spins ) )
-    eng = - eng / 2 - H*mag
     # Do the main Monte Carlo loop
     neweng, M, M2, ns = 0, 0, 0, 0
     for i in range(equil + N) :
@@ -251,29 +239,16 @@ for i in range(nbins) : xvals[i] = (i+0.5)*delx
 plt.plot( xvals, histo, 'k--' )
 plt.xlabel("average magnetisation per spin")
 plt.ylabel("probability density")
-plt.show()
+plt.savefig("histogram.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 12
 # This is the number of bins
-nbins = 50
-# This is the minimum and maximum for the grid
-minx, maxx = -1.1, 1.1
-# Your code to calculate and plot the histogram goes here
-delx = (maxx - minx) / nbins
-histo = np.zeros(nbins)
-for m in mags :
-    mav = m / (20*20)
-    xbin = int( np.floor( (mav-minx) / delx ) )
-    histo[xbin] = histo[xbin] + 1
-histo = histo / len(mags)
-xvals = np.zeros(nbins)
-for i in range(nbins) : xvals[i] = (i+0.5)*delx
 plt.plot( xvals, -5.0*np.log(histo), 'k--' )
 plt.xlabel("average magnetisation per spin")
 plt.ylabel("free energy / natural units")
-plt.show()
+plt.savefig("free_energy.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
