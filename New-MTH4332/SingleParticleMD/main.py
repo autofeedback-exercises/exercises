@@ -424,7 +424,7 @@ for i in range(9) :
 plt.plot( cv_temperatures, cv, 'ko' )
 plt.xlabel("temperature / natural units")
 plt.ylabel("heat capacity / natural units")
-plt.plot()
+plt.savefig("heat-capacity.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -439,9 +439,9 @@ for i in range(9) :
 # This will plot a graph of the heat capacity as a function of temperature
 plt.errorbar( cv_temperatures, cv, yerr=cv_errors, fmt='ko' )
 plt.xlabel("temperature / natural units")
-plt.plot()
+plt.savefig("heat-capacity.png")
 # This code is required for the Automated feedback, don't delete it!
-fighand = plt.gca()plt.ylabel("heat capacity / natural units")
+fighand = plt.gca()
 
 # Exercise 18
 cv_temperatures, cv = np.zeros(10), np.zeros(10)
@@ -453,9 +453,9 @@ for i in range(10) :
 plt.plot( cv_temperatures, cv, 'ko' )
 plt.xlabel("temperature / natural units")
 plt.ylabel("heat capacity / natural units")
-plt.plot()
+plt.savefig("heat-capacity.png")
 # This code is required for the Automated feedback, don't delete it!
-fighand = plt.gca()plt.ylabel("heat capacity / natural units")
+fighand = plt.gca()
 
 # Exercise 19
 # These are the lists that hold the temperatures at which the 
@@ -471,9 +471,9 @@ for i in range(10) :
 plt.errorbar( cv_temperatures, cv, yerr=cv_errors, fmt='ko' )
 plt.xlabel("temperature / natural units")
 plt.ylabel("heat capacity / natural units")
-plt.plot()
+plt.savefig("heat-capacity.png")
 # This code is required for the Automated feedback, don't delete it!
-fighand = plt.gca()plt.ylabel("heat capacity / natural units")
+fighand = plt.gca()
 
 # Exercise 20
 # Lets first define some symbols

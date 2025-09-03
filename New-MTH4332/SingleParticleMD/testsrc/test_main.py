@@ -402,6 +402,7 @@ class UnitTests(unittest.TestCase) :
          assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
     def test_errors1( self ) :
+         filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt") 
          err = np.zeros(len(filedata)-1)
          for i in range(len(filedata)-1) :
              err[i] = ( filedata[i+1,2] + filedata[i,2] ) / ( filedata[i+1,0] - filedata[i,0] )
@@ -428,6 +429,7 @@ class UnitTests(unittest.TestCase) :
          assert( pc.check_plot([line1],explabels=axislabels,explegend=False,output=True) )
 
     def test_errors2( self ) :
+         filedata = np.loadtxt("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/SingleParticleMD/md_results.txt")
          err = np.zeros(len(filedata))
          for i in range(len(filedata)) :
              err[i] = ( filedata[i,4] + 2*filedata[i,1]*filedata[i,2] ) / ( filedata[i,0]*filedata[i,0] )
