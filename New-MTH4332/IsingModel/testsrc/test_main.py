@@ -11,6 +11,9 @@ from AutoFeedback.plotclass import line
 from AutoFeedback.randomclass import randomvar
 from AutoFeedback.plotchecks import check_plot
 from AutoFeedback.utils import get_internal
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats
 import unittest
 
 def genSpins(N) :
