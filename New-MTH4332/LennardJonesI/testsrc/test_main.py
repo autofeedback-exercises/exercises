@@ -66,7 +66,7 @@ class UnitTests(unittest.TestCase) :
     def test_energies(self) :
         pairwise_calculator = get_internal("pairwise_calculator")
         try: 
-          ftraj = Trajectory("https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/mytraj.traj")
+          ftraj = Trajectory("mytraj.traj")
         except:
           assert vc.check_vars("energies", 0) 
 
