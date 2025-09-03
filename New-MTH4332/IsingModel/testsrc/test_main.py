@@ -63,7 +63,7 @@ class UnitTests(unittest.TestCase) :
             spins = np.ones([N,N])
             inputs.append((spins,))
             p = 1/(1+N*N)
-            myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True, nsamples=100 )
+            myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True, nsamples=1000 )
             outputs.append( myvar )
         assert( check_func("chooseMove", inputs, outputs ) )
 
