@@ -19,6 +19,7 @@ from ase.io.trajectory import Trajectory
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats
+import unittest
 
 def mylj(r) :
     r2 = r*r
