@@ -59,7 +59,7 @@ class UnitTests(unittest.TestCase) :
 
     def test_chooseMove(self) : 
         inputs, outputs = [], []
-        for N in range(5,8) :
+        for N in range(3,6) :
             spins = np.ones([N,N])
             inputs.append((spins,))
             p = 1/(1+N*N)
