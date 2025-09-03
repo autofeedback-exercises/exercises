@@ -72,7 +72,7 @@ class UnitTests(unittest.TestCase) :
         for N in range(3,8) :
             spins = np.ones([N,N])
             inputs.append((spins,))
-            myvar = randomvar( [(N-1)/2,(N-1)/2], variance=[(N*N-1)/12,(N*N-1)/12], vmin=[0,0], vmax=[N-1,N-1], isinteger=[True,True] )
+            myvar = randomvar( (N-1)/2, variance=(N*N-1)/12, vmin=0, vmax=N-1, isinteger=True, nsamples=100 )
             outputs.append((myvar,))
         assert( check_func("chooseSpin", inputs, outputs ) )
 
