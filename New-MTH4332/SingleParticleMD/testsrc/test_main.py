@@ -14,6 +14,7 @@ from AutoFeedback.randomclass import randomvar
 from AutoFeedback.varchecks import check_vars
 import scipy.stats
 import numpy as np
+import sympy as sy
 import unittest      
 
 class UnitTests(unittest.TestCase) :
