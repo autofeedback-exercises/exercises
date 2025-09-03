@@ -83,19 +83,19 @@ spins = -1*spins
 print("The energy of the all down state is", hamiltonian( spins, 1 ) )
 
 # Exercise 7
-def hamiltonian(x) :
+def energy(x) :
     return x*x / 2
 # Set the initial position of the particle, the number of frames,
 # the maximum value to shift the position by and the temperature
-pos, nframes, maxshift, temp = 0.0, 1000, 1.0, 1.0
+pos, nframes, maxshift, temp = 0.0, 100, 1.0, 1.0
 # Calculate the energy at the start of the simulation
-oldenergy = hamiltonian(pos)
+oldenergy = energy(pos)
 # Set up some NumPy arrays to hold data
 xvals, yvals = np.linspace(1,nframes,nframes), np.zeros(nframes)
 for i in range(nframes) :
     # Your code to generate random move goes here
     newpos = pos + maxshift*( 2*np.random.uniform(0,1) - 1 )
-    newenergy = hamiltonian(newpos)
+    newenergy = energy(newpos)
     # Your code for the accept reject criteria should go here
     if np.random.uniform(0,1)<min( 1.0, np.exp( -newenergy/temp ) / np.exp( -oldenergy/temp )  ) :
        oldenergy, pos = newenergy, newpos
@@ -107,19 +107,11 @@ for i in range(nframes) :
 plt.plot( xvals, yvals, 'ko' )
 plt.xlabel("index")
 plt.ylabel("particle position")
-plt.show()
+plt.savefig("pos.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 8
-def hamiltonian( spins, H ) :
-    # Your code to calculate the energy of Ising model configuration in the
-    # the NumPy array spins goes here
-    Ene = 0
-    for i in range(spins.shape[0]) :
-        for j in range(spins.shape[1]) :
-            Ene = Ene + spins[i,j]*( spins[ (i+1)%spins.shape[0], j] + spins[ i, (j+1)%spins.shape[1]] + spins[(i-1)%spins.shape[0], j] + spins[ i, (j-1)%spins.shape[1]] )
-    return - Ene / 2 - H*sum( sum( spins ) )
 def new_energy( spins, E, H, move ) :
     # Your code to calculate the energy of the configuration in spins after 
     # the move indicated using the variable move goes here

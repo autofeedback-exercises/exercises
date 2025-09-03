@@ -39,7 +39,7 @@ class UnitTests(unittest.TestCase) :
             for j in range(30) : 
                 ispin = int(np.floor( N*np.random.uniform(0,1) ) )
                 jspin = int(np.floor( N*np.random.uniform(0,1) ) )
-                inputs.append((spins.copy(),ispin,jspin,))
+                inputs.append((np.copy(spins),ispin,jspin,))
                 spins[ispin,jspin] = -1*spins[ispin,jspin]
                 outputs.append(spins)
         assert( check_func("flipSpin", inputs, outputs ) )
@@ -50,7 +50,7 @@ class UnitTests(unittest.TestCase) :
             for k in range(3) :
                 spins = genSpins( N ) 
                 for j in range(2) :
-                    inputs.append((spins.copy(),))
+                    inputs.append((np.copy(spins),))
                     spins = -1*spins
                     output.append(spins) 
         assert( check_func("flipAllSpins", inputs, outputs ) )
@@ -59,7 +59,7 @@ class UnitTests(unittest.TestCase) :
         inputs, outputs = [], []
         for N in range(3,8) :
             spins = np.ones([N,N])
-            inputs.append((spins.copy(),))
+            inputs.append((spins,))
             p = 1/(1+N*N)
             myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True, nsamples=100 )
             outputs.append( myvar )
@@ -158,7 +158,8 @@ class UnitTests(unittest.TestCase) :
                     outputs.append( - Ene / 2 - h*sum( sum( spins ) )  )
         assert( check_func("hamiltonian", inputs, outputs ) )
 
-    def test_move(self) : 
+    def test_move(self) :
+        hamiltonian = get_internal("hamiltonian") 
         inputs, outputs = [], []
         for N in range(10,15) :
             for h in [-2,-1,0,1,2] :
