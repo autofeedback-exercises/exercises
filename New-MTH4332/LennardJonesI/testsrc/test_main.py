@@ -12,7 +12,6 @@ from AutoFeedback.plotclass import line
 from AutoFeedback.funcchecks import check_func
 from AutoFeedback.randomclass import randomvar
 from AutoFeedback.utils import get_internal
-import matplotlib.pyplot as plt
 import ase
 from ase.calculators.calculator import Calculator, all_changes
 from ase.lattice.cubic import FaceCenteredCubic
