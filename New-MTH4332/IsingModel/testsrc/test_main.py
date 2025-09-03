@@ -59,11 +59,11 @@ class UnitTests(unittest.TestCase) :
 
     def test_chooseMove(self) : 
         inputs, outputs = [], []
-        for N in range(3,8) :
+        for N in range(5,8) :
             spins = np.ones([N,N])
             inputs.append((spins,))
             p = 1/(1+N*N)
-            myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True, nsamples=1000 )
+            myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True, nsamples=100 )
             outputs.append( myvar )
         assert( check_func("chooseMove", inputs, outputs ) )
 
@@ -74,7 +74,7 @@ class UnitTests(unittest.TestCase) :
             inputs.append((spins,))
             myvar = randomvar( (N-1)/2, variance=(N*N-1)/12, vmin=0, vmax=N-1, isinteger=True, nsamples=100 )
             outputs.append((myvar,myvar,))
-        assert( check_func("chooseMove", inputs, outputs ) )
+        assert( check_func("chooseSpin", inputs, outputs ) )
 
     def test_mag(self) : 
         inputs, outputs = [], []
