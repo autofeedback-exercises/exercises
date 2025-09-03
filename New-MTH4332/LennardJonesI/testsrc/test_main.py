@@ -78,7 +78,7 @@ class UnitTests(unittest.TestCase) :
             myeng.append( myatoms.get_potential_energy() )
 
         ftraj.close()
-        assert vc.check_vars( energies, myeng, printname="energies" )
+        assert vc.check_vars( "energies", myeng, printname="energies" )
             
     def test_rdf3(self) :
         nf, N, V = 0, 0, 0

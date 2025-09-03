@@ -48,7 +48,7 @@ traj.close()
 # Exercise 4
 maxd, nbins, nf, N, V = 3, 150, 0, 0, 0
 delx, histo = maxd / nbins, np.zeros(nbins)
-for atoms in Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') :
+for atoms in mytraj : 
     nf, N, V = nf + 1, len(atoms), atoms.get_volume()
     distances = atoms.get_all_distances( mic=True )
     for i in range(1,distances.shape[0]) :
@@ -69,12 +69,11 @@ for i in range(nbins) :
 plt.plot( xbins, histo, 'k-' )
 plt.xlabel("r / sigma")
 plt.ylabel("g(r)")
-plt.show()
+plt.savefig("gr.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 5
-mytraj = Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj')
 maxd, nbins, nf, N, V = 3, 150, 0, 0, 0
 delx, histo = maxd / nbins, np.zeros([5,nbins])
 bsize = int( np.floor( len(mytraj) ) / 5 )
@@ -132,8 +131,8 @@ def fcc_cubic( atoms ) :
 minx, maxx, nbins = -.5, 1.1, 70
 nf, delx = 0, 1.6 / 70
 histo = np.zeros([5,nbins])
-bsize = int( np.floor( len( Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') ) / 5 ) )
-for atoms in Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') :
+bsize = int( np.floor( len( mytraj ) / 5 ) )
+for atoms in mytraj : 
     bnum = int( np.floor( nf / bsize ) )
     nf = nf + 1
     distances = atoms.get_all_distances( mic=True )
