@@ -11,19 +11,25 @@ from AutoFeedback.funcchecks import check_func
 from AutoFeedback.plotclass import line
 from AutoFeedback.plotchecks import check_plot
 from AutoFeedback.utils import get_internal
+import matplotlib.pyplot as plt
+import numpy as np
+import sympy as sy
 import unittest
 
 class UnitTests(unittest.TestCase) :
     def test_alternating(self) :
+        nspins = get_internal("nspins")
         alt = np.ones(nspins)
         for i in range(nspins) :
             if i%2==0 : alt[i] = -1
         assert( vc.check_vars("alternating", alt ) ) 
             
     def test_spinDown(self) :
+        nspins = get_internal("nspins")
         assert( vc.check_vars("alldown", -1*np.ones(nspins) ) )
         
     def test_spinUp(self) :
+        nspins = get_internal("nspins")
         assert( vc.check_vars("allup", np.ones(nspins) ) )
 
     def test_rising(self) :
@@ -112,7 +118,7 @@ class UnitTests(unittest.TestCase) :
                 oval[j] = int(np.floor( val / ppp ) )
                 val = val - oval[j]*ppp
             outputs.append( oval )
-        assert( fc.check_func('getBinary', inputs, outputs ) ) 
+        assert( check_func('getBinary', inputs, outputs ) ) 
 
     def test_function2(self) :
         inputs, outputs = [], []  
@@ -126,7 +132,7 @@ class UnitTests(unittest.TestCase) :
                     outval[j] = int(np.floor( val / ppp ) )
                     val = val - outval[j]*ppp
                 outputs.append( outval )
-        assert( fc.check_func('convertToBase', inputs, outputs ) )
+        assert( check_func('convertToBase', inputs, outputs ) )
 
     def test_function3(self) :
         inputs, outputs = [], []  
@@ -142,9 +148,10 @@ class UnitTests(unittest.TestCase) :
                     else :  energies[k] = energies[k] + 1
             inputs.append((n,))
             outputs.append( energies )
-        assert( fc.check_func('microstate_energies', inputs, outputs ) )
+        assert( check_func('microstate_energies', inputs, outputs ) )
 
-    def test_partition_function(self) : 
+    def test_partition_function(self) :
+        hamiltonian = get_internal("hamiltonian") 
         inputs, outputs = [], []  
         for k in range(5,8) :
             pfunc1, pfunc2, pfunc3 = 0, 0, 0
@@ -231,6 +238,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_func('hamiltonian', inputs, outputs ) )
         
     def test_graph4(self) :
+        hamiltonian = get_internal("hamiltonian")
         xvals = np.linspace( -8, 8, 9 )
         yvals = np.zeros(9)
         for i in range(2**8) :
@@ -263,6 +271,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_func('hamiltonian', inputs, outputs ) )
         
     def test_graph3(self) :
+        hamiltonian = get_internal("hamiltonian")
         xvals = np.linspace( -8, 8, 9 )
         yvals = np.zeros(9)
         for i in range(2**8) :
@@ -279,6 +288,7 @@ class UnitTests(unittest.TestCase) :
         assert( check_plot([],exppatch=line1,explabels=axislabels,explegend=False,output=True) ) 
 
     def test_ensemble_average(self) :
+        hamiltonian = get_internal("hamiltonian")
         inputs, outputs = [], [] 
         for k in range(5,8) :
             Z, numer = np.zeros(9), np.zeros(9)

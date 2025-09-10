@@ -27,7 +27,6 @@ def updown_states( nspins, nstates ) :
 
 # Exercise 3
 def hamiltonian( spins, H ) :
-  energy = 0
   # Your code goes here
   return -H*sum(spins)
 allup, alldown = np.ones(10), -1*np.ones(10)
@@ -43,9 +42,9 @@ def hamiltonian2( coords ) :
       elif c==2 : energy = energy + 3
   return energy
 allzero, allone, alltwo = np.zeros(10), np.ones(10), 2*np.ones(10)
-print( "ENERGY FOR ALL ZERO", hamiltonian( allzero ) )
-print( "ENERGY FOR ALL ONE", hamiltonian( allone ) )
-print( "ENERGY FOR ALL TWO", hamiltonian( alltwo ) )
+print( "ENERGY FOR ALL ZERO", hamiltonian2( allzero ) )
+print( "ENERGY FOR ALL ONE", hamiltonian2( allone ) )
+print( "ENERGY FOR ALL TWO", hamiltonian2( alltwo ) )
 
 # Exercise 5
 def hamiltonian3( coords ) :
@@ -56,10 +55,10 @@ def hamiltonian3( coords ) :
       elif c==3 : energy = energy + 2
   return energy
 allzero, allone, alltwo, allthree = np.zeros(10), np.ones(10), 2*np.ones(10), 3*np.ones(10)
-print( "ENERGY FOR ALL ZERO", hamiltonian( allzero ) )
-print( "ENERGY FOR ALL ONE", hamiltonian( allone ) )
-print( "ENERGY FOR ALL TWO", hamiltonian( alltwo ) )
-print( "ENERGY FOR ALL THREE", hamiltonian( allthree ) )
+print( "ENERGY FOR ALL ZERO", hamiltonian3( allzero ) )
+print( "ENERGY FOR ALL ONE", hamiltonian3( allone ) )
+print( "ENERGY FOR ALL TWO", hamiltonian3( alltwo ) )
+print( "ENERGY FOR ALL THREE", hamiltonian3( allthree ) )
 
 # Exercise 6
 def getBinary( N ) : 
@@ -100,14 +99,11 @@ def microstate_energies( N ) :
            val = val - ppp*coords[j]
            if coords[j]==0 : coords[j] = -1
        # Evaluate the energy of the microstate and store it in the array that we will return
-       energies[i] = sum(coords)
+       energies[i] = hamiltonian( coords, -1 )
    # Return the array that holds the energies of the microstates
    return energies
 
 # Exercise 9
-def hamiltonian( spins, H ) : 
-  energy = -H*sum(spins)
-  return energy
 def partitionfunction( N, H, T ) :
   Z = 0
   # Your code to calculate the partition function goes here
@@ -128,9 +124,6 @@ print( partitionfunction(5,0,0.1) )
 print( partitionfunction(6,1,0.5) )
 
 # Exercise 10
-def hamiltonian( spins, H ) :
-  eng = -H*sum(spins)
-  return eng
 # Generate an index for each microstate
 indices = np.zeros(2**8)
 for i in range(2**8) : indices[i] = i
@@ -148,14 +141,11 @@ for index in indices :
 plt.plot( indices, energies, 'ko')
 plt.xlabel("numerical index")
 plt.ylabel("energy")
-plt.show()
+plt.savefig("energies.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 11
-def hamiltonian( spins, H ) :
-  eng = -H*sum(spins)
-  return eng
 # Create a list of the posssible values the energy can take
 energies = np.zeros(9)
 for i in range(9) : energies[i] = -8+i*2
@@ -178,45 +168,22 @@ for i in range(2**8) :
 plt.bar( energies, number_of_microstates, width=0.1 )
 plt.xlabel("energy")
 plt.ylabel("Number of microstates")
-plt.show()
+plt.savefig("dos.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 12
-def hamiltonian( spins, H ) :
-  eng = -H*sum(spins)
-  return eng
-# Create a list of the posssible values the energy can take
-energies = np.zeros(9)
-for i in range(9) : energies[i] = -8+i*2
-# Create a list that will hold the number of microstates with each energy 
-number_of_microstates = np.zeros(9)
-# Your code to do the loop over all the microstates and to count how many times each 
-# of the energy values appear goes here
-for i in range(2**8) :
-    vv, spins = i, np.zeros(8)
-    for j in range(8) :
-        ppp = 2**(7-j)
-        spins[j] = np.floor( vv / ppp )
-        vv = vv - spins[j]*ppp
-        if spins[j]==0 : spins[j] = -1
-    eng = hamiltonian( spins, 1 )
-    number_of_microstates[ int((eng + 8)/2) ] = number_of_microstates[ int((eng + 8)/2) ] + 1
-
 entropy = np.log( number_of_microstates )
 # This will plot the possible values for the energy against the number of microstates with 
 # that particular energy.
 plt.bar( energies, entropy, width=0.1 )
 plt.xlabel("energy")
 plt.ylabel("Entropy")
-plt.show()
+plt.savefig("entropy.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 13
-def hamiltonian( spins, H ) : 
-  energy = -H*sum(spins)
-  return energy
 def ensemble_average( N, H, T ) :
   numerator, Z = 0, 0
   # Your code to calculate the ensemble average goes here
@@ -240,24 +207,6 @@ print( ensemble_average(5,0,1.1) )
 print( ensemble_average(6,1,0.5) )
 
 # Exercise 14
-def hamiltonian( spins, H ) :
-  energy = -H*sum(spins)
-  return energy
-def ensemble_average( N, H, T ) :
-  numerator, Z = 0, 0
-  # Your code to calculate the partition function goes here
-  for i in range(2**N) :
-      v, spins = i, np.zeros(N)
-      for j in range(N) :
-          ppp = 2**(N-1-j)
-          spins[j] = np.floor( v / ppp )
-          v = v - ppp*spins[j]
-          if spins[j]==0 : spins[j] = -1
-      e = hamiltonian( spins, H )
-      bwe = np.exp( -e/T )
-      numerator = numerator + e*bwe
-      Z = Z + bwe
-  return numerator / Z
 energies, k = np.zeros(15), 0
 temperatures = np.linspace(0.1,3.1,15)
 for temp in temperatures :
@@ -266,7 +215,7 @@ for temp in temperatures :
 plt.plot( temperatures, energies, 'k-' )
 plt.xlabel("temperature / arbitrary units")
 plt.ylabel("average energy / arbitrary units")
-plt.show()
+plt.savefig("average.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -290,6 +239,6 @@ energies = -8*( -np.exp(-1/temperatures ) - 3*np.exp(-3/temperatures) )/ (1  + n
 plt.plot( temperatures, energies, 'k-' )
 plt.xlabel('temperature')
 plt.ylabel('average energy')
-plt.show()
+plt.savefig("analytic.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()

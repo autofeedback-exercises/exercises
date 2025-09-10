@@ -23,7 +23,7 @@ def circle_estimate(N) :
   for i in range(100) :
       x = np.random.uniform(0,1)
       y = np.random.uniform(0,1)
-      if x*x+y*y<1 : estimate = estimate + 1
+      estimate = estimate + incircle(x,y)
   return estimate / N
 
 # Three estimates for the area of the circle based on a random grid
@@ -31,21 +31,13 @@ def circle_estimate(N) :
 print( circle_estimate(1000), circle_estimate(1000), circle_estimate(1000) )
 
 # Third exercise
-def area(N) : 
-  nin = 0
-  for i in range(N) :
-    x = np.random.uniform(0,1)
-    y = np.random.uniform(0,1)
-    if x*x + y*y < 1 : nin = nin + 1
-  return nin / N
-
-print( area(1000), area(1000), area(1000) )
+print( circle_estimate(1000), circle_estimate(1000), circle_estimate(1000) )
 
 def myerrors(N,M) :
   # Your code goes here.
   l, m, u = 0, 0, 0
   samples = np.zeros(M)
-  for i in range(M) : samples[i] = area(N)
+  for i in range(M) : samples[i] = circle_estimate(N)
   l = np.percentile( samples, 5 )
   m = np.median( samples )
   u = np.percentile( samples, 95 )
@@ -55,7 +47,7 @@ def myerrors(N,M) :
 print( myerrors(1000, 100) )
 
 # Fourth exercise
-def area(N) :
+def circle_estimate(N) :
   nin = 0
   for i in range(N) :
     x = np.random.uniform(0,1)
@@ -64,6 +56,6 @@ def area(N) :
   mean = nin / N
   var = (N/(N-1))*( mean - mean*mean )
   sig = np.sqrt( var / N )
-  return mean + sig*st.norm.ppf(0.05), mean, mean + sig*st.norm.ppf(0.95)
+  return mean + sig*scipy.stats.norm.ppf(0.05), mean, mean + sig*scipy.stats.norm.ppf(0.95)
 
 print( area(1000) )

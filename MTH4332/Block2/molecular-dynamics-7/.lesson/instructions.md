@@ -4,11 +4,11 @@ Now that we know how an MD code is written and what the distribution of velociti
 
 ![](eq1.png)
 
-Here \delta is half the simulation timestep, \gamma is a parameter known as the friction of the thermostat and N(0,1) is used to indicate a sample from a standard normal random variable.  
+Here $\delta$ is half the simulation timestep, $\gamma$ is a parameter known as the friction of the thermostat and N(0,1) is used to indicate a sample from a standard normal random variable.  
 
-The details as to how this expression is derived are beyond the scope of this module.  We can begin to understand how it works by looking at its structure.  The e^{-\gamma\delta} in the first term, for instance, is less than one.  By multiplying the old velocity by this expression repeatedly we thus cause the old velocity to decay away to zero.  Ignoring the factor of (1-e^{-2\gamma\delta}) in the second term gives us the expression that we used to set the initial velocities of the atoms.  Consequently, if we use a very large time step, it is as if we are simply setting the velocities as we did in the first exercise. Notice last of all that the coefficients of the terms in the sum above are constant.  You can thus calculate these coefficients outside the main MD loop to improve computational efficiency 
+The details as to how this expression is derived are beyond the scope of this module.  We can begin to understand how it works by looking at its structure.  The $e^{-\gamma\delta}$ in the first term, for instance, is less than one.  By multiplying the old velocity by this expression repeatedly we thus cause the old velocity to decay away to zero.  Ignoring the factor of $(1-e^{-2\gamma\delta})$ in the second term gives us the expression that we used to set the initial velocities of the atoms.  Consequently, if we use a very large time step, it is as if we are simply setting the velocities as we did in the first exercise. Notice last of all that the coefficients of the terms in the sum above are constant.  You can thus calculate these coefficients outside the main MD loop to improve computational efficiency 
 
-Finally, notice that by setting the coefficients of the second term equal to \sqrt{1-e^{-2\gamma\delta}} we ensure that the sum of the squares of the coefficients of v_{old} in the first part and the value we would set for the initial velocity in the second part is one.  In other words, in setting the coefficients we are using Pythagoras theorem in some way.
+Finally, notice that by setting the coefficients of the second term equal to $\sqrt{1-e^{-2\gamma\delta}}$ we ensure that the sum of the squares of the coefficients of $v_{old}$ in the first part and the value we would set for the initial velocity in the second part is one.  In other words, in setting the coefficients we are using Pythagoras theorem in some way.
 
 Lets now turn to what you need to do in order to complete the code.  As in the previous exercise, I have written a skeleton code for the MD algorithm that you need to fill in.  To complete this you need to:
 
@@ -18,7 +18,7 @@ Lets now turn to what you need to do in order to complete the code.  As in the p
 
 In addition, you then need to complete the skeleton code that implements the dynamics.  In each loop this code should:
 
-1. Use the equation given above to modify the velocities.  When using the above equation in this step \delta should be set equal to half the simulation timestep.  This step is the first step in controlling the simulation temperature.
+1. Use the equation given above to modify the velocities.  When using the above equation in this step $\delta$ should be set equal to half the simulation timestep.  This step is the first step in controlling the simulation temperature.
 
 2. Update the velocities, v, by a half timestep using:
 
@@ -28,13 +28,13 @@ In addition, you then need to complete the skeleton code that implements the dyn
 
 ![](eq3.png)
 
-4. Recalculate the forces F(t+\delta) at the new position.
+4. Recalculate the forces $F(t+\delta)$ at the new position.
 
 5. Use the new values of the forces to update the velocities by another half timestep using:
 
 ![](eq4.png)
 
-6. Use the equation given above to modify the velocities one more.  As in the first step \delta should be set equal to half the simulation timestep as you do this.
+6. Use the equation given above to modify the velocities one more.  As in the first step $\delta$ should be set equal to half the simulation timestep as you do this.
 
 Notice that the algorithm I have just described is very similar to the velocity Verlet algorithm that you implemented in the previous exercise.  In this new algorithm, the steps of the velocity Verlet algorithm are just sandwiched between the initial and final steps that control the simulation temperature. 
 

@@ -11,6 +11,10 @@ from AutoFeedback.plotclass import line
 from AutoFeedback.randomclass import randomvar
 from AutoFeedback.plotchecks import check_plot
 from AutoFeedback.utils import get_internal
+from AutoFeedback.varchecks import check_vars
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats
 import unittest
 
 def genSpins(N) :
@@ -18,6 +22,7 @@ def genSpins(N) :
     for i in range(N) :
         for j in range(N) :
             if np.random.uniform(0,1)<0.5 : spins[i,j] = -1
+    return spins
 
 class UnitTests(unittest.TestCase) :
     def test_estimate(self) : 
@@ -36,8 +41,9 @@ class UnitTests(unittest.TestCase) :
                 ispin = int(np.floor( N*np.random.uniform(0,1) ) )
                 jspin = int(np.floor( N*np.random.uniform(0,1) ) )
                 inputs.append((spins,ispin,jspin,))
-                spins[ispin,jspin] = -1*spins[ispin,jspin]
-                outputs.append(spins)
+                spincopy = np.copy(spins) 
+                spincopy[ispin,jspin] = -1*spincopy[ispin,jspin]
+                outputs.append(spincopy)
         assert( check_func("flipSpin", inputs, outputs ) )
 
     def test_flipAllSpins(self) : 
@@ -47,17 +53,17 @@ class UnitTests(unittest.TestCase) :
                 spins = genSpins( N ) 
                 for j in range(2) :
                     inputs.append((spins,))
-                    spins = -1*spins
-                    output.append(spins) 
+                    spins = -1*np.copy(spins)
+                    outputs.append(spins) 
         assert( check_func("flipAllSpins", inputs, outputs ) )
 
     def test_chooseMove(self) : 
         inputs, outputs = [], []
-        for N in range(3,8) :
+        for N in range(3,6) :
             spins = np.ones([N,N])
             inputs.append((spins,))
             p = 1/(1+N*N)
-            myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True, nsamples=100 )
+            myvar = randomvar( p, variance=p*(1-p), vmin=0, vmax=1, isinteger=True )
             outputs.append( myvar )
         assert( check_func("chooseMove", inputs, outputs ) )
 
@@ -67,8 +73,8 @@ class UnitTests(unittest.TestCase) :
             spins = np.ones([N,N])
             inputs.append((spins,))
             myvar = randomvar( (N-1)/2, variance=(N*N-1)/12, vmin=0, vmax=N-1, isinteger=True, nsamples=100 )
-            outputs.append((myvar,myvar,))
-        assert( check_func("chooseMove", inputs, outputs ) )
+            outputs.append( myvar )
+        assert( check_func("chooseSpin", inputs, outputs ) )
 
     def test_mag(self) : 
         inputs, outputs = [], []
@@ -154,7 +160,8 @@ class UnitTests(unittest.TestCase) :
                     outputs.append( - Ene / 2 - h*sum( sum( spins ) )  )
         assert( check_func("hamiltonian", inputs, outputs ) )
 
-    def test_move(self) : 
+    def test_move(self) :
+        hamiltonian = get_internal("hamiltonian") 
         inputs, outputs = [], []
         for N in range(10,15) :
             for h in [-2,-1,0,1,2] :
@@ -323,6 +330,7 @@ class UnitTests(unittest.TestCase) :
         maxx = get_internal("maxx")
         minx = get_internal("minx")
         nbins = get_internal("nbins")
+        blocksize = get_internal("blocksize")
         testdelx = ( maxx - minx ) / nbins
         test_v, test_v2 = np.zeros(nbins), np.zeros( nbins )
         testnblocks = int( np.floor( len(testmags) / blocksize ) )

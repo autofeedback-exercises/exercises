@@ -24,14 +24,6 @@ dyn = Langevin( atoms, 0.005, 2.0, 1.0 )
 dyn.run(1000)
 
 # Exercise 3
-def fff(r):
-   # Insert your code to calculate the Lennard Jones energy and forces here
-   r2 = r*r
-   r6 = r2*r2*r2
-   r12 = r6*r6
-   e = 4*( ( 1/r12 ) - (1/r6) )
-   f = -24*( 2/r12 - 1/r6 ) / r2
-   return e, f  # First argument should be energy and second should be force
 # Insert code from last exercise to create an atoms object and set masses and velocities here.
 atoms = FaceCenteredCubic( directions=[[1, 0, 0], [0, 1, 0], [0, 0, 1]], symbol="Ar", size=(3, 3, 3), latticeconstant=2**(2/3), pbc=(1,1,1) )
 atoms.set_masses( np.ones(len(atoms)) )
@@ -56,7 +48,7 @@ traj.close()
 # Exercise 4
 maxd, nbins, nf, N, V = 3, 150, 0, 0, 0
 delx, histo = maxd / nbins, np.zeros(nbins)
-for atoms in Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') :
+for atoms in mytraj : 
     nf, N, V = nf + 1, len(atoms), atoms.get_volume()
     distances = atoms.get_all_distances( mic=True )
     for i in range(1,distances.shape[0]) :
@@ -77,12 +69,11 @@ for i in range(nbins) :
 plt.plot( xbins, histo, 'k-' )
 plt.xlabel("r / sigma")
 plt.ylabel("g(r)")
-plt.show()
+plt.savefig("gr.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
 # Exercise 5
-mytraj = Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj')
 maxd, nbins, nf, N, V = 3, 150, 0, 0, 0
 delx, histo = maxd / nbins, np.zeros([5,nbins])
 bsize = int( np.floor( len(mytraj) ) / 5 )
@@ -140,8 +131,8 @@ def fcc_cubic( atoms ) :
 minx, maxx, nbins = -.5, 1.1, 70
 nf, delx = 0, 1.6 / 70
 histo = np.zeros([5,nbins])
-bsize = int( np.floor( len( Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') ) / 5 ) )
-for atoms in Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') :
+bsize = int( np.floor( len( mytraj ) / 5 ) )
+for atoms in mytraj : 
     bnum = int( np.floor( nf / bsize ) )
     nf = nf + 1
     distances = atoms.get_all_distances( mic=True )

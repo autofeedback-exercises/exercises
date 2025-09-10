@@ -11,7 +11,7 @@ variances from these N separate estimates.  To get the error for a p_c confidenc
 
 ![](eq0.png)
 
-where \sigma_k^2 is the estimate for the variance, N is the number of blocks and \Phi^{-1} is the inverse of the cumulative distribution function for a standard normal distribution.
+where $\sigma_k^2$ is the estimate for the variance, N is the number of blocks and $\Phi^{-1}$ is the inverse of the cumulative distribution function for a standard normal distribution.
 This last function can be calculated using:
 
 ```python

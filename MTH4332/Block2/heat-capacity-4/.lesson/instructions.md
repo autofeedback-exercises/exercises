@@ -10,7 +10,7 @@ We can calculate these errors by noting that the maximum possible value we could
 
 ![](eq2.png)
 
-where \Delta\E_2 and \Delta\E_1 are the errors for the ensemble averages computed from the simulations at T_2 and T_1 respectively.  This expression is derived by considering the steepest possible gradient that still passes through the two error bars.  Using similar logic, we can consider the shallowest possible gradient that passes through the two error bars and obtain the minimum possible value for the heat capacity as follows:
+where $\Delta E_2$ and $\Delta E_1$ are the errors for the ensemble averages computed from the simulations at $T_2$ and $T_1$ respectively.  This expression is derived by considering the steepest possible gradient that still passes through the two error bars.  Using similar logic, we can consider the shallowest possible gradient that passes through the two error bars and obtain the minimum possible value for the heat capacity as follows:
 
 ![](eq3.png)
 

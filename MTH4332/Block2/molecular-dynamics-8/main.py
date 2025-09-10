@@ -22,7 +22,7 @@ timestep = 0.005
 temperature = 1.0 
 # Now set the position equal to the inial position that was set above
 pos, vel = init_pos, init_vel
-# This is the value of the friction for the thermostate (the \gamma in the equations on the other side)
+# This is the value of the friction for the thermostate (the gamma in the equations on the other side)
 friction = 2.0
 # This calculates the initial values for the forces
 eng, forces = potential(pos)
