@@ -68,7 +68,7 @@ class UnitTests(unittest.TestCase) :
         gateigvals, crap= np.linalg.eig( gathessian )
         
         # And get the density of states
-        gat_frequencies = np.sqrt( gateigvals )
+        gat_frequencies = np.sqrt( np.real(gateigvals) )
         
         gathisto = np.zeros(nbins)
         for e in gat_frequencies :

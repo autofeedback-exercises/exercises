@@ -23,7 +23,7 @@ data = vib.get_vibrations()
 hessian = data.get_hessian_2d()
 eigvals, eigvecs = np.linalg.eig( hessian )
 # And get the density of states
-frequencies = np.sqrt( eigvals )
+frequencies = np.sqrt( np.real(eigvals) )
 minfreq = min(frequencies)
 maxfreq = max(frequencies)
 nbins = 100
