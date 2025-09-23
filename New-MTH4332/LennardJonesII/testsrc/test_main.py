@@ -11,6 +11,13 @@ import AutoFeedback.varchecks as vc
 from AutoFeedback.funcchecks import check_func
 from AutoFeedback.plotclass import line
 from AutoFeedback.utils import get_internal
+import ase
+from ase.calculators.calculator import Calculator, all_changes
+from ase.lattice.cubic import FaceCenteredCubic
+from ase.io.trajectory import Trajectory
+import requests
+from io import BytesIO
+import numpy as np
 import unittest
 
 def mylj(r) :
@@ -128,7 +135,12 @@ class UnitTests(unittest.TestCase) :
 
     def test_heat_capcity1(self) :
         ncorr = get_internal("ncorr")
-        gatftraj = Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesII/nve-short.traj')
+        url = 'https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesII/nve-short.traj'
+        response = requests.get(url)
+        response.raise_for_status()
+        # Create a BytesIO object that acts like a file
+        file_like_object = BytesIO(response.content)
+        ftraj = Trajectory(file_like_object)
         gat_acf, gat_norm = np.zeros(ncorr), np.zeros(ncorr)
         
         k = 0
@@ -149,7 +161,12 @@ class UnitTests(unittest.TestCase) :
         assert(check_plot([line1],explabels=axislabels,explegend=False,output=True))
 
     def test_heat_capcity2(self) :
-        gatftraj = Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesII/nve-short.traj')
+        url = 'https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesII/nve-short.traj'
+        response = requests.get(url)
+        response.raise_for_status()
+        # Create a BytesIO object that acts like a file
+        file_like_object = BytesIO(response.content)
+        ftraj = Trajectory(file_like_object) 
         gatnatoms = len( gatftraj[0].get_velocities() )
         gatvtraj = np.zeros([ 3*gatnatoms, len(gatftraj) ])
         
