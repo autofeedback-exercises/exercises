@@ -38,6 +38,7 @@ class UnitTests(unittest.TestCase) :
         assert check_func("fff", inputs, outputs )
 
     def test_calculator1(self):
+        pairwise_calculator = get_internal("pairwise_calculator") 
         myatoms = FaceCenteredCubic( directions=[[1, 0, 0], [0, 1, 0], [0, 0, 1]], symbol="Ar", size=(3, 3, 3), latticeconstant=2**(2/3), pbc=(1,1,1) )
         atoms = get_internal('atoms')        
         student_pos = atoms.get_positions()
@@ -50,6 +51,8 @@ class UnitTests(unittest.TestCase) :
         assert vc.check_vars( student_energy, myeng, printname="atoms.potential_energy" )
 
     def test_density_of_states(self) :
+        fff = get_internal("fff")
+        pairwise_calculator = get_internal("pairwise_calculator")
         # Insert code from last exercise to create an atoms object and set masses and velocities here.
         gatatoms = FaceCenteredCubic( directions=[[1, 0, 0], [0, 1, 0], [0, 0, 1]], symbol="Ar", size=(3, 3, 3), latticeconstant=2**(2/3), pbc=(1,1,1) )
         
@@ -113,6 +116,7 @@ class UnitTests(unittest.TestCase) :
         assert check_func("fff", inputs, outputs )
 
     def test_calculator2(self):
+        pairwise_calculator = get_internal("pairwise_calculator")
         myatoms = FaceCenteredCubic( directions=[[1, 0, 0], [0, 1, 0], [0, 0, 1]], symbol="Ar", size=(3, 3, 3), latticeconstant=2**(2/3), pbc=(1,1,1) )
         atoms = get_internal('atoms')
         student_pos = atoms.get_positions()
