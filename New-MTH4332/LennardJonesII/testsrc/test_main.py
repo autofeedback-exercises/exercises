@@ -82,7 +82,8 @@ class UnitTests(unittest.TestCase) :
         for e in gat_frequencies :
             ibin = int( np.floor( (e-minx) / delx) )
             gathisto[ibin] = gathisto[ibin] + 1
-        
+ 
+        xvals = get_internal("xvals")       
         line1 = line( xvals, gathisto )
         axislabels = ['frequencies / arbitrary units', 'Number of states' ]
         assert(check_plot([line1],explabels=axislabels,explegend=False,output=True))
@@ -100,7 +101,7 @@ class UnitTests(unittest.TestCase) :
 
     def test_heat_capcity4(self) :
         temps = get_internal("T")
-        frequency = get_internal("frequency")
+        frequencies = get_internal("frequencies")
         gat_heatcv = np.zeros(len(temps))
         for i, t in enumerate(temps) :
            gb = np.exp(-frequencies/t)
@@ -135,6 +136,7 @@ class UnitTests(unittest.TestCase) :
 
     def test_conservation(self) :
         gatxvals = np.zeros(101)
+        tstep = get_internal("tstep")
         for i in range(101) : gatxvals[i] = i*tstep
         gatyvals = initial_energy*np.ones(101)
         
@@ -149,7 +151,7 @@ class UnitTests(unittest.TestCase) :
         response.raise_for_status()
         # Create a BytesIO object that acts like a file
         file_like_object = BytesIO(response.content)
-        ftraj = Trajectory(file_like_object)
+        gatftraj = Trajectory(file_like_object)
         gat_acf, gat_norm = np.zeros(ncorr), np.zeros(ncorr)
         
         k = 0
@@ -175,7 +177,7 @@ class UnitTests(unittest.TestCase) :
         response.raise_for_status()
         # Create a BytesIO object that acts like a file
         file_like_object = BytesIO(response.content)
-        ftraj = Trajectory(file_like_object) 
+        gatftraj = Trajectory(file_like_object) 
         gatnatoms = len( gatftraj[0].get_velocities() )
         gatvtraj = np.zeros([ 3*gatnatoms, len(gatftraj) ])
         

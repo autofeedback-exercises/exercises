@@ -56,7 +56,6 @@ plt.savefig("dos.png")
 fighand = plt.gca()
 
 # Exercise 4
-frequencies = np.array([1,1,2,2,2,3,4,5,9])
 T = np.linspace( 0.1, 30, 200 )
 CV = np.zeros(200)
 for i, temp in enumerate(T) :
@@ -94,7 +93,6 @@ dyn.attach( printenergy, interval=1 )
 dyn.run(100)
 xvals = np.zeros(101)
 for i in range(101) : xvals[i] = i*tstep
-print( initial_energy, stats )
 plt.plot( xvals, stats, 'ko' )
 plt.xlabel("time / arbitrary units")
 plt.ylabel("total energy / arbitrary units")
