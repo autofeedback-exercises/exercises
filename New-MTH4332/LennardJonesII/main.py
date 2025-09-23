@@ -38,7 +38,7 @@ for i in range(nbins) : xvals[i] = minx + (i+0.5)*delx
 plt.plot( xvals, histo, 'k-')
 plt.xlabel("frequencies / arbitrary units")
 plt.ylabel("Number of states")
-plt.show() 
+plt.savefig("dos.png") 
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -51,7 +51,7 @@ CV = (frequency*frequency)/(T*T)*( b /nb + b*b/(nb*nb) )
 plt.plot( T, CV, 'k-')
 plt.xlabel("Temperature / natural units")
 plt.ylabel("Heat capacity / natural units")
-plt.show()
+plt.savefig("dos.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -67,7 +67,7 @@ for i, temp in enumerate(T) :
 plt.plot( T, CV, 'k-')
 plt.xlabel("Temperature / natural units")
 plt.ylabel("Heat capacity per atom / natural units")
-plt.show()
+plt.savefig("heatcap.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -98,7 +98,7 @@ print( initial_energy, stats )
 plt.plot( xvals, stats, 'ko' )
 plt.xlabel("time / arbitrary units")
 plt.ylabel("total energy / arbitrary units")
-plt.show()
+plt.savefig("energy.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -119,7 +119,7 @@ times = 0.005*np.linspace(0, ncorr-1, ncorr)
 plt.plot( times, acf, 'k-' )
 plt.xlabel("time / arbitrary units")
 plt.ylabel("velocity autoccoreation function")
-plt.show()
+plt.savefig("vcorr.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
@@ -136,6 +136,6 @@ freqvals = np.fft.rfftfreq( len(ftraj), d=0.005 )
 plt.plot( freqvals, fdos, 'k-' )
 plt.xlabel("frequency / arbitrary units")
 plt.ylabel("vibrational density of states")
-plt.show()
+plt.savefig("vdos.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
