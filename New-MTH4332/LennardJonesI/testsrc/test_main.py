@@ -84,7 +84,7 @@ class UnitTests(unittest.TestCase) :
         nf, N, V = 0, 0, 0
         maxd = get_internal("maxd")
         nbins = get_internal("nbins")
-	mytraj = get_internal("mytraj")
+        mytraj = get_internal("mytraj")
         delx, histo = maxd / nbins, np.zeros(nbins)
         for atoms in mytraj :
             nf, N, V = nf + 1, len(atoms), atoms.get_volume()
