@@ -84,8 +84,9 @@ class UnitTests(unittest.TestCase) :
         nf, N, V = 0, 0, 0
         maxd = get_internal("maxd")
         nbins = get_internal("nbins")
+	mytraj = get_internal("mytraj")
         delx, histo = maxd / nbins, np.zeros(nbins)
-        for atoms in Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') :
+        for atoms in mytraj :
             nf, N, V = nf + 1, len(atoms), atoms.get_volume()
             distances = atoms.get_all_distances( mic=True )
             for i in range(1,distances.shape[0]) :
@@ -111,9 +112,10 @@ class UnitTests(unittest.TestCase) :
 
     def test_rdf1(self) :
         nf, N, V  = 0, 0, 0
+        mytraj = get_internal("mytraj")
         delx, histo = maxd / nbins, np.zeros([5,nbins])
-        bsize = int( np.floor( len( Trajectory('trajectory.traj') ) / 5 ) )
-        for atoms in Trajectory('trajectory.traj') :
+        bsize = int( np.floor( mytraj / 5 ) )
+        for atoms in mytraj :
             bnum = int( np.floor( nf / bsize ) )
             nf, N, V = nf + 1, len(atoms), atoms.get_volume()
             distances = atoms.get_all_distances( mic=True )
@@ -147,7 +149,8 @@ class UnitTests(unittest.TestCase) :
 
     def test_fcc(self) : 
         inputs, outputs = [], []
-        for atoms in  Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI//trajectory.traj') :
+        mytraj = get_internal("mytraj")
+        for atoms in  mytraj :
             inputs.append((atoms,))
             pppp = np.zeros(len(atoms))
             distances = atoms.get_all_distances( mic=True )
@@ -168,11 +171,12 @@ class UnitTests(unittest.TestCase) :
     def test_rdf2(self) :
         minx = get_internal("minx")
         maxx = get_internal("maxx")
-        nbins = get_internal("nbins") 
+        nbins = get_internal("nbins")
+        mytraj = get_internal("mytraj")  
         nf, delx = 0, (maxx-minx) / nbins 
         histo = np.zeros([5,nbins])
-        bsize = int( np.floor( len( Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') ) / 5 ) )
-        for atoms in Trajectory('https://raw.githubusercontent.com/autofeedback-exercises/exercises/main/New-MTH4332/LennardJonesI/trajectory.traj') :
+        bsize = int( np.floor(  mytraj / 5 ) )
+        for atoms in mytraj :
             bnum = int( np.floor( nf / bsize ) )
             nf = nf + 1
             distances = atoms.get_all_distances( mic=True )
