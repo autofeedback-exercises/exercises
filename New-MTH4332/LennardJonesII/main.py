@@ -62,7 +62,7 @@ for i, temp in enumerate(T) :
     b = np.exp(-frequencies/temp)
     nb = 1-b
     CVall = (frequencies*frequencies)/(temp*temp)*( b /nb + b*b/(nb*nb) )
-    CV[i] = sum(CVall)/3
+    CV[i] = sum(CVall)/(len(frequencies)/3)
 plt.plot( T, CV, 'k-')
 plt.xlabel("Temperature / natural units")
 plt.ylabel("Heat capacity per atom / natural units")
