@@ -165,6 +165,6 @@ for i in range(len(gat_average)) :
 plt.fill_between( xbins, fes - error , fes + error )
 plt.xlabel("order parameter")
 plt.ylabel("free energy")
-plt.show()
+plt.savefig("free_energy.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
