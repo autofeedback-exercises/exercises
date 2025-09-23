@@ -15,6 +15,8 @@ import ase
 from ase.calculators.calculator import Calculator, all_changes
 from ase.lattice.cubic import FaceCenteredCubic
 from ase.io.trajectory import Trajectory
+from ase.optimize import BFGS
+from ase.vibrations import Vibrations
 import requests
 from io import BytesIO
 import numpy as np
