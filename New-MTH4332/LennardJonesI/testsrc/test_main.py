@@ -116,7 +116,7 @@ class UnitTests(unittest.TestCase) :
         nbins = get_internal("nbins")
         mytraj = get_internal("mytraj")
         delx, histo = maxd / nbins, np.zeros([5,nbins])
-        bsize = int( np.floor( mytraj / 5 ) )
+        bsize = int( np.floor( len(mytraj) / 5 ) )
         for atoms in mytraj :
             bnum = int( np.floor( nf / bsize ) )
             nf, N, V = nf + 1, len(atoms), atoms.get_volume()
@@ -177,7 +177,7 @@ class UnitTests(unittest.TestCase) :
         mytraj = get_internal("mytraj")  
         nf, delx = 0, (maxx-minx) / nbins 
         histo = np.zeros([5,nbins])
-        bsize = int( np.floor(  mytraj / 5 ) )
+        bsize = int( np.floor(  len(mytraj) / 5 ) )
         for atoms in mytraj :
             bnum = int( np.floor( nf / bsize ) )
             nf = nf + 1
