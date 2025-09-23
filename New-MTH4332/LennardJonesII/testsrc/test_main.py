@@ -107,7 +107,7 @@ class UnitTests(unittest.TestCase) :
            gb = np.exp(-frequencies/t)
            gnb = 1-gb
            gat_sumheatcv = (frequencies*frequencies)/(t*t)*( gb /gnb + gb*gb/(gnb*gnb) )
-           gat_heatcv[i] = sum(gat_sumheatcv)/(len(frequency)/3)
+           gat_heatcv[i] = sum(gat_sumheatcv)/(len(frequencies)/3)
         
         line1 = line( temps, gat_heatcv )
         axislabels = ['Temperature / natural units', 'Heat capacity per atom / natural units' ]
@@ -137,6 +137,7 @@ class UnitTests(unittest.TestCase) :
     def test_conservation(self) :
         gatxvals = np.zeros(101)
         tstep = get_internal("tstep")
+        initial_energy =get_internal("initial_energy")
         for i in range(101) : gatxvals[i] = i*tstep
         gatyvals = initial_energy*np.ones(101)
         
@@ -159,7 +160,7 @@ class UnitTests(unittest.TestCase) :
             vel = atoms.get_velocities().flatten()
             maxn = min( len(gatftraj), k + ncorr ) - k
             for i in range(maxn) :
-                veln = ftraj[k + i].get_velocities().flatten()
+                veln = gatftraj[k + i].get_velocities().flatten()
                 gat_acf[i] = gat_acf[i] + np.dot( veln.T, vel ) / (3*len( atoms ))
                 gat_norm[i] = gat_norm[i] + 1
             k = k + 1
