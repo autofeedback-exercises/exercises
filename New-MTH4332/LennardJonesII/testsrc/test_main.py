@@ -75,6 +75,9 @@ class UnitTests(unittest.TestCase) :
         # And get the density of states
         gat_frequencies = np.sqrt( np.real(gateigvals) )
         
+        nbins = get_internal("nbins")
+        minx = get_internal("minx")
+        delx = get_internal("delx")
         gathisto = np.zeros(nbins)
         for e in gat_frequencies :
             ibin = int( np.floor( (e-minx) / delx) )
