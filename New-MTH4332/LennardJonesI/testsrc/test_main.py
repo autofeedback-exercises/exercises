@@ -112,6 +112,8 @@ class UnitTests(unittest.TestCase) :
 
     def test_rdf1(self) :
         nf, N, V  = 0, 0, 0
+        maxd = get_internal("maxd")
+        nbins = get_internal("nbins")
         mytraj = get_internal("mytraj")
         delx, histo = maxd / nbins, np.zeros([5,nbins])
         bsize = int( np.floor( mytraj / 5 ) )

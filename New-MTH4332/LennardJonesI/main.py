@@ -105,7 +105,7 @@ error = np.sqrt( (1/4)*( average2 / 5 - average*average ) )*scipy.stats.norm.ppf
 plt.fill_between( xbins, average - error, average + error )
 plt.xlabel("r / sigma")
 plt.ylabel("g(r)")
-plt.show()
+plt.savefig("rdf_with_errors.png")
 # This code is required for the Automated feedback, don't delete it!
 fighand = plt.gca()
 
