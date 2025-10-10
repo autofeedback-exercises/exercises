@@ -167,7 +167,8 @@ def checkOutput(contents, ExpectingCorrect=True):
             if isTestCell(cell):
                 stdout = ""
                 for op in cell["outputs"]:
-                    stdout += op["text"]
+                    if op['output_type'] == 'stream':
+                        stdout += op["text"]
                 successes.append(we_dont_want not in stdout)
                 successes.append(we_do_want in stdout)
                 if not all(successes[-2:]):
