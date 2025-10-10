@@ -1,3 +1,4 @@
 testing
 **.DS_Store
 venv/
+AutoFeedback_grader/_version.py

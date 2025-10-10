@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autofeedback_grader"
+dynamic = ["version"]
+description = "Python package for grading AutoFeedback exercises"
+readme = "AutoFeedback_grader/README.rst"
+requires-python = ">=3.7"
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Andrew Brown", email = "andrew.brown@qub.ac.uk"}
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "AutoFeedback",
+    "canvas_selector",
+    "inquirer",
+    "pytest",
+    "jupyter",
+    "jupytext",
+    "pandas",
+    "tqdm",
+]
+
+[project.urls]
+Homepage = "https://github.com/autofeedback-exercises/exercises"
+Repository = "https://github.com/autofeedback-exercises/exercises.git"
+
+[project.scripts]
+grade_ipynbs = "AutoFeedback_grader.grade_ipynbs:main"
+
+[tool.setuptools]
+packages = ["AutoFeedback_grader"]
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "no-local-version"
+write_to = "AutoFeedback_grader/_version.py"

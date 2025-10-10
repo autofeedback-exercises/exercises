@@ -1,8 +1,0 @@
-AutoFeedback
-canvas_selector
-inquirer
-pytest
-jupyter
-jupytext
-pandas
-tqdm
