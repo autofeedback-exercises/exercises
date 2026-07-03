@@ -10,6 +10,7 @@ except:
 
     subprocess.check_call([sys.executable, "-m", "pip", "install", "AutoFeedback[plot]"])
     from AutoFeedback import var as vc
+    from AutoFeedback import funcchecks as fc
     from AutoFeedback import plotchecks as pc
     from AutoFeedback.plotclass import line
 
