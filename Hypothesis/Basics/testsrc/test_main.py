@@ -21,7 +21,7 @@ class UnitTests(unittest.TestCase):
     def test_ex2(self) :
         xv = np.linspace(-1,1,100)
         yv = scipy.stats.norm.pdf( xv, 0, np.sqrt(1/200) )
-        line1 = line( xy, yv )
+        line1 = line( xv, yv )
         axislabels= ["Sample mean", "Probability density"]
         assert check_plot([line1], explabels=axislabels, explegend=False, output=True )
 
