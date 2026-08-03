@@ -94,7 +94,7 @@ class UnitTests(unittest.TestCase):
         for mu in range(-3,1) :
             signif, n = 0.05, 200
             inputs.append(( 100,n,0,mu,1.0,signif,))
-            pval = scipy.stats.norm.cdf( scipy.stats.norm.ppf(signif) - mu/(1/np.sqrt(n)) 
+            pval = scipy.stats.norm.cdf( scipy.stats.norm.ppf(signif) - mu/(1/np.sqrt(n)) ) 
             myvar = randomvar( pval, variance=pval*(1-pval)/10, vmin=0, vmax=1, isinteger=False )
             output.append(myvar)
         assert( check_func("false_neg_rate", inputs, output) )  
