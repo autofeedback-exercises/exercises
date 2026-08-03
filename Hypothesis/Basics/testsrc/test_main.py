@@ -63,7 +63,7 @@ class UnitTests(unittest.TestCase):
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
                     inputs.append((sample, mu, sig,) )
-                    teststat = (np.mean(sample)-mu) / np.sqrt(sig)
+                    teststat = (np.mean(sample)-mu) / np.sqrt(sig/n)
                     output.append( scipy.stats.norm.cdf(teststat)  )
         assert( check_func("pval_lower",inputs,output) )
 
@@ -74,7 +74,7 @@ class UnitTests(unittest.TestCase):
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
                     inputs.append((sample, mu, sig,) )
-                    teststat = (np.mean(sample)-mu) / np.sqrt(sig)
+                    teststat = (np.mean(sample)-mu) / np.sqrt(sig/n)
                     output.append( scipy.stats.norm.cdf(teststat) + (1-scipy.stats.norm.cdf(teststat))  )
         assert( check_func("pval_not",inputs,output) )
 
@@ -85,7 +85,7 @@ class UnitTests(unittest.TestCase):
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
                     inputs.append((sample, mu, sig,) )
-                    teststat = (np.mean(sample)-mu) / np.sqrt(sig)
+                    teststat = (np.mean(sample)-mu) / np.sqrt(sig/n)
                     output.append( 1-scipy.stats.norm.cdf(teststat)  )
         assert( check_func("pval_lower",inputs,output) )
 
