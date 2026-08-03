@@ -18,7 +18,7 @@ class UnitTests(unittest.TestCase):
                     output.append( np.mean(sample) )
         assert( check_func("sample_mean",inputs,output) )
 
-    def text_ex2(self) :
+    def test_ex2(self) :
         xv = np.linsapce(-1,1,100)
         yv = scipy.stats.norm.pdf( xv, 0, np.sqrt(1/200) )
         line1 = line( xy, yv )
