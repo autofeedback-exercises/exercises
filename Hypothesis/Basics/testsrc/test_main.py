@@ -32,7 +32,7 @@ class UnitTests(unittest.TestCase):
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
                     inputs.append((sample, mu, sig,) )
-                    output.append( (np.mean(sample)-mu) / np.sqrt(sig)  )
+                    output.append( (np.mean(sample)-mu) / np.sqrt(sig/n)  )
         assert( check_func("teststat",inputs,output) ) 
 
     def test_ex4a(self) :
