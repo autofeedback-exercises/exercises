@@ -87,7 +87,7 @@ class UnitTests(unittest.TestCase):
                     inputs.append((sample, mu, sig,) )
                     teststat = (np.mean(sample)-mu) / np.sqrt(sig/n)
                     output.append( 1-scipy.stats.norm.cdf(teststat)  )
-        assert( check_func("pval_lower",inputs,output) )
+        assert( check_func("pval_higher",inputs,output) )
 
     def test_ex6(self) : 
         inputs, output = [], [] 
