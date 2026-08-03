@@ -19,7 +19,7 @@ class UnitTests(unittest.TestCase):
         assert( check_func("sample_mean",inputs,output) )
 
     def test_ex2(self) :
-        xv = np.linsapce(-1,1,100)
+        xv = np.linspace(-1,1,100)
         yv = scipy.stats.norm.pdf( xv, 0, np.sqrt(1/200) )
         line1 = line( xy, yv )
         axislabels= ["Sample mean", "Probability density"]
