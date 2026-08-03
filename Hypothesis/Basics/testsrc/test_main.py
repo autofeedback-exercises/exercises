@@ -74,8 +74,8 @@ class UnitTests(unittest.TestCase):
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
                     inputs.append((sample, mu, sig,) )
-                    teststat = (np.mean(sample)-mu) / np.sqrt(sig/n)
-                    output.append( scipy.stats.norm.cdf(teststat) + (1-scipy.stats.norm.cdf(teststat))  )
+                    teststat = np.abs( (np.mean(sample)-mu) / np.sqrt(sig/n) )
+                    output.append( scipy.stats.norm.cdf(-teststat) + (1-scipy.stats.norm.cdf(teststat))  )
         assert( check_func("pval_not",inputs,output) )
 
     def test_ex5c(self) :
