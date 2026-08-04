@@ -25,7 +25,7 @@ class UnitTests(unittest.TestCase):
             for sig in range(1, 4, 3 ) :
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
-                    inputs.append((sample, mu, sig,) )
+                    inputs.append((sample, mu,))
                     mean, mean2 = np.mean(sample), np.mean(sample*sample)
                     var = (n/(n-1))*( mean2 - mean*mean ) 
                     output.append( (mean-mu) / np.sqrt(var/n)  )
@@ -37,7 +37,7 @@ class UnitTests(unittest.TestCase):
             for sig in range(1, 4, 3 ) :
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
-                    inputs.append((sample, mu, sig,) )
+                    inputs.append((sample, mu,))
                     mean, mean2 = np.mean(sample), np.mean(sample*sample)
                     var = (n/(n-1))*( mean2 - mean*mean )
                     teststat = (mean-mu) / np.sqrt(var/n)
@@ -50,7 +50,7 @@ class UnitTests(unittest.TestCase):
             for sig in range(1, 4, 3 ) :
                 for n in range(10,200,19) : 
                     sample = np.random.normal( mu, sig, size=n )
-                    inputs.append((sample, mu, sig,) )
+                    inputs.append((sample, mu,))
                     mean, mean2 = np.mean(sample), np.mean(sample*sample)
                     var = (n/(n-1))*( mean2 - mean*mean )
                     teststat = (mean-mu) / np.sqrt(var/n)
@@ -63,7 +63,7 @@ class UnitTests(unittest.TestCase):
             for sig in range(1, 4, 3 ) :
                 for n in range(10,200,19) :
                     sample = np.random.normal( mu, sig, size=n )
-                    inputs.append((sample, mu, sig,) )
+                    inputs.append((sample, mu,))
                     mean, mean2 = np.mean(sample), np.mean(sample*sample)
                     var = (n/(n-1))*( mean2 - mean*mean )
                     teststat = (mean-mu) / np.sqrt(var/n)
