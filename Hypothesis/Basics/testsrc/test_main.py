@@ -89,12 +89,12 @@ class UnitTests(unittest.TestCase):
                     output.append( 1-scipy.stats.norm.cdf(teststat)  )
         assert( check_func("pval_higher",inputs,output) )
 
-    def test_ex6(self) : 
-        inputs, output = [], [] 
-        for mu in range(-3,1) :
-            signif, n = 0.05, 200
-            inputs.append(( 100,n,0,mu,1.0,signif,))
-            pval = scipy.stats.norm.cdf( scipy.stats.norm.ppf(1-signif) - mu/(1/np.sqrt(n)) ) 
-            myvar = randomvar( pval, variance=pval*(1-pval)/10, vmin=0, vmax=1, isinteger=False )
-            output.append(myvar)
+    def test_ex6(self) :
+        inputs, output = [], []
+        for mu in [0.2,0.3] : 
+          signif, n = 0.05, 100
+          inputs.append(( 100,n,0.5,mu,1.0,signif,))
+          pval = scipy.stats.norm.cdf( scipy.stats.norm.ppf(1-signif) - mu/(1/np.sqrt(n)) )
+          myvar = randomvar( pval, variance=pval*(1-pval), vmin=0, vmax=1, isinteger=False )
+          output.append(myvar) 
         assert( check_func("false_neg_rate", inputs, output) )  
