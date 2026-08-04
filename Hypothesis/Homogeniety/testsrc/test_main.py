@@ -48,7 +48,7 @@ class UnitTests(unittest.TestCase):
                             table[k,int(s)] = table[k,int(s)] + 1
                     inputs.append((all_sample,))
                     output.append(table)
-         assert( check_func("contingency_table", inputs, output ) )
+        assert( check_func("contingency_table", inputs, output ) )
 
     def test_ex3(self):
         inputs, output = [], []
@@ -73,7 +73,7 @@ class UnitTests(unittest.TestCase):
                     colsums = np.sum( table, axis=1 )
                     rowsums = np.sum( table, axis=0 )
                     output.append( np.outer(colsums,rowsums)/np.sum(table) )
-         assert( check_func("expectation", inputs, output ) ) 
+        assert( check_func("expectation", inputs, output ) ) 
 
     def test_ex4(self):
         inputs, output = [], []
@@ -100,7 +100,7 @@ class UnitTests(unittest.TestCase):
                     expect = np.outer(colsums,rowsums)/np.sum(table)
                     test_mat = np.divide( (table - expect)**2,  expect, out=np.zeros_like(expect), where=expect!=0 )
                     output.append( np.sum(test_mat) )
-         assert( check_func("teststat", inputs, output ) ) 
+        assert( check_func("teststat", inputs, output ) ) 
 
     def test_ex5(self):
         inputs, output = [], []
@@ -127,5 +127,5 @@ class UnitTests(unittest.TestCase):
                     expect = np.outer(colsums,rowsums)/np.sum(table)
                     test_mat = np.divide( (table - expect)**2,  expect, out=np.zeros_like(expect), where=expect!=0 )
                     output.append( 1-scipy.stats.norm.chi2.cdf( np.sum(test_mat), (n-1)*(m-1) )
-         assert( check_func("pvalue", inputs, output ) )  
+        assert( check_func("pvalue", inputs, output ) )  
  
