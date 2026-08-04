@@ -54,7 +54,7 @@ class UnitTests(unittest.TestCase):
                     inputs.append((sample, mu,))
                     mean, mean2 = np.mean(sample), np.mean(sample*sample)
                     var = (n/(n-1))*( mean2 - mean*mean )
-                    teststat = (mean-mu) / np.sqrt(var/n)
+                    teststat = np.abs( (mean-mu) / np.sqrt(var/n) )
                     output.append( scipy.stats.t.cdf(-teststat,n-1) + (1-scipy.stats.t.cdf(teststat,n-1))  )
         assert( check_func("pval_not",inputs,output) )
         
