@@ -90,6 +90,8 @@ class UnitTests(unittest.TestCase):
         assert( check_func("pval_higher",inputs,output) )
 
     def test_ex6(self) :
+        # This test is a bit shonky - could probably be improved -- consider fixing random 
+        # seed and just checking if student about is same as mine
         inputs, output = [], []
         for mu in [0.2,0.3] : 
           signif, n = 0.05, 100

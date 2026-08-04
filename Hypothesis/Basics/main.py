@@ -83,4 +83,14 @@ print( "The p-value for a test of H_0: mu=0 against H_1 mu \ne 0", pval_not( mys
 print( "The p-value for a test of H_0: mu=0 against H_1 mu>0", pval_higher( mysample, 0, 1) )
 
 # EXERCISE 6
-
+def false_neg_rate( ntest, n, mu0, mu1, sig2, significance  ):
+    # Your code goes here
+    nfail=0
+    for i in range( ntest ) : 
+      if pval_lower( np.random.normal( mu1, np.sqrt(sig2), size=n ), mu0, sig2 )>0.05 : nfail=nfail+1
+    return nfail / ntest
+# Once you finish the function above this code should print out the number of
+# times a hypothesis test of H_0: mu=0.2 against H_1: mu<0.2 returns a p-value greater than 0.05.
+# In each of these hypothesis tests the test statistic is computed from 100 standard normal 
+# random variables. 
+print( false_neg_rate( 200, 100, 0.2, 0, 1, 0.05) )
