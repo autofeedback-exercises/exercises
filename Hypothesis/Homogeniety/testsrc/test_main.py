@@ -41,7 +41,6 @@ class UnitTests(unittest.TestCase):
                         for i in range(n) : probs[i] = ( a[i+1] - a[i] ) / n 
                         # Now we create a sample from this distribution
                         all_sample[:,k] = np.random.choice( n, p=probs, size=200 )
-                        inputs.append((sample,))
                         # Make a histogram
                         histo = np.zeros(n) 
                         for s in all_sample[:,k] : 
@@ -64,7 +63,6 @@ class UnitTests(unittest.TestCase):
                         for i in range(n) : probs[i] = ( a[i+1] - a[i] ) / n
                         # Now we create a sample from this distribution
                         all_sample[:,k] = np.random.choice( n, p=probs, size=200 )
-                        inputs.append((sample,))
                         # Make a histogram
                         histo = np.zeros(n)
                         for s in all_sample[:,k] :
@@ -89,7 +87,6 @@ class UnitTests(unittest.TestCase):
                         for i in range(n) : probs[i] = ( a[i+1] - a[i] ) / n
                         # Now we create a sample from this distribution
                         all_sample[:,k] = np.random.choice( n, p=probs, size=200 )
-                        inputs.append((sample,))
                         # Make a histogram
                         histo = np.zeros(n)
                         for s in all_sample[:,k] :
@@ -116,7 +113,6 @@ class UnitTests(unittest.TestCase):
                         for i in range(n) : probs[i] = ( a[i+1] - a[i] ) / n
                         # Now we create a sample from this distribution
                         all_sample[:,k] = np.random.choice( n, p=probs, size=200 )
-                        inputs.append((sample,))
                         # Make a histogram
                         histo = np.zeros(n)
                         for s in all_sample[:,k] :
