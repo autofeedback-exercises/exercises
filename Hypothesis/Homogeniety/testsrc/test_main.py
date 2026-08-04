@@ -126,6 +126,6 @@ class UnitTests(unittest.TestCase):
                     rowsums = np.sum( table, axis=0 )
                     expect = np.outer(colsums,rowsums)/np.sum(table)
                     test_mat = np.divide( (table - expect)**2,  expect, out=np.zeros_like(expect), where=expect!=0 )
-                    output.append( 1-scipy.stats.norm.chi2.cdf( np.sum(test_mat), (n-1)*(m-1) )
+                    output.append( 1-scipy.stats.norm.chi2.cdf( np.sum(test_mat), (n-1)*(m-1) ) )
         assert( check_func("pvalue", inputs, output ) )  
  
