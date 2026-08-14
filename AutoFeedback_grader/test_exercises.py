@@ -108,7 +108,11 @@ def execute(contents):
     import nbformat
     nb_in = nbformat.reads(json.dumps(contents), as_version=4)
     nb_in["metadata"]["kernelspec"]["name"] = "python3"
-    ep = MyExecutePreprocessor(timeout=None, allow_errors=False)
+    ep = MyExecutePreprocessor(timeout=None, allow_errors=False,
+                               extra_arguments=[
+                                   "--IPKernelApp.log_level=ERROR"
+                                   ]
+                               )
     return ep.preprocess(nb_in)[0]
 
 
