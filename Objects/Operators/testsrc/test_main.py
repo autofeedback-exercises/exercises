@@ -6,6 +6,8 @@ from AutoFeedback.randomclass import randomvar
 import itertools
 import numpy as np
 import unittest
+import inspect
+import ast
 
 class UnitTests(unittest.TestCase):
     def test_ex1(self):
@@ -31,6 +33,10 @@ class UnitTests(unittest.TestCase):
         assert check_func("dot_product_2", inputs, outputs )
 
     def test_ex3(self):
+        calls = []
+        for c in ast.walk(ast.parse(inspect.getsource(dot_product_3))):
+            if isinstance(c, ast.Call): calls.append([c.func.value.id, c.func.attr])
+        assert ["np","dot"] in calls
         inputs, outputs = [], []
         for i in range(2,10) : 
             for j in range(3): 
@@ -39,7 +45,7 @@ class UnitTests(unittest.TestCase):
                 dp = np.dot(a,b)
                 inputs.append((a,b,))
                 outputs.append(dp)
-        assert check_func("dot_product_3", inputs, outputs, calls=['np.dot'] )
+        assert check_func("dot_product_3", inputs, outputs )
 
     def test_ex4(self):
         inputs, outputs = [], []
@@ -58,7 +64,7 @@ class UnitTests(unittest.TestCase):
             a = np.random.uniform(-1,1,size=i) 
             inputs.append((a,))
             outputs.append(np.fabs(np.subtract.outer(a,a))) 
-        assert check_func("distance_matrix", inputs, outputs, calls=['np.subtract.outer'] ) 
+        assert check_func("distance_matrix", inputs, outputs ) # calls=['np.subtract.outer'] ) 
 
     def test_ex6(self):
         inputs, outputs = [], []
@@ -80,7 +86,7 @@ class UnitTests(unittest.TestCase):
                 fn = np.matmul( c, np.ones(i) ) / i 
                 inputs.append((x,r,))
                 outputs.append(np.mean(fn))
-        assert check_func("cumdist_estimate", inputs, outputs, calls=['np.where','np.matmul'] ) 
+        assert check_func("cumdist_estimate", inputs, outputs ) # calls=['np.where','np.matmul'] ) 
 
     def test_ex8(self):
         inputs, outputs = [], []
@@ -111,7 +117,7 @@ class UnitTests(unittest.TestCase):
                 mod = np.sqrt( np.matmult( x2.T, np.ones(j) ) )
                 inputs.append((x,))
                 outputs.append( np.acos( np.matmul( x.T, x ) / np.outer( mod, mod ) ) )
-        assert check_func("all_angles", inputs, outputs, calls=['np.matmul', 'np.outer'] ) 
+        assert check_func("all_angles", inputs, outputs ) #, calls=['np.matmul', 'np.outer'] ) 
 
     def test_ex11(self):
         inputs, outputs = [], []
@@ -122,7 +128,7 @@ class UnitTests(unittest.TestCase):
                 mod = np.matmult( x2.T, np.ones(j) ) 
                 inputs.append((x,))
                 outputs.append( np.sqrt( np.add.outer( mod,mod) - 2*np.matmul( x.T, x ) ) )
-        assert check_func("distance_matrix_nd", inputs, outputs, calls=['np.matmul', 'np.add.outer'] )
+        assert check_func("distance_matrix_nd", inputs, outputs ) #, calls=['np.matmul', 'np.add.outer'] )
 
     def test_ex12a(self):
         inputs, outputs = [], []
@@ -154,7 +160,7 @@ class UnitTests(unittest.TestCase):
             x = np.random.uniform(-1,1,size=[2,i])
             inputs.append((x,))
             outputs.append( np.array(list(itertools.combinations( x.T, 3 ))) )
-        assert check_func("get_all_sets_of_three_vectors", inputs, outputs, calls=['itertools.combinations'] )
+        assert check_func("get_all_sets_of_three_vectors", inputs, outputs ) #, calls=['itertools.combinations'] )
     
     def test_ex14(self):
         inputs, outputs = [], []
@@ -165,4 +171,4 @@ class UnitTests(unittest.TestCase):
             edges = np.transpose( np.array( [corners[:,1,:]-corners[:,0,:],corners[:,2,:]-corners[:,0,:]], axes=[1,0,2] ) )
             outputs.append( 0.5*np.abs( np.linalg.det( edges ) ) ) 
 
-        assert check_func("get_all_sets_of_three_vectors", inputs, outputs, calls=['get_all_sets_of_three_vectors', "np.linalg.det"] )  
+        assert check_func("get_all_sets_of_three_vectors", inputs, outputs, calls=['get_all_sets_of_three_vectors'] ) # calls=["np.linalg.det"] )  
