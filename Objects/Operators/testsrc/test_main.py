@@ -90,7 +90,7 @@ class UnitTests(unittest.TestCase):
                     a = np.random.uniform(-1,1,size=[i,k])
                     b = np.random.uniform(-1,1,size=[k,j])
                     inputs.append((a,b,))
-                    outputs.append(np.matmult(a,b)
+                    outputs.append(np.matmult(a,b))
         assert check_func("matrix_multiplication", inputs, outputs )
 
     def test_ex9(self):
