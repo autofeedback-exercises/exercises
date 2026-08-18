@@ -128,7 +128,7 @@ class UnitTests(unittest.TestCase):
                 x2 = x*x
                 mod = np.matmul( x2.T, np.ones(j) ) 
                 inputs.append((x,))
-                outputs.append( np.sqrt( np.add.outer( mod,mod) - 2*np.matmul( x.T, x ) ) )
+                outputs.append( np.add.outer( mod,mod) - 2*np.matmul( x.T, x ) )
         assert check_func("distance_matrix_nd", inputs, outputs ) #, calls=['np.matmul', 'np.add.outer'] )
 
     def test_ex12a(self):
