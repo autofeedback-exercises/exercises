@@ -81,7 +81,7 @@ class UnitTests(unittest.TestCase):
         for r in [0.5,0.75,1.0,1,25,1.5,1.75] : 
             for i in range(100,600,100) :
                 x = np.random.uniform(-1,1,size=i)
-                d = np.fabs(np.subtract.outer(a,a))
+                d = np.fabs(np.subtract.outer(x,x))
                 c = np.where(d<r, 1, 0)
                 fn = np.matmul( c, np.ones(i) ) / i 
                 inputs.append((x,r,))
