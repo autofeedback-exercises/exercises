@@ -34,7 +34,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex3(self):
         calls = []
-        for c in ast.walk(ast.parse(inspect.getsource(dot_product_3))):
+        for c in ast.walk(ast.parse(inspect.getsource("dot_product_3"))):
             if isinstance(c, ast.Call): calls.append([c.func.value.id, c.func.attr])
         assert ["np","dot"] in calls
         inputs, outputs = [], []
