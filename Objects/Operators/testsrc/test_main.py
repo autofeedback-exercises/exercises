@@ -110,7 +110,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex10(self):
         inputs, outputs = [], []
-        for i in range(10,60,10) : 
+        for i in range(10,20) : 
             for j in range(2,6) :
                 x = np.random.uniform(-1,1,size=[j,i])
                 x2 = x*x
@@ -122,7 +122,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex11(self):
         inputs, outputs = [], []
-        for i in range(10,60,10) :
+        for i in range(10,20) :
             for j in range(2,6) :
                 x = np.random.uniform(-1,1,size=[j,i])
                 x2 = x*x
