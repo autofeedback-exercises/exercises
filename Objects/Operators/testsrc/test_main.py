@@ -86,7 +86,7 @@ class UnitTests(unittest.TestCase):
                 fn = np.matmul( c, np.ones(i) ) / i 
                 inputs.append((x,r,))
                 outputs.append(np.mean(fn))
-        assert check_func("cumdist_estimate", inputs, outputs ) # calls=['np.where','np.matmul'] ) 
+        assert check_func("cumdist_estimate", inputs, outputs, calls=['distance_matrix'] ) # calls=['np.where','np.matmul'] ) 
 
     def test_ex8(self):
         inputs, outputs = [], []
