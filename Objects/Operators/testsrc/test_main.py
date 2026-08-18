@@ -162,7 +162,7 @@ class UnitTests(unittest.TestCase):
             x = np.random.uniform(-1,1,size=[2,i])
             inputs.append((x,))
             corners = np.array(list(itertools.combinations( x.T, 3 )))
-            edges = np.transpose( np.array( [corners[:,1,:]-corners[:,0,:],[corners[:,2,:]-corners[:,0,:], axes=[1,0,2] ) )
+            edges = np.transpose( np.array( [corners[:,1,:]-corners[:,0,:],corners[:,2,:]-corners[:,0,:]], axes=[1,0,2] ) )
             outputs.append( 0.5*np.abs( np.linalg.det( edges ) ) ) 
 
         assert check_func("get_all_sets_of_three_vectors", inputs, outputs, calls=['get_all_sets_of_three_vectors', "np.linalg.det"] )  
