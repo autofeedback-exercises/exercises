@@ -117,7 +117,7 @@ class UnitTests(unittest.TestCase):
                 mod = np.sqrt( np.matmul( x2.T, np.ones(j) ) )
                 inputs.append((x,))
                 angmat = np.acos( np.matmul( x.T, x ) / np.outer( mod, mod ) )
-                outputs.append( angmat[np.triu_indices_from( angmat, 1 ) )
+                outputs.append( angmat[np.triu_indices_from( angmat, 1 )] )
         assert check_func("all_angles", inputs, outputs ) #, calls=['np.matmul', 'np.outer'] ) 
 
     def test_ex11(self):
