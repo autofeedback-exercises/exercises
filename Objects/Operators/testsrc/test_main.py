@@ -73,7 +73,7 @@ class UnitTests(unittest.TestCase):
                 a = np.random.uniform(-1,1,size=[i,j])
                 b = np.random.uniform(-1,1,size=j)
                 inputs.append((a,b,))
-                outputs.append( np.matmult(a,b) )
+                outputs.append( np.matmul(a,b) )
         assert check_func("matvec_mult", inputs, outputs )
 
     def test_ex7(self):
@@ -96,7 +96,7 @@ class UnitTests(unittest.TestCase):
                     a = np.random.uniform(-1,1,size=[i,k])
                     b = np.random.uniform(-1,1,size=[k,j])
                     inputs.append((a,b,))
-                    outputs.append(np.matmult(a,b))
+                    outputs.append(np.matmul(a,b))
         assert check_func("matrix_multiplication", inputs, outputs )
 
     def test_ex9(self):
@@ -105,7 +105,7 @@ class UnitTests(unittest.TestCase):
             for j in range(2,6) :
                 a = np.random.uniform(-1,1,size=[j,i])
                 inputs.append((a,))
-                outputs.append( np.matmult(a.T,a) )
+                outputs.append( np.matmul(a.T,a) )
         assert check_func("all_dot_products", inputs, outputs )
 
     def test_ex10(self):
@@ -114,7 +114,7 @@ class UnitTests(unittest.TestCase):
             for j in range(2,6) :
                 x = np.random.uniform(-1,1,size=[j,i])
                 x2 = x*x
-                mod = np.sqrt( np.matmult( x2.T, np.ones(j) ) )
+                mod = np.sqrt( np.matmul( x2.T, np.ones(j) ) )
                 inputs.append((x,))
                 outputs.append( np.acos( np.matmul( x.T, x ) / np.outer( mod, mod ) ) )
         assert check_func("all_angles", inputs, outputs ) #, calls=['np.matmul', 'np.outer'] ) 
@@ -125,7 +125,7 @@ class UnitTests(unittest.TestCase):
             for j in range(2,6) :
                 x = np.random.uniform(-1,1,size=[j,i])
                 x2 = x*x
-                mod = np.matmult( x2.T, np.ones(j) ) 
+                mod = np.matmul( x2.T, np.ones(j) ) 
                 inputs.append((x,))
                 outputs.append( np.sqrt( np.add.outer( mod,mod) - 2*np.matmul( x.T, x ) ) )
         assert check_func("distance_matrix_nd", inputs, outputs ) #, calls=['np.matmul', 'np.add.outer'] )
