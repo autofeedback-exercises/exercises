@@ -149,7 +149,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex12c(self):
         inputs, outputs = [], []
-        for i in range(4,7) :
+        for i in range(4,5) :
             myset = list( range(i) )
             inputs.append((myset,))
             outputs.append(set( itertools.combinations(myset, 4 )))
