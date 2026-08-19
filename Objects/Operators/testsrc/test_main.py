@@ -134,7 +134,7 @@ class UnitTests(unittest.TestCase):
     def test_ex12a(self):
         inputs, outputs = [], []
         for i in range(3,10) : 
-            myset = set( np.linspace(1,i,i) )
+            myset = list( np.linspace(1,i,i) )
             inputs.append((myset,))
             outputs.append(set( itertools.combinations(myset, 2 )))
         assert check_func("bounded_power_set_2", inputs, outputs )
@@ -142,7 +142,7 @@ class UnitTests(unittest.TestCase):
     def test_ex12b(self):
         inputs, outputs = [], []
         for i in range(3,10) :
-            myset = set( np.linspace(1,i,i) )
+            myset = list( np.linspace(1,i,i) )
             inputs.append((myset,))
             outputs.append(set( itertools.combinations(myset, 3 )))
         assert check_func("bounded_power_set_3", inputs, outputs )
@@ -150,7 +150,7 @@ class UnitTests(unittest.TestCase):
     def test_ex12c(self):
         inputs, outputs = [], []
         for i in range(3,10) :
-            myset = set( np.linspace(1,i,i) )
+            myset = list( np.linspace(1,i,i) )
             inputs.append((myset,))
             outputs.append(set( itertools.combinations(myset, 4 )))
         assert check_func("bounded_power_set_4", inputs, outputs )
