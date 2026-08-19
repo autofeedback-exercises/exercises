@@ -172,4 +172,4 @@ class UnitTests(unittest.TestCase):
             edges = np.transpose( np.array( [corners[:,1,:]-corners[:,0,:],corners[:,2,:]-corners[:,0,:]] ), axes=[1,0,2] )
             outputs.append( 0.5*np.abs( np.linalg.det( edges ) ) ) 
 
-        assert check_func("get_all_sets_of_three_vectors", inputs, outputs, calls=['get_all_sets_of_three_vectors'] ) # calls=["np.linalg.det"] )  
+        assert check_func("get_all_areas", inputs, outputs, calls=['get_all_sets_of_three_vectors'] ) # calls=["np.linalg.det"] )  
