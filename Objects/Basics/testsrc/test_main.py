@@ -90,7 +90,7 @@ class UnitTests(unittest.TestCase):
                 setb = set(range(j))
                 inputs.append((seta,setb,))
                 outputs.append(set(itertools.product(seta,setb)))
-         assert check_func("cartesian_product_2", inputs, outputs )
+        assert check_func("cartesian_product_2", inputs, outputs )
 
 
     def test_ex7b(self):
@@ -103,7 +103,7 @@ class UnitTests(unittest.TestCase):
                     setc = set(range(k))
                     inputs.append((seta,setb,setc,))
                     outputs.append(set(itertools.product(seta,setb,setc)))
-         assert check_func("cartesian_product_2", inputs, outputs )
+        assert check_func("cartesian_product_2", inputs, outputs )
 
     def test_ex8(self):
         inputs, outputs = [], []
