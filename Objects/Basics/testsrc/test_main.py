@@ -197,7 +197,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex12(self):
         inputs, outputs = [], []
-        z = sympy.sybols("z")
+        z = sympy.symbols("z")
         for r in [1,2,3,4] : 
             for i in range(1,12) :
                 inputs.append((i,r,))
@@ -207,7 +207,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex13(self):
         inputs, outputs = [], []
-        z = sympy.sybols("z")
+        z = sympy.symbols("z")
         eq = sympy.Eq(z**8-1, 0 )
         sol = sympy.solve( eq, z )
         real, imag = sol.copy(), sol.copy()
@@ -220,7 +220,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex14(self):
         inputs, outputs = [], []
-        out, z = set(), sympy.sybols("z")
+        out, z = set(), sympy.symbols("z")
         for i in range(1,21) :
             inputs.append((i,))
             eq = sympy.Eq(z**i-1, 0 )
@@ -231,7 +231,7 @@ class UnitTests(unittest.TestCase):
 
     def test_ex15(self):
         inputs, outputs = [], []
-        out, z = {}, sympy.sybols("z")
+        out, z = {}, sympy.symbols("z")
         for i in range(1,21) :
             inputs.append((i,))
             eq = sympy.Eq(z**i-1, 0 ) 
