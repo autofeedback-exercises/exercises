@@ -26,7 +26,7 @@ class UnitTests(unittest.TestCase):
     def test_ex2(self):
         inputs, outputs = [], []
         for i in range(2,10) : 
-            a = tuple( np.random.randint(0,i, size=2*i) )
+            a = tuple( np.random.randint(0,i, size=2*i, dtype=int) )
             inputs.append((a,))
             outputs.append( list(set(a)) )
         assert check_func("tuple_to_set", inputs, outputs )
@@ -80,7 +80,7 @@ class UnitTests(unittest.TestCase):
         for i in range(2,10) :
             for j in range(5) :  
                 seta = set( range(i) )
-                setb = set( np.randint( 0, i, size=2*i ) )
+                setb = set( np.randint( 0, i, size=2*i, dtype=int ) )
                 inputs.append((seta,setb,))
                 outputs.append(seta==setb)
         assert check_func("check_equality_of_sets", inputs, outputs )
