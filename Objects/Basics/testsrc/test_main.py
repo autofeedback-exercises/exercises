@@ -15,8 +15,12 @@ class UnitTests(unittest.TestCase):
             a = list(range(i))
             inputs.append((a,i,))
             inputs.append((a,1,))
-            outputs.append(list(set(a).add(i)))
-            outputs.append(list(set(a).add(1)))
+            a1 = a.copy()
+            a1.add(i)
+            a2 = a.copy()
+            a2.add(1)
+            outputs.append(list(a1))
+            outputs.append(list(a2))
         assert check_func("add_element", inputs, outputs )
 
     def test_ex2(self):
