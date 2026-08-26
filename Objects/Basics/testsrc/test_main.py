@@ -227,7 +227,7 @@ class UnitTests(unittest.TestCase):
             for s in sympy.solve( eq, z ) : 
                 out.add(s)
             outputs.append( out.copy() )
-        assert check_func("set_of_solutions", inputs, outputs )
+        assert check_func("set_of_solutions", inputs, outputs, calls="solve_basic_poly" )
 
     def test_ex15(self):
         inputs, outputs = [], []
@@ -241,7 +241,7 @@ class UnitTests(unittest.TestCase):
                 else :
                    out[s] = 1
             outputs.append( out.copy() )
-        assert check_func("dictionary_of_solutions", inputs, outputs ) 
+        assert check_func("dictionary_of_solutions", inputs, outputs, calls="solve_basic_poly" ) 
 
     def test_ex16(self):
         inputs, outputs = [], []
@@ -253,4 +253,4 @@ class UnitTests(unittest.TestCase):
                 bihisto[i-1,j-1] = len( iroots.intersection(getroots(j)) )
         inputs.append((maxn,))
         outputs.append(bihisto)
-        assert check_func("get_array_of_shared_roots", inputs, outputs )
+        assert check_func("get_array_of_shared_roots", inputs, outputs, calls="solve_basic_poly" )
