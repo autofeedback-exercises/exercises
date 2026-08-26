@@ -226,7 +226,7 @@ class UnitTests(unittest.TestCase):
             eq = sympy.Eq(z**i-1, 0 )
             for s in sympy.solve( eq, z ) : 
                 out.add(s)
-            outputs.append( out.copy() )
+            outputs.append( set(out.copy()) )
         assert check_func("set_of_solutions", inputs, outputs, calls="solve_basic_poly" )
 
     def test_ex15(self):
