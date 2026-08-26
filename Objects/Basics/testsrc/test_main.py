@@ -244,13 +244,16 @@ class UnitTests(unittest.TestCase):
         assert check_func("dictionary_of_solutions", inputs, outputs, calls="solve_basic_poly" ) 
 
     def test_ex16(self):
+        z = sympy.symbols("z") 
         inputs, outputs = [], []
         for maxn in range(2,20) :
             bihisto = np.zeros([maxn,maxn])
             for i in range(1,maxn+1) :
-              iroots = getroots(i)
+              eqi = sympy.Eq(z**i-1, 0 )
+              iroots = set(sympy.solve( eqi, z ))
               for j in range(1,maxn+1) :
-                bihisto[i-1,j-1] = len( iroots.intersection(getroots(j)) )
+                eqj = sympy.Eq(z**j-1, 0 )
+                bihisto[i-1,j-1] = len( iroots.intersection(set(sympy.solve(eqj,z)) )
         inputs.append((maxn,))
         outputs.append(bihisto)
         assert check_func("get_array_of_shared_roots", inputs, outputs, calls="solve_basic_poly" )
