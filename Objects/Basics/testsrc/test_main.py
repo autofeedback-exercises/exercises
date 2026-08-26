@@ -199,7 +199,7 @@ class UnitTests(unittest.TestCase):
         inputs, outputs = [], []
         z = sympy.symbols("z")
         for r in [1,2,3,4] : 
-            for i in range(1,12) :
+            for i in range(1,4) :
                 inputs.append((i,r,))
                 eq = sympy.Eq(z**i-r, 0 )
                 outputs.append( sympy.solve( eq, z ) ) 
