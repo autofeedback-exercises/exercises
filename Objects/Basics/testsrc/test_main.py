@@ -216,7 +216,7 @@ class UnitTests(unittest.TestCase):
             imag[i] = sympy.im(sol[i]) 
         line1 = line( real, imag )
         axislabels = ["real part", "imaginary part"]
-        assert pc.check_plot( [line1], explabels=axislabels, explegend=False, output=True) 
+        assert check_plot( [line1], explabels=axislabels, explegend=False, output=True) 
 
     def test_ex14(self):
         inputs, outputs = [], []
