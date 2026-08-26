@@ -124,7 +124,7 @@ class UnitTests(unittest.TestCase):
             a = np.random.uniform(-1,1,size=i)
             b = np.random.uniform(-1,1,size=i)
             inputs.append((list(a),list(b),))
-            outpus.append(list(a+b))
+            outputs.append(list(a+b))
         assert check_func("vector_addition", inputs, outputs )
 
     def test_ex9(self):
@@ -142,7 +142,7 @@ class UnitTests(unittest.TestCase):
             a = np.random.uniform(-1,1,size=i)
             b = np.random.uniform(-1,1,size=i)
             inputs.append((list(a),list(b),))
-            outpus.append(list(a*b))
+            outputs.append(list(a*b))
         assert check_func("array_product", inputs, outputs )
 
     def test_ex11a(self):
