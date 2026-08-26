@@ -253,7 +253,7 @@ class UnitTests(unittest.TestCase):
               iroots = set(sympy.solve( eqi, z ))
               for j in range(1,maxn+1) :
                 eqj = sympy.Eq(z**j-1, 0 )
-                bihisto[i-1,j-1] = len( iroots.intersection(set(sympy.solve(eqj,z)) )
+                bihisto[i-1,j-1] = len( iroots.intersection(set(sympy.solve(eqj,z))) )
         inputs.append((maxn,))
         outputs.append(bihisto)
         assert check_func("get_array_of_shared_roots", inputs, outputs, calls="solve_basic_poly" )
