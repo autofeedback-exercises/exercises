@@ -34,44 +34,53 @@ class UnitTests(unittest.TestCase):
     def test_ex3(self):
         inputs, outputs = [], []
         for i in range(2,5) : 
-            seta = list( range(i) )
+            lista = list( range(i) )
+            seta = set(lista)
             for j in range(i+1,i+5) : 
-                setb = list( range(i,j) )
-                inputs.append((seta,setb,))
+                listb = list( range(i,j) )
+                setb = set(listb)
+                inputs.append((lista,listb,))
                 outputs.append(list(seta.union(setb)))
-                setb = list( range(j) )
-                inputs.append((seta,setb,))
+                listb = list( range(j) )
+                setb = set(listb)
+                inputs.append((lista,listb,))
                 outputs.append(list(seta.union(setb))) 
         assert check_func("set_union", inputs, outputs )
 
     def test_ex4(self):
         inputs, outputs = [], []
-        for i in range(2,5) :  
-            seta = list( range(i) )
+        for i in range(2,5) :
+            lista = list( range(i) )
+            seta = set(lista)  
             for j in range(i+1,i+5) :
-                setb = list( range(i,j) )
-                inputs.append((seta,setb,))
+                listb = list( range(i,j) )
+                setb = set(listb)
+                inputs.append((lista,listb,))
                 outputs.append(list(seta.intersection(setb)))
-                setb = list( range(j) )
-                inputs.append((seta,setb,))
+                listb = list( range(j) )
+                setb = set(listb) 
+                inputs.append((lista,listb,))
                 outputs.append(list(seta.intersection(setb)))
         assert check_func("set_intersection", inputs, outputs ) 
 
     def test_ex5(self):
         inputs, outputs = [], []
         inputs, outputs = [], []
-        for i in range(2,5) :  
-            seta = list( range(i) )
+        for i in range(2,5) :
+            lista = list( range(i) )
+            seta = set(lista)  
             for j in range(i+1,i+5) :
-                setb = list( range(i,j) )
-                inputs.append((seta,setb,))
+                listb = list( range(i,j) )
+                setb = set(listb) 
+                inputs.append((lista,listb,))
                 outputs.append(list(seta.difference(setb)))
-                inputs.append((setb,seta,))
+                inputs.append((listb,lista,))
                 outputs.append(list(setb.difference(seta)))
-                setb = list( range(j) )
-                inputs.append((seta,setb,))
+                listb = list( range(j) )
+                setb = set(listb)
+                inputs.append((lista,listb,))
                 outputs.append(list(seta.difference(setb)))
-                inputs.append((setb,seta,))
+                inputs.append((listb,lista,))
                 outputs.append(list(setb.difference(seta))) 
         assert check_func("set_difference", inputs, outputs )  
 
